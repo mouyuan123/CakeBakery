@@ -3,17 +3,16 @@ package com.mycompany.cakebakery.Command;
 import com.mycompany.cakebakery.Models.Lighting;
 
 
-
-public class LightingOff implements Command{
+public class LightingOnCommand implements Command{
     
     private Lighting light;
 
-    public LightingOff(Lighting light) {
+    public LightingOnCommand(Lighting light) {
         this.light = light;
     }
-    
+
     @Override
     public void execute() {
-        light.off();
+        light.on();
     }
 }

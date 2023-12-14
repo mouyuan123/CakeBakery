@@ -1,15 +1,15 @@
 package com.mycompany.cakebakery;
 
-import com.mycompany.cakebakery.Command.CancelOrder;
-import com.mycompany.cakebakery.Command.LightingOff;
-import com.mycompany.cakebakery.Command.LightingOn;
-import com.mycompany.cakebakery.Command.MusicOff;
-import com.mycompany.cakebakery.Command.MusicOn;
+import com.mycompany.cakebakery.Command.CancelOrderCommand;
+import com.mycompany.cakebakery.Command.LightingOffCommand;
+import com.mycompany.cakebakery.Command.LightingOnCommand;
+import com.mycompany.cakebakery.Command.MusicOffCommand;
+import com.mycompany.cakebakery.Command.MusicOnCommand;
 import com.mycompany.cakebakery.Command.OrderInvoker;
-import com.mycompany.cakebakery.Command.PlaceOrder;
+import com.mycompany.cakebakery.Command.PlaceOrderCommand;
 import com.mycompany.cakebakery.Command.RemoteControl;
-import com.mycompany.cakebakery.Command.SwapNextMusic;
-import com.mycompany.cakebakery.Command.SwapPrevMusic;
+import com.mycompany.cakebakery.Command.SwapNextMusicCommand;
+import com.mycompany.cakebakery.Command.SwapPrevMusicCommand;
 import com.mycompany.cakebakery.Models.Background;
 import com.mycompany.cakebakery.Models.CakeOrder;
 import com.mycompany.cakebakery.Models.Lighting;
@@ -50,16 +50,16 @@ public class CakeBakery extends Application {
         remote = new RemoteControl();
         // Initialise a "waiter" (OrderInvoker)
         waiter = new OrderInvoker();
-        // Initialise all the "Receiver" objects
+        // Initialise all the "Receiver" objects （Singleton)
         Lighting light = new Lighting();
-        Music music = new Music();
+        Music music = Music.createMusicInstance();
         // Initialise the "Command" objects
-        LightingOn lightOnCommand = new LightingOn(light);
-        LightingOff lightOffCommand = new LightingOff(light);
-        MusicOn musicOnCommand = new MusicOn(music);
-        MusicOff musicOffCommand = new MusicOff(music);
-        SwapNextMusic swapNextMusicCommand = new SwapNextMusic(music);
-        SwapPrevMusic swapPrevMusicCommand = new SwapPrevMusic(music);
+        LightingOnCommand lightOnCommand = new LightingOnCommand(light);
+        LightingOffCommand lightOffCommand = new LightingOffCommand(light);
+        MusicOnCommand musicOnCommand = new MusicOnCommand(music);
+        MusicOffCommand musicOffCommand = new MusicOffCommand(music);
+        SwapNextMusicCommand swapNextMusicCommand = new SwapNextMusicCommand(music);
+        SwapPrevMusicCommand swapPrevMusicCommand = new SwapPrevMusicCommand(music);
         // Set up our "Invoker" with the "Command" objects conditionally based on what button was pressed
         remote.setCommand(0, lightOnCommand, lightOffCommand);
         remote.setCommand(1, musicOnCommand, musicOffCommand);
@@ -95,8 +95,8 @@ public class CakeBakery extends Application {
     
     public void placeOrder(String cake){
         CakeOrder order = new CakeOrder(cake);
-        PlaceOrder orderCommand = new PlaceOrder(order);
-        CancelOrder cancelCommand = new CancelOrder(order);
+        PlaceOrderCommand orderCommand = new PlaceOrderCommand(order);
+        CancelOrderCommand cancelCommand = new CancelOrderCommand(order);
         waiter.setCommand(orderCommand, cancelCommand);
         waiter.onOrderPlaced();
     }

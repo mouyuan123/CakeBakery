@@ -2,14 +2,26 @@ package com.mycompany.cakebakery.Models;
 
 public class Music {
     
+    private volatile static Music uniqueMusicInstance;
     private String[] music = new String[] {"0", "1", "2", "3"};
     private String curr_music;
     private int music_idx;
     
-    public Music(){
+    private Music(){
         this.off();
         this.music_idx = 0;
         this.curr_music = null;
+    }
+    
+    public static Music createMusicInstance(){
+        if (uniqueMusicInstance == null) {
+            synchronized(Music.class) {
+                if (uniqueMusicInstance == null) {
+                    uniqueMusicInstance = new Music();
+                }
+            }
+        }
+        return uniqueMusicInstance;
     }
     
     public void on(){

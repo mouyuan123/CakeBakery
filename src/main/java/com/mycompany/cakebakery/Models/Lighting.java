@@ -1,19 +1,21 @@
 package com.mycompany.cakebakery.Models;
 
+import com.mycompany.cakebakery.Constants.DirConstant;
+
 public class Lighting {
     
     private String LightingEffect;
     
     public Lighting(){
-        System.out.println("The light is off");
+        this.off();
     }
     
     public void on(){
-        System.out.println("The light is off");
+        this.LightingEffect = DirConstant.LIGHTING_PATH + "/lighting_on.png";
     };
     
     public void off(){
-        System.out.println("The light is on");
+        this.LightingEffect = DirConstant.LIGHTING_PATH + "/lighting_off.png";
     };
 
     public String getLightingEffect() {

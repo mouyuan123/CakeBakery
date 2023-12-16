@@ -28,6 +28,12 @@
             <version>17.0.1</version>
             <type>jar</type>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>17.0.1</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -44,7 +50,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>com.mycompany.cakebakery.CakeBakery</mainClass>
+                    <mainClass>com.mycompany.cakebakery.CakeBakeryApplication</mainClass>
                 </configuration>
                 <executions>
                     <execution>

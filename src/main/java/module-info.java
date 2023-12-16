@@ -5,4 +5,5 @@ module com.mycompany.cakebakery {
     opens com.mycompany.cakebakery to javafx.fxml;
     exports com.mycompany.cakebakery;
     requires javafx.graphics;
+    requires javafx.media;
 }

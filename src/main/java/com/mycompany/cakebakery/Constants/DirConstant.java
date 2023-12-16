@@ -8,5 +8,6 @@ public class DirConstant {
     public static final String CHAIR_PATH = DIR + "/picture/chair";
     public static final String LIGHTING_PATH = DIR + "/picture/lighting";
     public static final String SPEAKER_PATH = DIR + "/picture/speaker";
+    public static final String WORKER_PATH = DIR + "/picture/worker";
     public static final String SPEAKER_MUSIC_PATH = DIR + "/backgroundMusic";
 }

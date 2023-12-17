@@ -1,24 +1,23 @@
 package com.mycompany.cakebakery;
 
-import com.mycompany.cakebakery.Command.CancelOrderCommand;
 import com.mycompany.cakebakery.Command.LightingOffCommand;
 import com.mycompany.cakebakery.Command.LightingOnCommand;
 import com.mycompany.cakebakery.Command.MusicOffCommand;
 import com.mycompany.cakebakery.Command.MusicOnCommand;
 import com.mycompany.cakebakery.Command.OrderInvoker;
-import com.mycompany.cakebakery.Command.PlaceOrderCommand;
 import com.mycompany.cakebakery.Command.RemoteControl;
 import com.mycompany.cakebakery.Command.SwapNextMusicCommand;
 import com.mycompany.cakebakery.Command.SwapPrevMusicCommand;
 import com.mycompany.cakebakery.Facade.CakeBakeryFacade;
 import com.mycompany.cakebakery.Models.Background;
 import com.mycompany.cakebakery.Models.Budget;
+import com.mycompany.cakebakery.Models.Cake;
 import com.mycompany.cakebakery.Models.CakeBakery;
-import com.mycompany.cakebakery.Models.CakeOrder;
+
 import com.mycompany.cakebakery.Models.Lighting;
+import com.mycompany.cakebakery.Models.Menu;
 import com.mycompany.cakebakery.Models.Music;
 import java.io.File;
-import java.io.FileInputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,7 +27,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -58,9 +61,13 @@ public class CakeBakeryApplication extends Application {
     GridPane CakeBakeryLayout;
     // Cake Menu Layout
     VBox CakeMenuLayout;
+    VBox CakeLayout;
     // Control Panel
     VBox CakeBakeryControlPanel;
     HBox MenuControlPanel;
+    HBox CakeControlPanel;
+    // Check for selected cake at "Menu" screen
+    Cake selectedCake;
     
 
     @Override
@@ -68,6 +75,7 @@ public class CakeBakeryApplication extends Application {
         // 1. Set up the layout to display the GUI
         this.CakeBakeryLayout = this.initializeLayout();
         this.CakeMenuLayout = this.initializeMenuLayout();
+        this.CakeLayout = this.initializeCakeLayout();
         
         // 2. Instantiate Cake Bakery object (Singleton)
         CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
@@ -96,33 +104,37 @@ public class CakeBakeryApplication extends Application {
         Button cancelOrderButton = new Button("Cancel Order");
         
         // 5. Initialise the CakeBakeryFacade
-        CakeBakeryFacade cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget);
+        CakeBakeryFacade cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget, waiter);
         Button onOpenRestaurantButton = new Button("Open Restaurant");
         Button onCloseRestaurantButton = new Button("Close Restaurant");
         
         Button toMenuSceneButton = new Button("Menu");
-        Button fromMenutoLayoutSceneButton = new Button("Back");
-        
+        Button fromMenuToLayoutSceneButton = new Button("Back");
+        Button fromCakeToMenuSceneButton = new Button("Back to Menu");
         
         initializeCakeBakeryControlPanel(lightingOnButton, lightingOffButton,musicOnButton, musicOffButton, swapPrevMusicButton, swapNextMusicButton);
-        initializeMenuControlPanel(fromMenutoLayoutSceneButton);
+        initializeMenuControlPanel(fromMenuToLayoutSceneButton);
+        initializeCakeControlPanel(fromCakeToMenuSceneButton);
         
         // 6. Set up CakeBakeryLayout && CakeMenuLayout
         displayCakeBakery(cakeBakery, true, onOpenRestaurantButton, onCloseRestaurantButton, toMenuSceneButton);
-        displayMenu(cakeBakery);
+        TableView<Cake> menu = displayMenu(cakeBakery, placeOrderButton);
         
         // 7. Initialise the button to change from one scene to another
         
         
         // 8. Different scenes for different layout
-        Scene CakeBakeryLayoutScene = new Scene(CakeBakeryLayout, 1000, 700);
-        Scene CakeMenuLayoutScene = new Scene(CakeMenuLayout, 1000, 700);
+        Scene CakeBakeryLayoutScene = new Scene(CakeBakeryLayout, width, height);
+        Scene CakeMenuLayoutScene = new Scene(CakeMenuLayout, width, height);
+        Scene CakeLayoutScene = new Scene(CakeLayout, width, height);
         
         this.CakeBakeryControlPanel.setViewOrder(-1.0);
         this.MenuControlPanel.setViewOrder(-1.0);
+        this.CakeControlPanel.setViewOrder(-1.0);
         onOpenRestaurantButton.setViewOrder(-1.0);
         onCloseRestaurantButton.setViewOrder(-1.0);
         toMenuSceneButton.setViewOrder(-1.0);
+        
         
         
         // 7. Set the default layout as `CakeBakery` layout
@@ -131,9 +143,13 @@ public class CakeBakeryApplication extends Application {
         stage.show();
         
         toMenuSceneButton.setOnAction(e -> stage.setScene(CakeMenuLayoutScene));
-        fromMenutoLayoutSceneButton.setOnAction(e -> stage.setScene(CakeBakeryLayoutScene));
+        fromMenuToLayoutSceneButton.setOnAction(e -> {
+            this.selectedCake = null;
+            stage.setScene(CakeBakeryLayoutScene);
+        });
+        fromCakeToMenuSceneButton.setOnAction(e -> stage.setScene(CakeMenuLayoutScene));
         
-        //Facade Button Action
+        // Facade Button Action
         onOpenRestaurantButton.setOnAction(event -> {
             if (mediaPlayer != null) {
                 mediaPlayer.stop();
@@ -150,6 +166,7 @@ public class CakeBakeryApplication extends Application {
             displayCakeBakery(cakeBakery, true, onOpenRestaurantButton, onCloseRestaurantButton, toMenuSceneButton);
         });
         
+        // Command Button Action   
         lightingOnButton.setOnAction(event -> {
             this.remote.leftButtonPressed(0);
             this.updateImageInUI(this.CakeBakeryLayout, lighting.getLightingEffect(), 400, 700, 0, 0, 4, 3);
@@ -167,18 +184,44 @@ public class CakeBakeryApplication extends Application {
         });
         
         musicOffButton.setOnAction(event -> {
-            if (mediaPlayer != null) {
-                mediaPlayer.stop();
-            }
+            if (mediaPlayer != null) mediaPlayer.stop();
             this.remote.rightButtonPressed(1);
             controlBackgroundMusic(music);
              this.updateImageInUI(this.CakeBakeryLayout, music.getMusicImg(), 400, 400, 3, 2, 4, 4);
         });
         
-        placeOrderButton.setOnAction(event -> {
-            
+        swapPrevMusicButton.setOnAction(event -> {
+            if(mediaPlayer != null) mediaPlayer.stop();
+            this.remote.leftButtonPressed(2);
+            if(!music.isOff()) controlBackgroundMusic(music);
         });
         
+        swapNextMusicButton.setOnAction(event -> {
+            if(mediaPlayer != null) mediaPlayer.stop();
+            this.remote.rightButtonPressed(2);
+            if(!music.isOff()) controlBackgroundMusic(music);
+        });
+        
+        menu.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, selected) -> {
+            if(selected != null) this.selectedCake = selected;
+        });
+        
+        placeOrderButton.setOnAction(event -> {
+            if(selectedCake != null){
+                if(!cakeBakeryFacade.placeNewOrder(selectedCake)){
+                    this.alertWarning(cakeBakeryFacade.getMessage());
+                }
+                else{
+                    displayCake(this.selectedCake, fromCakeToMenuSceneButton, cancelOrderButton);
+                    stage.setScene(CakeLayoutScene);
+                }
+            }
+        });
+        
+        cancelOrderButton.setOnAction(event -> {
+            cakeBakeryFacade.cancelCurrentOrder();
+            stage.setScene(CakeMenuLayoutScene);
+        });
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -192,14 +235,6 @@ public class CakeBakeryApplication extends Application {
 
     public static void main(String[] args) {
         launch();
-    }
-    
-    public void placeOrder(String cake){
-        CakeOrder order = new CakeOrder(cake);
-        PlaceOrderCommand orderCommand = new PlaceOrderCommand(order);
-        CancelOrderCommand cancelCommand = new CancelOrderCommand(order);
-        waiter.setCommand(orderCommand, cancelCommand);
-        waiter.onOrderPlaced();
     }
     
     // Render the entire Layout
@@ -245,9 +280,22 @@ public class CakeBakeryApplication extends Application {
         controlBackgroundMusic(cakeBakery.getMusic());
     }
     
-    public void displayMenu(CakeBakery cakeBakery){
+    // Render the entire Layout
+    public void displayCake(Cake selectedCake, Button backButton, Button cancelOrderButton){
+        CakeLayout.getChildren().clear();
+        CakeLayout.getChildren().add(backButton);
+        String cake = selectedCake.getCakeImg();
+        CakeLayout.getChildren().add(Background.displayView(400, 400, cake));
+        CakeLayout.getChildren().add(cancelOrderButton);
+    }
+    
+    public TableView<Cake> displayMenu(CakeBakery cakeBakery, Button placeOrderButton){
+        Menu cakes = cakeBakery.getMenu();
+        cakes.generateTableView();
+        TableView<Cake> menu = cakes.getTable();
         CakeMenuLayout.getChildren().clear();
-        CakeMenuLayout.getChildren().add(MenuControlPanel);
+        CakeMenuLayout.getChildren().addAll(MenuControlPanel, menu, placeOrderButton);
+        return menu;
     }
     
     public void setImageInUI(GridPane gridPane, StackPane stackPane, int columnIndex, int rowIndex, int columnSpan, int rowSpan){
@@ -295,7 +343,13 @@ public class CakeBakeryApplication extends Application {
     }
     
     public VBox initializeMenuLayout(){
-        VBox box = new VBox();
+        VBox box = new VBox(3);
+        return box;
+    }
+    
+    public VBox initializeCakeLayout(){
+        VBox box = new VBox(3);
+        box.setAlignment(Pos.CENTER);
         return box;
     }
     
@@ -314,6 +368,10 @@ public class CakeBakeryApplication extends Application {
     public void initializeMenuControlPanel(Button backButton){
         MenuControlPanel = new HBox(2);
         MenuControlPanel.getChildren().add(backButton);
+    }
+    
+    public void initializeCakeControlPanel(Button backButton){
+        CakeControlPanel = new HBox(2);
     }
     
     public void setUpCommandPattern(CakeBakery cakeBakery, Lighting lighting, Music music){
@@ -345,7 +403,9 @@ public class CakeBakeryApplication extends Application {
         }
     }
     
-    public void cancelOrder(){
-        waiter.onOrderCancel();
+    public void alertWarning (String message) {
+        Alert alertBox = new Alert(Alert.AlertType.WARNING);
+        alertBox.setContentText(message);
+        alertBox.show();
     }
 }

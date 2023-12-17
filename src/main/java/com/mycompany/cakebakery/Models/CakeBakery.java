@@ -11,10 +11,12 @@ public class CakeBakery {
     private final String closed_sign = DirConstant.BACKGROUND_PATH + "/closed_sign.png";
     private Lighting light;
     private Music music;
+    private Menu menu;
     
     private CakeBakery(){
         this.light = new Lighting();
         this.music = Music.getMusicInstance();
+        this.menu = Menu.getMenuInstance();
     };
     
     public static CakeBakery getCakeBakeryInstance(){
@@ -55,6 +57,8 @@ public class CakeBakery {
     public String getClosed_sign() {
         return closed_sign;
     }
-    
-    
+
+    public Menu getMenu() {
+        return menu;
+    }
 }

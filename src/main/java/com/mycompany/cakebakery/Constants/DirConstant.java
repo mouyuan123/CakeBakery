@@ -10,4 +10,5 @@ public class DirConstant {
     public static final String SPEAKER_PATH = DIR + "/picture/speaker";
     public static final String WORKER_PATH = DIR + "/picture/worker";
     public static final String SPEAKER_MUSIC_PATH = DIR + "/backgroundMusic";
+    public static final String CAKE_PATH = DIR + "/picture/cake";
 }

@@ -1,28 +1,27 @@
 package com.mycompany.cakebakery.Models;
 
-
 public class CakeOrder {
     
-    private String name;
-    
-    public CakeOrder(String name){
-        this.name = name;
+    private Cake cake;
+
+    public CakeOrder(Cake cake) {
+        this.cake = cake;
     }
     
     public void placeOrder(){
-        System.out.println("Your order: " + name);
+        System.out.println("Your order: " + this.cake.getFlavour());
     }
     
     public void cancelOrder(){
-        System.out.println("Your order: " + name + " is cancelled");
-        this.name = null;
+        System.out.println("Your order: " + this.cake.getFlavour() + " is cancelled");
+        this.cake = null;
     }
 
-    public String getName() {
-        return name;
+    public Cake getCake() {
+        return cake;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }  
+    public void setCake(Cake cake) {
+        this.cake = cake;
+    }
 }

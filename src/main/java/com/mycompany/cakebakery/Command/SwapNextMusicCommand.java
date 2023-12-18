@@ -2,17 +2,17 @@ package com.mycompany.cakebakery.Command;
 
 import com.mycompany.cakebakery.Models.Music;
 
-
-public class MusicOff implements Command{
+public class SwapNextMusicCommand implements Command {
     
     private Music music;
-
-    public MusicOff(Music music) {
+    
+    public SwapNextMusicCommand(Music music){
         this.music = music;
     }
-    
+
     @Override
     public void execute() {
-        music.off();
+        this.music.swapRight();
     }
+    
 }

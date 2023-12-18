@@ -2,18 +2,17 @@ package com.mycompany.cakebakery.Command;
 
 import com.mycompany.cakebakery.Models.CakeOrder;
 
-public class CancelOrder implements Command{
+public class PlaceOrderCommand implements Command{
     
     private CakeOrder order;
     
-    public CancelOrder(CakeOrder order){
+    public PlaceOrderCommand(CakeOrder order){
         this.order = order;
     }
 
     @Override
     public void execute() {
-        this.order.cancelOrder();
-        this.order = null;
+        this.order.placeOrder();
     }
     
 }

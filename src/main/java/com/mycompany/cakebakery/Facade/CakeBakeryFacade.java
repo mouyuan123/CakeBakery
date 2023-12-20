@@ -24,7 +24,6 @@ public class CakeBakeryFacade {
     public boolean onOpen(){
         this.cakeBakery.getLight().on();
         this.cakeBakery.getMusic().on();
-        budget.setBudget(40);
         return true;
     }
     

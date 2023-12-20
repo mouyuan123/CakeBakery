@@ -7,7 +7,7 @@ public class Budget {
     private double budget;
     
     private Budget(){
-        this.budget = 0;
+        this.budget = 0.0;
     }
     
     public static Budget getBudgetInstance(){
@@ -30,7 +30,7 @@ public class Budget {
     }
     
     public void topUp(double amount){
-        this.budget += amount;
+        this.budget = budget + amount;
     }
     
     public boolean spend(double amount){

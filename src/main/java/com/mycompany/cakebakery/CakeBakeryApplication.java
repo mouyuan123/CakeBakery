@@ -154,7 +154,7 @@ public class CakeBakeryApplication extends Application {
 
         toMenuSceneButton.setOnAction(e -> stage.setScene(CakeMenuLayoutScene));
         fromMenuToLayoutSceneButton.setOnAction(e -> {
-            this.selectedCake = null;
+//            this.selectedCake = null;
             stage.setScene(CakeBakeryLayoutScene);
         });
         fromCakeToMenuSceneButton.setOnAction(e -> stage.setScene(CakeMenuLayoutScene));
@@ -229,8 +229,7 @@ public class CakeBakeryApplication extends Application {
         });
 
         menu.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, selected) -> {
-            if (selected != null) {
-                this.selectedCake = selected;
+            this.selectedCake = selected;
             }
         });
 
@@ -240,6 +239,7 @@ public class CakeBakeryApplication extends Application {
                     this.alertWarning(cakeBakeryFacade.getMessage());
                 } else {
                     displayCake(this.selectedCake, fromCakeToMenuSceneButton, cancelOrderButton);
+                    this.updateBudgetDisplay();
                     stage.setScene(CakeLayoutScene);
                 }
             }
@@ -477,6 +477,10 @@ public class CakeBakeryApplication extends Application {
                     double budgetValue = Double.parseDouble(result.get());
                     Budget.getBudgetInstance().setBudget(budgetValue);
                     updateBudgetDisplay();
+                    // Open the restaurant if the budget is set
+//                    cakeBakeryFacade.onOpen();
+                    //displayCakeBakery(CakeBakery.getCakeBakeryInstance(), false, onOpenRestaurantButton, onCloseRestaurantButton, menuButton);
+//                    stage.show();
                     validInput = true; // Break the loop on valid input
                 } catch (NumberFormatException e) {
                     // Handle invalid number input by showing the dialog again

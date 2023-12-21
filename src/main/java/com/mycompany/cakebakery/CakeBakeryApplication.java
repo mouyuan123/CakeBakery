@@ -230,7 +230,6 @@ public class CakeBakeryApplication extends Application {
 
         menu.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, selected) -> {
             this.selectedCake = selected;
-            }
         });
 
         placeOrderButton.setOnAction(event -> {
@@ -255,6 +254,7 @@ public class CakeBakeryApplication extends Application {
             showBudgetTopUpDialog(topUpButton);
         });
     }
+    
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -477,10 +477,6 @@ public class CakeBakeryApplication extends Application {
                     double budgetValue = Double.parseDouble(result.get());
                     Budget.getBudgetInstance().setBudget(budgetValue);
                     updateBudgetDisplay();
-                    // Open the restaurant if the budget is set
-//                    cakeBakeryFacade.onOpen();
-                    //displayCakeBakery(CakeBakery.getCakeBakeryInstance(), false, onOpenRestaurantButton, onCloseRestaurantButton, menuButton);
-//                    stage.show();
                     validInput = true; // Break the loop on valid input
                 } catch (NumberFormatException e) {
                     // Handle invalid number input by showing the dialog again

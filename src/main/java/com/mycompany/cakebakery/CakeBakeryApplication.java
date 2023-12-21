@@ -412,7 +412,7 @@ public class CakeBakeryApplication extends Application {
     public void initializeBudgetControlPanel(Button topUp) {
         BudgetControlPanel = new HBox(10);
         budgetLabel = new Label("Budget: " + Budget.getBudgetInstance().getBudget());
-        budgetLabel.setFont(new Font("Arial", 14));
+        budgetLabel.setFont(new Font("Arial", 22));
         BudgetControlPanel.getChildren().addAll(budgetLabel, topUp);
         BudgetControlPanel.setAlignment(Pos.CENTER_LEFT); // Adjust alignment as needed
     }
@@ -458,7 +458,7 @@ public class CakeBakeryApplication extends Application {
         budgetLabel.setText("Budget: " + currentBudget);
     }
 
-    // Method to show the budget input dialog
+    // Method to show the budget input dialog (Singleton)
     private void showBudgetInputDialog(CakeBakeryFacade cakeBakeryFacade, Stage stage, Button onOpenRestaurantButton, Button onCloseRestaurantButton, Button menuButton) {
         boolean validInput = false;
 
@@ -498,7 +498,7 @@ public class CakeBakeryApplication extends Application {
         }
     }
 
-    // Method to show the budget top up dialog
+    // Method to show the budget top up dialog (Singleton)
     private void showBudgetTopUpDialog(Button topUpButton) {
         boolean validInput = false;
 

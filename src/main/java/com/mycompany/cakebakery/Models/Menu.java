@@ -21,9 +21,9 @@ public class Menu {
         this.cakes = new ArrayList<>();
         // Set up the menu for different base cakes
         this.cakes.add(new Cake("Matcha", 30.00, DirConstant.CAKE_PATH + "/matcha.png"));
-        this.cakes.add(new Cake("Chocolate", 20.00, "2"));
-        this.cakes.add(new Cake("Tiramisu", 25.00, "3"));
-        this.cakes.add(new Cake("Oolong", 27.00, "4"));
+        this.cakes.add(new Cake("Chocolate", 20.00, DirConstant.CAKE_PATH + "/chocolate.png"));
+        this.cakes.add(new Cake("Tiramisu", 25.00, DirConstant.CAKE_PATH + "/tiramisu.png"));
+        this.cakes.add(new Cake("Oolong", 27.00, DirConstant.CAKE_PATH + "/oolong.png"));
     }
     
     public static Menu getMenuInstance(){

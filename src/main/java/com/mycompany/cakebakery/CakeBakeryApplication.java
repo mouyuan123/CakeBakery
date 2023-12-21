@@ -318,10 +318,48 @@ public class CakeBakeryApplication extends Application {
     public void displayCake(Cake selectedCake, Button backButton, Button cancelOrderButton) {
         CakeLayout.getChildren().clear();
         CakeLayout.getChildren().add(backButton);
-        String cake = selectedCake.getCakeImg();
-        CakeLayout.getChildren().add(Background.displayView(400, 400, cake));
-        CakeLayout.getChildren().add(cancelOrderButton);
+        // Container for the cake image
+        StackPane cakeDisplayContainer = new StackPane();
+        cakeDisplayContainer.getChildren().add(selectedCake.display(400, 400));
+
+        // Container for the buttons
+        VBox buttonBox = new VBox(10);
+        buttonBox.setAlignment(Pos.CENTER);
+
+        // Add buttons to the VBox
+        Button addStrawberryButton = new Button("Add Strawberry");
+        addStrawberryButton.setOnAction(e -> {
+            selectedCake.addDecoration("cake_decoration_strawberry.png");
+            updateCakeDisplay(selectedCake, cakeDisplayContainer); 
+        });
+        buttonBox.getChildren().add(addStrawberryButton);
+        
+        Button addBlueberryButton = new Button("Add Blueberry");
+        addBlueberryButton.setOnAction(e -> {
+            selectedCake.addDecoration("cake_decoration_blueberry.png");
+            updateCakeDisplay(selectedCake, cakeDisplayContainer); 
+        });
+        buttonBox.getChildren().add(addBlueberryButton);
+        
+        Button addFrostingButton = new Button("Add Frosting");
+        addFrostingButton.setOnAction(e -> {
+            selectedCake.addDecoration("cake_decoration_frosting.png");
+            updateCakeDisplay(selectedCake, cakeDisplayContainer); 
+        });
+        buttonBox.getChildren().add(addFrostingButton);
+
+        // Layout for cake and buttons
+        HBox cakeAndButtons = new HBox(10, cakeDisplayContainer, buttonBox);
+        cakeAndButtons.setAlignment(Pos.CENTER);
+
+        CakeLayout.getChildren().addAll(cakeAndButtons, cancelOrderButton);
     }
+    
+     public void updateCakeDisplay(Cake cake, StackPane cakeDisplayContainer) {
+        cakeDisplayContainer.getChildren().clear();
+        cakeDisplayContainer.getChildren().add(cake.display(400, 400));
+    }
+
 
     public TableView<Cake> displayMenu(CakeBakery cakeBakery, Button placeOrderButton) {
         Menu cakes = cakeBakery.getMenu();

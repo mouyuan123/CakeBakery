@@ -7,6 +7,6 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        CakeBakeryApplication.setRoot("secondary");
+//        CakeBakeryApplication.setRoot("main-cake-bakery");
     }
 }

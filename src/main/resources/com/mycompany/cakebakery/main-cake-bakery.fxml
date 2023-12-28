@@ -1,0 +1,722 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="512.0" maxWidth="896.0" minHeight="512.0" minWidth="896.0" prefHeight="512.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.cakebakery.CakeBakeryApplication">
+<!--    <scene>-->
+<!--        <Scene>-->
+            <AnchorPane prefHeight="512.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <ImageView fx:id="imgBackground" fitHeight="512.0" fitWidth="896.0">
+                  <image>
+                     <Image url="@picture/background/light-on-cafe-bakery.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="imgSpeaker" fitHeight="70.5" fitWidth="79.5" layoutX="514.0" layoutY="371.0">
+                  <image>
+                     <Image url="@picture/speaker/speaker.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="imgControl" fitHeight="47.0" fitWidth="22.0" layoutX="196.0" layoutY="181.0" onMouseClicked="#onImgControlClicked">
+                  <image>
+                     <Image url="@picture/background/controller.png" />
+                  </image>
+               </ImageView>
+               <ImageView fx:id="imgSpeakerNotes" fitHeight="35.0" fitWidth="35.0" layoutX="567.0" layoutY="380.0" visible="false">
+                  <image>
+                     <Image url="@picture/speaker/sound.png" />
+                  </image>
+               </ImageView>
+         <Ellipse fx:id="btnCounter1" fill="TRANSPARENT" layoutX="172.0" layoutY="282.0" onMouseClicked="#onBtnCounterClick" radiusX="32.0" radiusY="32.0" />
+         <Ellipse fx:id="btnCounter3" fill="TRANSPARENT" layoutX="751.0" layoutY="304.0" onMouseClicked="#onBtnCounterClick" radiusX="30.0" radiusY="32.0" />
+         <Ellipse fx:id="btnCounter2" fill="TRANSPARENT" layoutX="690.0" layoutY="295.0" onMouseClicked="#onBtnCounterClick" radiusX="25.0" radiusY="31.0"/>
+         <GridPane fx:id="paneCash" layoutX="739.0" layoutY="2.0" prefHeight="91.0" prefWidth="143.0">
+           <columnConstraints>
+             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+           </columnConstraints>
+           <rowConstraints>
+             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+           </rowConstraints>
+            <children>
+                     <ImageView fx:id="imgCashTag" fitHeight="43.5" fitWidth="127.5" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <image>
+                           <Image url="@picture/background/cash-money-tag.png" />
+                        </image>
+                     </ImageView>
+                     <ImageView fx:id="imgTopUp" fitHeight="15.0" fitWidth="15.0" onMouseClicked="#onImgTopUpClick" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                        <image>
+                           <Image url="@picture/background/top-up.png" />
+                        </image>
+                  <GridPane.margin>
+                     <Insets right="25.0" />
+                  </GridPane.margin>
+                     </ImageView>
+               <Label fx:id="labelCash" text="\$11" textFill="WHITE" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                  <font>
+                     <Font name="Comic Sans MS" size="13.0" />
+                  </font>
+                  <padding>
+                     <Insets bottom="3.0" />
+                  </padding>
+               </Label>
+            </children>
+         </GridPane>
+               <StackPane fx:id="spMain" layoutX="229.0" layoutY="199.0" prefHeight="512.0" prefWidth="896.0" visible="false" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="75.0">
+                  <children>
+                     <GridPane fx:id="gpControl" onMouseClicked="#onGpControlClick" visible="false">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <ImageView fx:id="imgControlInterior" fitHeight="350.0" fitWidth="165.0" onMouseClicked="#onImgControlInteriorClick" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <image>
+                                 <Image url="@picture/background/controller.png" />
+                              </image>
+                           </ImageView>
+                           <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                              <children>
+                                 <Circle fx:id="btnLightOn" fill="TRANSPARENT" layoutX="263.0" layoutY="99.0" onMouseClicked="#onBtnLightOnClick" radius="23.0"/>
+                                 <Circle fx:id="btnLightOff" fill="TRANSPARENT" layoutX="333.0" layoutY="99.0" onMouseClicked="#onBtnLightOffClick" radius="23.0"/>
+                                 <Circle fx:id="btnPreviousSong" fill="TRANSPARENT" layoutX="262.0" layoutY="200.0" onMouseClicked="#onBtnPreviousSongClick" radius="23.0" />
+                                 <Circle fx:id="btnNextSong" fill="TRANSPARENT" layoutX="333.0" layoutY="200.0" onMouseClicked="#onBtnNextSongClick" radius="23.0"/>
+                                 <Ellipse fx:id="btnStopMusic" fill="TRANSPARENT" layoutX="262.0" layoutY="288.0" onMouseClicked="#onBtnStopMusicClick" radiusX="27.0" radiusY="31.0" />
+                                 <Ellipse fx:id="btnPlayMusic" fill="TRANSPARENT" layoutX="333.0" layoutY="288.0" onMouseClicked="#onBtnPlayMusicClick" radiusX="26.0" radiusY="31.0" />
+                                 <Circle fx:id="btnCloseControl" fill="TRANSPARENT" layoutX="340.0" layoutY="42.0" onMouseClicked="#onBtnCloseControlClick" radius="16.0" />
+                              </children>
+                           </AnchorPane>
+                        </children>
+                     </GridPane>
+                     <SplitPane fx:id="spCakeType" dividerPositions="0.1" opacity="0.95" orientation="VERTICAL" prefHeight="525.0" prefWidth="700.0" visible="false" StackPane.alignment="CENTER">
+                       <items>
+                           <GridPane alignment="CENTER">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.95050048828125" minWidth="0.0" prefWidth="51.74009704589844" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="1033.5" minWidth="10.0" prefWidth="512.2599029541016" />
+                                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.5693359375" minWidth="0.0" prefWidth="57.45794677734375" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <Label text="Please Choose Your Desired Cake Type" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="18.0" />
+                                    </font>
+                                 </Label>
+                           <Button fx:id="btnCrossCakeType" mnemonicParsing="false" onMouseClicked="#onBtnCrossCakeTypeClick" text="x" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                              </children>
+                           </GridPane>
+                           <SplitPane dividerPositions="0.5" prefHeight="646.0" prefWidth="1190.0">
+                             <items>
+                                 <GridPane fx:id="gpBakedCakes" alignment="CENTER" onMouseClicked="#onGpBakedCakesClick">
+                                   <columnConstraints>
+                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                   </columnConstraints>
+                                   <rowConstraints>
+                                     <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="242.74795532226562" vgrow="SOMETIMES" />
+                                     <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="77.25204467773438" vgrow="SOMETIMES" />
+                                   </rowConstraints>
+                                    <children>
+                                       <ImageView fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <image>
+                                             <Image url="@picture/cake/baked-cakes.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label text="Baked Cakes" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="18.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </GridPane>
+                                 <GridPane fx:id="gpCrepeCakes" alignment="CENTER" onMouseClicked="#onGpCrepeCakesClick">
+                                    <columnConstraints>
+                                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="241.74795532226562" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="78.25204467773438" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                       <ImageView fitHeight="200.0" fitWidth="200.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <image>
+                                             <Image url="@picture/cake/crepe-cakes.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label alignment="CENTER" contentDisplay="CENTER" text="Crepe Cakes" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="18.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </GridPane>
+                             </items>
+                           </SplitPane>
+                       </items>
+                     </SplitPane>
+                     <SplitPane fx:id="spBaseCake" dividerPositions="0.1, 0.55" layoutX="10.0" layoutY="10.0" opacity="0.95" orientation="VERTICAL" prefHeight="525.0" prefWidth="700.0" visible="false">
+                        <items>
+                     <GridPane alignment="CENTER">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.95050048828125" minWidth="0.0" prefWidth="51.74009704589844" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1033.5" minWidth="10.0" prefWidth="512.2599029541016" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.5693359375" minWidth="0.0" prefWidth="57.45794677734375" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                           <Label text="Please Choose Your Desired Base Cake" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <font>
+                                 <Font name="Comic Sans MS" size="18.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="btnCrossBaseCake" mnemonicParsing="false" onMouseClicked="#onBtnCrossBaseCakeClick" text="x" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        </children>
+                     </GridPane>
+                           <SplitPane dividerPositions="0.33333, 0.66666" prefHeight="646.0" prefWidth="1190.0">
+                              <items>
+                                 <GridPane fx:id="gpChocolateCake" alignment="CENTER" onMouseClicked="#onGpChocolateCakeClick">
+                                    <columnConstraints>
+                                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                       <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                          <image>
+                                             <Image url="@picture/cake/baked-cakes/chocolate-cake.png" />
+                                          </image>
+                                       </ImageView>
+                                       <Label fx:id="labelChocolateCake" text="Chocolate" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                       <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </GridPane>
+                           <GridPane fx:id="gpVanillaCake" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onGpVanillaCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/baked-cakes/vanilla-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelVanillaCake" text="Vanilla" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                           <GridPane fx:id="gpTiramusuCake" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onGpTiramisuCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/baked-cakes/tiramisu-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelTiramisuCake" text="Tramisu" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                              </items>
+                           </SplitPane>
+                           <SplitPane dividerPositions="0.5" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="1190.0">
+                              <items>
+                           <GridPane fx:id="gpRedVelvetCake" alignment="CENTER" onMouseClicked="#onGpRedVelvetCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/baked-cakes/red-velvet-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelRedVelvetCake" text="Red Velvet" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                           <GridPane fx:id="gpMatchaCake" alignment="CENTER" onMouseClicked="#onGpMatchaCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/baked-cakes/matcha-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelMatchaCake" text="Matcha" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                              </items>
+                           </SplitPane>
+                        </items>
+                     </SplitPane>
+               <SplitPane fx:id="spCrepeCake" dividerPositions="0.1, 0.55" layoutX="10.0" layoutY="10.0" opacity="0.95" orientation="VERTICAL" prefHeight="525.0" prefWidth="700.0" visible="false">
+                  <items>
+                     <GridPane alignment="CENTER">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.95050048828125" minWidth="0.0" prefWidth="51.74009704589844" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1033.5" minWidth="10.0" prefWidth="512.2599029541016" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.5693359375" minWidth="0.0" prefWidth="57.45794677734375" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                           <Label text="Please Choose Your Desired Crepe Cake" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <font>
+                                 <Font name="Comic Sans MS" size="18.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="btnCrossCrepeCake" mnemonicParsing="false" onMouseClicked="#onBtnCrossCrepeCakeClick" text="x" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        </children>
+                     </GridPane>
+                     <SplitPane dividerPositions="0.33333, 0.66666" prefHeight="646.0" prefWidth="1190.0">
+                        <items>
+                           <GridPane fx:id="gpChocolateCrepeCake" alignment="CENTER" onMouseClicked="#onGpChocolateCrepeCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/crepe-cakes/chocolate-crepe-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelChocolateCrepeCake" text="Chocolate" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                           <GridPane fx:id="gpVanillaCrepeCake" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onGpVanillaCrepeCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/crepe-cakes/vanilla-crepe-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelVanillaCrepeCake" text="Vanilla" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                           <GridPane fx:id="gpTiramusuCrepeCake" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#onGpTiramisuCrepeCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/crepe-cakes/tiramisu-crepe-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelTiramisuCrepeCake" text="Tramisu" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                        </items>
+                     </SplitPane>
+                     <SplitPane dividerPositions="0.5" layoutX="10.0" layoutY="10.0" prefHeight="646.0" prefWidth="1190.0">
+                        <items>
+                           <GridPane fx:id="gpRedVelvetCrepeCake" alignment="CENTER" onMouseClicked="#onGpRedVelvetCrepeCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/crepe-cakes/red-velvet-crepe-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelRedVelvetCrepeCake" text="Red Velvet" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                           <GridPane fx:id="gpMatchaCrepeCake" alignment="CENTER" onMouseClicked="#onGpMatchaCrepeCakeClick">
+                              <columnConstraints>
+                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                              </columnConstraints>
+                              <rowConstraints>
+                                 <RowConstraints maxHeight="208.33331298828125" minHeight="0.0" prefHeight="9.938117980957031" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="93.95050048828125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="20.913360595703125" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="32.086639404296875" vgrow="SOMETIMES" />
+                              </rowConstraints>
+                              <children>
+                                 <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <image>
+                                       <Image url="@picture/cake/crepe-cakes/matcha-crepe-cake.png" />
+                                    </image>
+                                 </ImageView>
+                                 <Label fx:id="labelMatchaCrepeCake" text="Matcha" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                                 <Label text="\$11" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="3" GridPane.valignment="TOP">
+                                    <font>
+                                       <Font name="Comic Sans MS" size="15.0" />
+                                    </font>
+                                 </Label>
+                              </children>
+                           </GridPane>
+                        </items>
+                     </SplitPane>
+                  </items>
+               </SplitPane>
+                     <SplitPane fx:id="spCondiments" dividerPositions="0.10041551246537396" layoutX="10.0" layoutY="10.0" opacity="0.95" orientation="VERTICAL" prefHeight="525.0" prefWidth="700.0" visible="false">
+                        <items>
+                     <GridPane alignment="CENTER">
+                        <columnConstraints>
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="68.95050048828125" minWidth="0.0" prefWidth="51.74009704589844" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="1033.5" minWidth="10.0" prefWidth="512.2599029541016" />
+                           <ColumnConstraints hgrow="SOMETIMES" maxWidth="66.5693359375" minWidth="0.0" prefWidth="57.45794677734375" />
+                        </columnConstraints>
+                        <rowConstraints>
+                           <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                        </rowConstraints>
+                        <children>
+                           <Label text="Please Choose Condiment(s)" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <font>
+                                 <Font name="Comic Sans MS" size="18.0" />
+                              </font>
+                           </Label>
+                           <Button fx:id="btnCrossCondiments" mnemonicParsing="false" onMouseClicked="#onBtnCrossCondimentsClick" text="x" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        </children>
+                     </GridPane>
+                           <SplitPane dividerPositions="0.2, 0.8" prefHeight="646.0" prefWidth="1190.0">
+                              <items>
+                                 <SplitPane dividerPositions="0.5" layoutX="10.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                    <items>
+                                       <GridPane fx:id="gpMacron" alignment="CENTER">
+                                          <columnConstraints>
+                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          </columnConstraints>
+                                          <rowConstraints>
+                                             <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="70.5" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="206.0" minHeight="6.5" prefHeight="17.5" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="22.5" vgrow="SOMETIMES" />
+                                             <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="46.5" vgrow="SOMETIMES" />
+                                          </rowConstraints>
+                                          <children>
+                                             <ImageView fitHeight="77.0" fitWidth="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <image>
+                                                   <Image url="@picture/cake/condiments/macron.png" />
+                                                </image>
+                                          <GridPane.margin>
+                                             <Insets bottom="5.0" />
+                                          </GridPane.margin>
+                                             </ImageView>
+                                             <Label text="Marcron" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <font>
+                                                   <Font name="Comic Sans MS" size="15.0" />
+                                                </font>
+                                             </Label>
+                                             <Label layoutX="57.0" layoutY="137.0" text="\$1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                                <font>
+                                                   <Font name="Comic Sans MS" size="15.0" />
+                                                </font>
+                                             </Label>
+                                             <Spinner fx:id="spinnerMarcron" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                          </children>
+                                       </GridPane>
+                                 <GridPane fx:id="gpStrawberry" alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                                    <columnConstraints>
+                                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="70.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="6.5" prefHeight="17.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="22.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="46.5" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                       <ImageView fitHeight="77.0" fitWidth="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <image>
+                                             <Image url="@picture/cake/condiments/strawberries.png" />
+                                          </image>
+                                          <GridPane.margin>
+                                             <Insets bottom="5.0" />
+                                          </GridPane.margin>
+                                       </ImageView>
+                                       <Label text="Strawberry" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                       <Label layoutX="57.0" layoutY="137.0" text="\$1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                       <Spinner fx:id="spinnerStrawberry" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                    </children>
+                                 </GridPane>
+                                    </items>
+                                 </SplitPane>
+                                 <GridPane alignment="CENTER" layoutX="10.0" layoutY="10.0">
+                                    <columnConstraints>
+                                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="233.4044189453125" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="0.0" prefHeight="33.5" vgrow="SOMETIMES" />
+                                 <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="55.5" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                       <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                                          <children>
+                                             <ImageView fx:id="imgChoosedCake" fitHeight="198.0" fitWidth="203.0" layoutX="81.0" layoutY="16.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@picture/cake/baked-cakes/red-velvet-cake.png" />
+                                                </image>
+                                             </ImageView>
+                                             <ImageView fx:id="imgCondimentOne" fitHeight="33.0" fitWidth="33.0" layoutX="184.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@picture/cake/condiments/macron.png" />
+                                                </image>
+                                             </ImageView>
+                                             <ImageView fx:id="imgCondimentTwo" fitHeight="33.0" fitWidth="33.0" layoutX="168.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@picture/cake/condiments/chocolates.png" />
+                                                </image>
+                                             </ImageView>
+                                             <ImageView fx:id="imgCondimentThree" fitHeight="33.0" fitWidth="33.0" layoutX="139.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+                                                <image>
+                                                   <Image url="@picture/cake/condiments/strawberries.png" />
+                                                </image>
+                                             </ImageView>
+                                          </children>
+                                       </AnchorPane>
+                                       <Label fx:id="labelChoosedCakeName" text="Chocolate" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="18.0" />
+                                          </font>
+                                       </Label>
+                                       <Label fx:id="labelTotalPrice" text="Total Price = $31" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="18.0" />
+                                          </font>
+                                       </Label>
+                                    </children>
+                                 </GridPane>
+                                 <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
+                                   <items>
+                                 <GridPane fx:id="gpChocolate" alignment="CENTER">
+                                    <columnConstraints>
+                                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                       <RowConstraints maxHeight="541.6666259765625" minHeight="10.0" prefHeight="70.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="6.5" prefHeight="17.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="22.5" vgrow="SOMETIMES" />
+                                       <RowConstraints maxHeight="206.0" minHeight="10.0" prefHeight="46.5" vgrow="SOMETIMES" />
+                                    </rowConstraints>
+                                    <children>
+                                       <ImageView fitHeight="77.0" fitWidth="50.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                          <image>
+                                             <Image url="@picture/cake/condiments/chocolates.png" />
+                                          </image>
+                                          <GridPane.margin>
+                                             <Insets bottom="5.0" />
+                                          </GridPane.margin>
+                                       </ImageView>
+                                       <Label text="Chocolate" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                       <Label layoutX="57.0" layoutY="137.0" text="\$1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                                          <font>
+                                             <Font name="Comic Sans MS" size="15.0" />
+                                          </font>
+                                       </Label>
+                                       <Spinner fx:id="spinnerChocolate" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                    </children>
+                                 </GridPane>
+                                       <GridPane layoutX="10.0" layoutY="10.0">
+                                          <columnConstraints>
+                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          </columnConstraints>
+                                          <rowConstraints>
+                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          </rowConstraints>
+                                          <children>
+                                             <Button fx:id="btnPay" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onBtnPayClick" text="Pay" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                                                <font>
+                                                   <Font name="Comic Sans MS" size="20.0" />
+                                                </font>
+                                          <GridPane.margin>
+                                             <Insets bottom="8.0" />
+                                          </GridPane.margin>
+                                             </Button>
+                                             <Button fx:id="btnCancel" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#onBtnCancelClick" text="Cancel" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                                                <font>
+                                                   <Font name="Comic Sans MS" size="20.0" />
+                                                </font>
+                                          <GridPane.margin>
+                                             <Insets top="8.0" />
+                                          </GridPane.margin>
+                                             </Button>
+                                          </children>
+                                       </GridPane>
+                                   </items>
+                                 </SplitPane>
+                              </items>
+                           </SplitPane>
+                        </items>
+                     </SplitPane>
+                  </children>
+               </StackPane>
+            </children></AnchorPane>
+<!--        </Scene>-->
+<!--    </scene>-->
+</AnchorPane>

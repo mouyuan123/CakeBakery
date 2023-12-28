@@ -48,48 +48,48 @@ public class Cake {
     }
 
     public StackPane display(double width, double height) {
-        StackPane pane = new StackPane();
-        try {
-            FileInputStream cakeInput = new FileInputStream(cakeImg);
-            Image cakeImage = new Image(cakeInput, width, height, false, true);
-            ImageView cakeImageView = new ImageView(cakeImage);
-            pane.getChildren().add(cakeImageView);
-        } catch (FileNotFoundException e) {
-            System.out.println("Base cake image not found: " + e.getMessage());
-        }
-
-        double decorationSpacingX = 40.0;
-        double decorationWidth = width * 0.15;
-        double decorationHeight = height * 0.15;
-        double totalDecorationWidth = decorationWidth * decorations.size() + decorationSpacingX * (decorations.size() - 1);
-        double initialTranslateX = -totalDecorationWidth / 2 + decorationWidth / 2;
-
-        for (int i = 0; i < decorations.size(); i++) {
-            String decoration = decorations.get(i);
-            try {
-                String decorationPath = DirConstant.CAKE_PATH + "/" + decoration;
-                FileInputStream decorationInput = new FileInputStream(decorationPath);
-                Image decorationImage = new Image(decorationInput, width, height, false, true);
-                ImageView decorationImageView = new ImageView(decorationImage);
-
-                decorationImageView.setFitWidth(decorationWidth);
-                decorationImageView.setFitHeight(decorationHeight);
-
-                // Position each decoration side by side
-                double translateX = initialTranslateX + i * (decorationWidth + decorationSpacingX);
-                double translateY = -height * 0.2; // Adjust this value as needed
-
-                decorationImageView.setTranslateX(translateX);
-                decorationImageView.setTranslateY(translateY);
-
-                pane.getChildren().add(decorationImageView);
-            } catch (FileNotFoundException e) {
-                System.out.println("Decoration image not found: " + e.getMessage());
-            }
-        }
-
-        return pane;
+    StackPane pane = new StackPane();
+    try {
+        FileInputStream cakeInput = new FileInputStream(cakeImg);
+        Image cakeImage = new Image(cakeInput, width, height, false, true);
+        ImageView cakeImageView = new ImageView(cakeImage);
+        pane.getChildren().add(cakeImageView);
+    } catch (FileNotFoundException e) {
+        System.out.println("Base cake image not found: " + e.getMessage());
     }
+
+    double decorationSpacingX = 40.0; 
+    double decorationWidth = width * 0.15; 
+    double decorationHeight = height * 0.15;
+    double totalDecorationWidth = decorationWidth * decorations.size() + decorationSpacingX * (decorations.size() - 1);
+    double initialTranslateX = -totalDecorationWidth / 2 + decorationWidth / 2; 
+
+    for (int i = 0; i < decorations.size(); i++) {
+        String decoration = decorations.get(i);
+        try {
+            String decorationPath = DirConstant.CAKE_PATH + "/" + decoration;
+            FileInputStream decorationInput = new FileInputStream(decorationPath);
+            Image decorationImage = new Image(decorationInput, width, height, false, true);
+            ImageView decorationImageView = new ImageView(decorationImage);
+
+            decorationImageView.setFitWidth(decorationWidth);
+            decorationImageView.setFitHeight(decorationHeight);
+
+            // Position each decoration side by side
+            double translateX = initialTranslateX + i * (decorationWidth + decorationSpacingX);
+            double translateY = -height * 0.2; // Adjust this value as needed
+
+            decorationImageView.setTranslateX(translateX);
+            decorationImageView.setTranslateY(translateY);
+
+            pane.getChildren().add(decorationImageView);
+        } catch (FileNotFoundException e) {
+            System.out.println("Decoration image not found: " + e.getMessage());
+        }
+    }
+
+    return pane;
+}
 
     public void addDecoration(String decoration) {
         decorations.add(decoration);

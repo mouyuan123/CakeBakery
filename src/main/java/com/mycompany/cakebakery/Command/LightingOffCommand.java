@@ -2,8 +2,6 @@ package com.mycompany.cakebakery.Command;
 
 import com.mycompany.cakebakery.Models.Lighting;
 
-
-
 public class LightingOffCommand implements Command{
     
     private Lighting light;

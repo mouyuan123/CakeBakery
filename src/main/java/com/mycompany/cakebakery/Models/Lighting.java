@@ -11,11 +11,11 @@ public class Lighting {
     }
     
     public void on(){
-        this.LightingEffect = DirConstant.LIGHTING_PATH + "/lighting_on.png";
+        this.LightingEffect = DirConstant.BACKGROUND_PATH + "/light-on-cafe-bakery.png";
     };
     
     public void off(){
-        this.LightingEffect = DirConstant.LIGHTING_PATH + "/lighting_off.png";
+        this.LightingEffect = DirConstant.BACKGROUND_PATH + "/light-closed-cafe-bakery.png";
     };
 
     public String getLightingEffect() {

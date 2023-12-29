@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="512.0" maxWidth="896.0" minHeight="512.0" minWidth="896.0" prefHeight="512.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.cakebakery.CakeBakeryApplication">
+<AnchorPane maxHeight="512.0" maxWidth="896.0" minHeight="512.0" minWidth="896.0" prefHeight="512.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
 <!--    <scene>-->
 <!--        <Scene>-->
             <AnchorPane prefHeight="512.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -43,7 +43,7 @@
                </ImageView>
          <Ellipse fx:id="btnCounter1" fill="TRANSPARENT" layoutX="172.0" layoutY="282.0" onMouseClicked="#onBtnCounterClick" radiusX="32.0" radiusY="32.0" />
          <Ellipse fx:id="btnCounter3" fill="TRANSPARENT" layoutX="751.0" layoutY="304.0" onMouseClicked="#onBtnCounterClick" radiusX="30.0" radiusY="32.0" />
-         <Ellipse fx:id="btnCounter2" fill="TRANSPARENT" layoutX="690.0" layoutY="295.0" onMouseClicked="#onBtnCounterClick" radiusX="25.0" radiusY="31.0"/>
+         <Ellipse fx:id="btnCounter2" fill="TRANSPARENT" layoutX="690.0" layoutY="295.0" onMouseClicked="#onBtnCounterClick" radiusX="25.0" radiusY="31.0" />
          <GridPane fx:id="paneCash" layoutX="739.0" layoutY="2.0" prefHeight="91.0" prefWidth="143.0">
            <columnConstraints>
              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -92,10 +92,10 @@
                            </ImageView>
                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
                               <children>
-                                 <Circle fx:id="btnLightOn" fill="TRANSPARENT" layoutX="263.0" layoutY="99.0" onMouseClicked="#onBtnLightOnClick" radius="23.0"/>
-                                 <Circle fx:id="btnLightOff" fill="TRANSPARENT" layoutX="333.0" layoutY="99.0" onMouseClicked="#onBtnLightOffClick" radius="23.0"/>
+                                 <Circle fx:id="btnLightOn" fill="TRANSPARENT" layoutX="263.0" layoutY="99.0" onMouseClicked="#onBtnLightOnClick" radius="23.0" />
+                                 <Circle fx:id="btnLightOff" fill="TRANSPARENT" layoutX="333.0" layoutY="99.0" onMouseClicked="#onBtnLightOffClick" radius="23.0" />
                                  <Circle fx:id="btnPreviousSong" fill="TRANSPARENT" layoutX="262.0" layoutY="200.0" onMouseClicked="#onBtnPreviousSongClick" radius="23.0" />
-                                 <Circle fx:id="btnNextSong" fill="TRANSPARENT" layoutX="333.0" layoutY="200.0" onMouseClicked="#onBtnNextSongClick" radius="23.0"/>
+                                 <Circle fx:id="btnNextSong" fill="TRANSPARENT" layoutX="333.0" layoutY="200.0" onMouseClicked="#onBtnNextSongClick" radius="23.0" />
                                  <Ellipse fx:id="btnStopMusic" fill="TRANSPARENT" layoutX="262.0" layoutY="288.0" onMouseClicked="#onBtnStopMusicClick" radiusX="27.0" radiusY="31.0" />
                                  <Ellipse fx:id="btnPlayMusic" fill="TRANSPARENT" layoutX="333.0" layoutY="288.0" onMouseClicked="#onBtnPlayMusicClick" radiusX="26.0" radiusY="31.0" />
                                  <Circle fx:id="btnCloseControl" fill="TRANSPARENT" layoutX="340.0" layoutY="42.0" onMouseClicked="#onBtnCloseControlClick" radius="16.0" />
@@ -716,7 +716,16 @@
                      </SplitPane>
                   </children>
                </StackPane>
+         <Button fx:id="btnCloseBakery" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#onBtnCloseBakeryClick" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #F3E5AB; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 10); -fx-font-family: Arial; -fx-font-size: 16px; -fx-text-fill: #5A3A20; -fx-padding: 10 20 10 20;" text="Close" />
+         <AnchorPane fx:id="imgBakeryClosedBackground" prefHeight="512.0" prefWidth="896.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+               <ImageView fitHeight="512.0" fitWidth="896.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@picture/background/shop-closed.png" />
+                  </image>
+               </ImageView>
+               <Button fx:id="btnOpenBakery" layoutX="66.0" layoutY="256.0" mnemonicParsing="false" onMouseClicked="#onBtnOpenBakeryClick" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: #F3E5AB; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 10); -fx-font-family: Arial; -fx-font-size: 16px; -fx-text-fill: #5A3A20; -fx-padding: 10 20 10 20;" text="Open" />
+            </children>
+         </AnchorPane>
             </children></AnchorPane>
-<!--        </Scene>-->
-<!--    </scene>-->
 </AnchorPane>

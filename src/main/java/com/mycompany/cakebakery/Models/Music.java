@@ -7,8 +7,7 @@ public class Music {
     private volatile static Music uniqueMusicInstance;
     
     private boolean off;
-    private String musicImg;
-    private String[] music = new String[] {"/backgroundMusicNormal.mp3", "/backgroundMusicChristmas.mp3", "/backgroundMusicNewYear.mp3", "/backgroundMusicValentine.mp3" };
+    private String[] music = new String[] {"/cafe.mp3", "/lounge.mp3", "/upbeat.mp3", "/piano.mp3", "/happy.mp3" };
     private String curr_music;
     private int music_idx;
     
@@ -30,13 +29,11 @@ public class Music {
     }
     
     public void on(){
-        this.musicImg = DirConstant.SPEAKER_PATH + "/speaker_on.png";
         this.curr_music = DirConstant.SPEAKER_MUSIC_PATH + music[this.music_idx];
         this.off = false;
     }
     
     public void off(){
-        this.musicImg = DirConstant.SPEAKER_PATH + "/speaker_off.png";
         this.curr_music = null;
         this.off = true;
     }
@@ -49,14 +46,6 @@ public class Music {
     public void swapRight(){
         this.music_idx = this.music_idx + 1 >= this.music.length ? 0 : this.music_idx + 1;
         this.curr_music = DirConstant.SPEAKER_MUSIC_PATH + this.music[music_idx];
-    }
-
-    public String getMusicImg() {
-        return musicImg;
-    }
-
-    public void setMusicImg(String musicImg) {
-        this.musicImg = musicImg;
     }
 
     public String getCurr_music() {

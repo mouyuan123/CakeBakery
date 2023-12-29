@@ -628,6 +628,7 @@ import java.util.Optional;
 import static javafx.application.Application.launch;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -669,11 +670,15 @@ public class CakeBakeryApplication extends Application {
     HBox BudgetControlPanel;
     // Check for selected cake at "Menu" screen
     Cake selectedCake;
-
+    
+    @FXML private AnchorPane imgBakeryClosedBackground;
+    @FXML private Button btnOpenBakery;
+    @FXML private Button btnCloseBakery;
     @FXML private StackPane spMain; // This is linked to the StackPane in FXML
     @FXML private GridPane gpControl; // This is linked to the StackPane in FXML
     @FXML private ImageView imgTopUp; // This is linked to the StackPane in FXML
     @FXML private ImageView imgControlInterior;
+    @FXML private ImageView imgBackground;
     @FXML private ImageView imgSpeakerNotes;
     @FXML private Circle btnLightOn;
     @FXML private Circle btnLightOff;
@@ -730,10 +735,39 @@ public class CakeBakeryApplication extends Application {
     @FXML private Button btnPay;
     @FXML private Button btnCancel;
     Music music;
+    Lighting light;
+    CakeBakeryFacade cakeBakeryFacade;
 
     @Override
     public void start(Stage primaryStage) {
         try {
+            CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
+            //Initialise Command Patterns
+            this.light = cakeBakery.getLight();
+            this.music = cakeBakery.getMusic();
+            // Initialise Remote Control
+            this.remote = new RemoteControl();
+            // Initialise a "waiter" (OrderInvoker)
+            this.waiter = new OrderInvoker();
+            // Initialise the "Command" objects
+            LightingOnCommand lightOnCommand = new LightingOnCommand(this.light);
+            LightingOffCommand lightOffCommand = new LightingOffCommand(this.light);
+            MusicOnCommand musicOnCommand = new MusicOnCommand(music);
+            MusicOffCommand musicOffCommand = new MusicOffCommand(music);
+            SwapNextMusicCommand swapNextMusicCommand = new SwapNextMusicCommand(music);
+            SwapPrevMusicCommand swapPrevMusicCommand = new SwapPrevMusicCommand(music);
+            // Set up our "Invoker" with the "Command" objects conditionally based on what button was pressed
+            this.remote.setCommand(0, lightOnCommand, lightOffCommand);
+            this.remote.setCommand(1, musicOnCommand, musicOffCommand);
+            this.remote.setCommand(2, swapPrevMusicCommand, swapNextMusicCommand);
+            this.remote.rightButtonPressed(0);
+            this.remote.rightButtonPressed(1);
+            
+            // Initialise Budget Singleton
+            Budget budget = Budget.getBudgetInstance();
+            
+            // Initialise Cake Bakery Facade
+            this.cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget, waiter);
 
 //            // 2. Instantiate Cake Bakery object (Singleton)
 //        CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
@@ -743,28 +777,38 @@ public class CakeBakeryApplication extends Application {
 ////        Text budgetTxt = new Text("Point: " + budget.getBudget());
 ////        budgetTxt.setFont(Font.font("Verdana", 30));
 //
-//        // 4. Initialise all the necessary set up for Command Design Pattern using cakeBakery instance
-//        // Get the "Receiver" instance from the `CakeBakery`
-//        Lighting lighting = cakeBakery.getLight();
-//        music = cakeBakery.getMusic();
-//        setUpCommandPattern(cakeBakery, lighting, music);
-//
-//            // 5. Initialise all the buttons for remote control
-//        Button lightingOnButton = new Button("Lighting On");
-//        Button lightingOffButton = new Button("Lighting Off");
-//        Button musicOnButton = new Button("Speaker On");
-//        Button musicOffButton = new Button("Speaker Off");
-//        Button swapPrevMusicButton = new Button("Previous Music");
-//        Button swapNextMusicButton = new Button("Next Music");
 
-            Parent root = FXMLLoader.load(getClass().getResource("main-cake-bakery.fxml"));
-             Scene scene = new Scene(root);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("main-cake-bakery.fxml"));
+            loader.setController(this);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Cake Bakery");
             primaryStage.show();
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    @FXML
+    private void onBtnOpenBakeryClick(MouseEvent event){
+        if (mediaPlayer != null){
+            mediaPlayer.stop();
+        }
+        cakeBakeryFacade.onOpen();
+        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        controlBackgroundMusic(music); 
+        imgBakeryClosedBackground.setVisible(false);
+    }
+    
+    @FXML
+    private void onBtnCloseBakeryClick(MouseEvent event){
+        if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+            cakeBakeryFacade.onClose();
+            controlBackgroundMusic(music);
+            this.imgBakeryClosedBackground.setVisible(true);
     }
 
     @FXML
@@ -800,33 +844,50 @@ public class CakeBakeryApplication extends Application {
     @FXML
     private void onBtnLightOnClick(MouseEvent event) {
         // Handle click on btnLightOn
+        this.remote.leftButtonPressed(0);
+        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
     }
 
     @FXML
     private void onBtnLightOffClick(MouseEvent event) {
         // Handle click on btnLightOff
+        this.remote.rightButtonPressed(0);
+        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
     }
 
     @FXML
     private void onBtnPreviousSongClick(MouseEvent event) {
-        // Handle click on btnPreviousSong
+        if (mediaPlayer != null) mediaPlayer.stop();
+        this.remote.leftButtonPressed(2);
+        if (!music.isOff()) {
+            controlBackgroundMusic(music);
+        }
     }
 
     @FXML
     private void onBtnNextSongClick(MouseEvent event) {
-        // Handle click on btnNextSong
+        if (mediaPlayer != null) mediaPlayer.stop();
+        this.remote.rightButtonPressed(2);
+        if (!music.isOff()) {
+            controlBackgroundMusic(music);
+        }
     }
 
     @FXML
     private void onBtnStopMusicClick(MouseEvent event) {
-        // Handle click on btnStopMusic
+        if (mediaPlayer != null) mediaPlayer.stop();
+        this.remote.rightButtonPressed(1);
+        controlBackgroundMusic(music);
+//        imgSpeakerNotes.setVisible(false);
     }
 
     @FXML
     private void onBtnPlayMusicClick(MouseEvent event) {
-//        this.remote.leftButtonPressed(1);
-//        controlBackgroundMusic(music);
-//        imgSpeakerNotes.setVisible(true);
+        if(mediaPlayer == null || !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)){
+            this.remote.leftButtonPressed(1);
+            controlBackgroundMusic(music);
+//            imgSpeakerNotes.setVisible(true);   
+        }
     }
 
     @FXML
@@ -1225,7 +1286,7 @@ public class CakeBakeryApplication extends Application {
             setImageInUI(CakeBakeryLayout, Background.displayView(400, 700, lighting.getLightingEffect()), 0, 0, 4, 3);
 
             // 3. Create music UI
-            setImageInUI(CakeBakeryLayout, Background.displayView(400, 400, music.getMusicImg()), 3, 2, 4, 4);
+//            setImageInUI(CakeBakeryLayout, Background.displayView(400, 400, music.getMusicImg()), 3, 2, 4, 4);
 
             // 4. Dynamic layout / buttons based on the open / close of cake bakery
             if (isClose) {
@@ -1421,6 +1482,10 @@ public class CakeBakeryApplication extends Application {
             media = new Media(new File(path).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
+            imgSpeakerNotes.setVisible(true);
+        }
+        else{
+            imgSpeakerNotes.setVisible(false);
         }
     }
 

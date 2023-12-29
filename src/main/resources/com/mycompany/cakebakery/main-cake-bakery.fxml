@@ -206,7 +206,7 @@
                                     <children>
                                        <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                           <image>
-                                             <Image url="@picture/cake/baked-cakes/chocolate-cake.png" />
+                                             <Image url="@picture/cake/baked-cakes/chocolate-baked-cake.png" />
                                           </image>
                                        </ImageView>
                                        <Label fx:id="labelChocolateCake" text="Chocolate" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -234,7 +234,7 @@
                               <children>
                                  <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                       <Image url="@picture/cake/baked-cakes/vanilla-cake.png" />
+                                       <Image url="@picture/cake/baked-cakes/vanilla-baked-cake.png" />
                                     </image>
                                  </ImageView>
                                  <Label fx:id="labelVanillaCake" text="Vanilla" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -262,7 +262,7 @@
                               <children>
                                  <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                       <Image url="@picture/cake/baked-cakes/tiramisu-cake.png" />
+                                       <Image url="@picture/cake/baked-cakes/tiramisu-baked-cake.png" />
                                     </image>
                                  </ImageView>
                                  <Label fx:id="labelTiramisuCake" text="Tramisu" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -294,7 +294,7 @@
                               <children>
                                  <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                       <Image url="@picture/cake/baked-cakes/red-velvet-cake.png" />
+                                       <Image url="@picture/cake/baked-cakes/red-velvet-baked-cake.png" />
                                     </image>
                                  </ImageView>
                                  <Label fx:id="labelRedVelvetCake" text="Red Velvet" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -322,7 +322,7 @@
                               <children>
                                  <ImageView fitHeight="90.0" fitWidth="90.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                     <image>
-                                       <Image url="@picture/cake/baked-cakes/matcha-cake.png" />
+                                       <Image url="@picture/cake/baked-cakes/matcha-baked-cake.png" />
                                     </image>
                                  </ImageView>
                                  <Label fx:id="labelMatchaCake" text="Matcha" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP">
@@ -564,7 +564,7 @@
                                                    <Font name="Comic Sans MS" size="15.0" />
                                                 </font>
                                              </Label>
-                                             <Spinner fx:id="spinnerMarcron" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                             <Spinner fx:id="spinnerMarcron" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER"  initialValue="0" min="0" max="3"/>
                                           </children>
                                        </GridPane>
                                  <GridPane fx:id="gpStrawberry" alignment="CENTER" layoutX="10.0" layoutY="10.0">
@@ -596,7 +596,7 @@
                                              <Font name="Comic Sans MS" size="15.0" />
                                           </font>
                                        </Label>
-                                       <Spinner fx:id="spinnerStrawberry" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                       <Spinner fx:id="spinnerStrawberry" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER"  initialValue="0" min="0" max="3"/>
                                     </children>
                                  </GridPane>
                                     </items>
@@ -615,7 +615,7 @@
                                           <children>
                                              <ImageView fx:id="imgChoosedCake" fitHeight="198.0" fitWidth="203.0" layoutX="81.0" layoutY="16.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
                                                 <image>
-                                                   <Image url="@picture/cake/baked-cakes/red-velvet-cake.png" />
+                                                   <Image url="@picture/cake/baked-cakes/red-velvet-baked-cake.png" />
                                                 </image>
                                              </ImageView>
                                              <ImageView fx:id="imgCondimentOne" fitHeight="33.0" fitWidth="33.0" layoutX="184.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
@@ -678,7 +678,7 @@
                                              <Font name="Comic Sans MS" size="15.0" />
                                           </font>
                                        </Label>
-                                       <Spinner fx:id="spinnerChocolate" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
+                                       <Spinner fx:id="spinnerChocolate" prefHeight="26.0" prefWidth="84.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER"  initialValue="0" min="0" max="3"/>
                                     </children>
                                  </GridPane>
                                        <GridPane layoutX="10.0" layoutY="10.0">

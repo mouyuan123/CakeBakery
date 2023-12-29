@@ -45,7 +45,6 @@ public abstract class Cake {
     void prepare(){
         System.out.println("Prepare " + flavour);
         System.out.println("Prepare Batter...");
-
     };
 
     void bake(){

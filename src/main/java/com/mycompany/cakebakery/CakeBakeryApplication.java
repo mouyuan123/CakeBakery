@@ -600,6 +600,8 @@ import com.mycompany.cakebakery.Command.RemoteControl;
 import com.mycompany.cakebakery.Command.SwapNextMusicCommand;
 import com.mycompany.cakebakery.Command.SwapPrevMusicCommand;
 import com.mycompany.cakebakery.Facade.CakeBakeryFacade;
+import com.mycompany.cakebakery.FactoryMethod.BakedCakeFactory;
+import com.mycompany.cakebakery.FactoryMethod.CrepeCakeFactory;
 import com.mycompany.cakebakery.Models.Background;
 import com.mycompany.cakebakery.Models.Budget;
 import com.mycompany.cakebakery.Models.Cake;
@@ -608,9 +610,13 @@ import com.mycompany.cakebakery.Models.CakeBakery;
 import com.mycompany.cakebakery.Models.Lighting;
 import com.mycompany.cakebakery.Models.Menu;
 import com.mycompany.cakebakery.Models.Music;
+
 import java.io.File;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -624,8 +630,11 @@ import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
+
 import static javafx.application.Application.launch;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
@@ -637,7 +646,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 /**
  * JavaFX App
@@ -668,68 +676,132 @@ public class CakeBakeryApplication extends Application {
     //Budget Control Panel (Singleton)
     HBox BudgetControlPanel;
     // Check for selected cake at "Menu" screen
+
+    @FXML
+    private StackPane spMain; // This is linked to the StackPane in FXML
+    @FXML
+    private GridPane gpControl; // This is linked to the StackPane in FXML
+    @FXML
+    private ImageView imgTopUp; // This is linked to the StackPane in FXML
+    @FXML
+    private ImageView imgControlInterior;
+    @FXML
+    private ImageView imgSpeakerNotes;
+    @FXML
+    private Circle btnLightOn;
+    @FXML
+    private Circle btnLightOff;
+    @FXML
+    private Circle btnPreviousSong;
+    @FXML
+    private Circle btnNextSong;
+    @FXML
+    private Ellipse btnStopMusic;
+    @FXML
+    private Ellipse btnPlayMusic;
+    @FXML
+    private Ellipse btnCounter1;
+    @FXML
+    private Ellipse btnCounter2;
+    @FXML
+    private Ellipse btnCounter3;
+    @FXML
+    private Circle btnCloseControl;
+    @FXML
+    private SplitPane spCakeType;
+    @FXML
+    private Button btnCrossCakeType;
+    @FXML
+    private GridPane gpBakedCakes;
+    @FXML
+    private GridPane gpCrepeCakes;
+    @FXML
+    private SplitPane spBaseCake;
+    @FXML
+    private Button btnCrossBaseCake;
+    @FXML
+    private GridPane gpChocolateCake;
+    @FXML
+    private Label labelChocolateCake;
+    @FXML
+    private GridPane gpVanillaCake;
+    @FXML
+    private Label labelVanillaCake;
+    @FXML
+    private GridPane gpTiramisuCake;
+    @FXML
+    private Label labelTiramisuCake;
+    @FXML
+    private GridPane gpRedVelvetCake;
+    @FXML
+    private Label labelRedVelvetCake;
+    @FXML
+    private GridPane gpMatchaCake;
+    @FXML
+    private Label labelMatchaCake;
+    @FXML
+    private SplitPane spCrepeCake;
+    @FXML
+    private Button btnCrossCrepeCake;
+    @FXML
+    private GridPane gpChocolateCrepeCake;
+    @FXML
+    private Label labelChocolateCrepeCake;
+    @FXML
+    private GridPane gpVanillaCrepeCake;
+    @FXML
+    private Label labelVanillaCrepeCake;
+    @FXML
+    private GridPane gpTiramisuCrepeCake;
+    @FXML
+    private Label labelTiramisuCrepeCake;
+    @FXML
+    private GridPane gpRedVelvetCrepeCake;
+    @FXML
+    private Label labelRedVelvetCrepeCake;
+    @FXML
+    private GridPane gpMatchaCrepeCake;
+    @FXML
+    private Label labelMatchaCrepeCake;
+    @FXML
+    private SplitPane spCondiments;
+    @FXML
+    private Button btnCrossCondiments;
+    @FXML
+    private GridPane gpMacron;
+    @FXML
+    private Spinner<Integer> spinnerMarcron ;
+    @FXML
+    private GridPane gpStrawberry;
+    @FXML
+    private Spinner<Integer> spinnerStrawberry;
+    @FXML
+    private ImageView imgChoosedCake;
+    @FXML
+    private ImageView imgCondimentOne;
+    @FXML
+    private ImageView imgCondimentTwo;
+    @FXML
+    private ImageView imgCondimentThree;
+    @FXML
+    private Label labelChoosedCakeName;
+    @FXML
+    private Label labelTotalPrice;
+    @FXML
+    private GridPane gpChocolate;
+    @FXML
+    private Spinner<Integer> spinnerChocolate ;
+    @FXML
+    private Button btnPay;
+    @FXML
+    private Button btnCancel;
+    Music music;
+
     Cake selectedCake;
 
-    @FXML private StackPane spMain; // This is linked to the StackPane in FXML
-    @FXML private GridPane gpControl; // This is linked to the StackPane in FXML
-    @FXML private ImageView imgTopUp; // This is linked to the StackPane in FXML
-    @FXML private ImageView imgControlInterior;
-    @FXML private ImageView imgSpeakerNotes;
-    @FXML private Circle btnLightOn;
-    @FXML private Circle btnLightOff;
-    @FXML private Circle btnPreviousSong;
-    @FXML private Circle btnNextSong;
-    @FXML private Ellipse btnStopMusic;
-    @FXML private Ellipse btnPlayMusic;
-    @FXML private Ellipse btnCounter1;
-    @FXML private Ellipse btnCounter2;
-    @FXML private Ellipse btnCounter3;
-    @FXML private Circle btnCloseControl;
-    @FXML private SplitPane spCakeType;
-    @FXML private Button btnCrossCakeType;
-    @FXML private GridPane gpBakedCakes;
-    @FXML private GridPane gpCrepeCakes;
-    @FXML private SplitPane spBaseCake;
-    @FXML private Button btnCrossBaseCake;
-    @FXML private GridPane gpChocolateCake;
-    @FXML private Label labelChocolateCake;
-    @FXML private GridPane gpVanillaCake;
-    @FXML private Label labelVanillaCake;
-    @FXML private GridPane gpTiramisuCake;
-    @FXML private Label labelTiramisuCake;
-    @FXML private GridPane gpRedVelvetCake;
-    @FXML private Label labelRedVelvetCake;
-    @FXML private GridPane gpMatchaCake;
-    @FXML private Label labelMatchaCake;
-    @FXML private SplitPane spCrepeCake;
-    @FXML private Button btnCrossCrepeCake;
-    @FXML private GridPane gpChocolateCrepeCake;
-    @FXML private Label labelChocolateCrepeCake;
-    @FXML private GridPane gpVanillaCrepeCake;
-    @FXML private Label labelVanillaCrepeCake;
-    @FXML private GridPane gpTiramisuCrepeCake;
-    @FXML private Label labelTiramisuCrepeCake;
-    @FXML private GridPane gpRedVelvetCrepeCake;
-    @FXML private Label labelRedVelvetCrepeCake;
-    @FXML private GridPane gpMatchaCrepeCake;
-    @FXML private Label labelMatchaCrepeCake;
-    @FXML private SplitPane spCondiments;
-    @FXML private Button btnCrossCondiments;
-    @FXML private GridPane gpMacron;
-    @FXML private Spinner<?> spinnerMacron;
-    @FXML private GridPane gpStrawberry;
-    @FXML private Spinner<?> spinnerStrawberry;
-    @FXML private ImageView imgChoosedCake;
-    @FXML private ImageView imgCondimentOne;
-    @FXML private ImageView imgCondimentTwo;
-    @FXML private ImageView imgCondimentThree;
-    @FXML private Label labelChoosedCakeName;
-    @FXML private Label labelTotalPrice;
-    @FXML private GridPane gpChocolate;
-    @FXML private Spinner<?> spinnerChocolate;
-    @FXML private Button btnPay;
-    @FXML private Button btnCancel;
-    Music music;
+    String selectedCakeName;
+    String selectedCakeType;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -758,20 +830,29 @@ public class CakeBakeryApplication extends Application {
 //        Button swapNextMusicButton = new Button("Next Music");
 
             Parent root = FXMLLoader.load(getClass().getResource("main-cake-bakery.fxml"));
-             Scene scene = new Scene(root);
+            Scene scene = new Scene(root);
+
+
             primaryStage.setScene(scene);
             primaryStage.setTitle("Cake Bakery");
             primaryStage.show();
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    public void onImgControlClicked(MouseEvent event){
+    public void onImgControlClicked(MouseEvent event) {
         spMain.setVisible(true);
         gpControl.setVisible(true);
     }
+
+    @FXML
+    private void onBtnCounterClick(MouseEvent event) {
+        spMain.setVisible(true);
+        spCakeType.setVisible(true);
+    }
+
     @FXML
     private void onImgCashTagClick(MouseEvent event) {
         // Handle click on imgCashTag
@@ -830,14 +911,14 @@ public class CakeBakeryApplication extends Application {
     }
 
     @FXML
-    private void onBtnCloseControlClick(MouseEvent event) {
-        spMain.setVisible(false);
-        gpControl.setVisible(false);
+    private void onSpCakeTypeClick(MouseEvent event) {
+        // Handle click on spCakeType
     }
 
     @FXML
-    private void onSpCakeTypeClick(MouseEvent event) {
-        // Handle click on spCakeType
+    private void onBtnCloseControlClick(MouseEvent event) {
+        spMain.setVisible(false);
+        gpControl.setVisible(false);
     }
 
     @FXML
@@ -859,87 +940,41 @@ public class CakeBakeryApplication extends Application {
         spCrepeCake.setVisible(true);
     }
 
-
-    @FXML
-    private void onSpBaseCakeClick(MouseEvent event) {
-        // Handle click on spBaseCake
-    }
-
     @FXML
     private void onBtnCrossBaseCakeClick(MouseEvent event) {
         spMain.setVisible(false);
         spBaseCake.setVisible(false);
     }
 
-    @FXML
-    private void onGpChocolateCakeClick(MouseEvent event) {
-        spBaseCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/baked-cakes/chocolate-cake.png"));
-    }
 
     @FXML
-    private void onLabelChocolateCakeClick(MouseEvent event) {
-        // Handle click on labelChocolateCake
+    private void onGpChocolateCakeClick(MouseEvent event) {
+        setSelectedCakeUI("Chocolate", "Baked Cake");
+
     }
 
     @FXML
     private void onGpVanillaCakeClick(MouseEvent event) {
-        spBaseCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/baked-cakes/vanilla-cake.png"));
-    }
+        setSelectedCakeUI("Vanilla", "Baked Cake");
 
-    @FXML
-    private void onLabelVanillaCakeClick(MouseEvent event) {
-        // Handle click on labelVanillaCake
     }
 
     @FXML
     private void onGpTiramisuCakeClick(MouseEvent event) {
-        spBaseCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/baked-cakes/tiramisu-cake.png"));
-    }
+        setSelectedCakeUI("Tiramisu", "Baked Cake");
 
-    @FXML
-    private void onLabelTiramisuCakeClick(MouseEvent event) {
-        // Handle click on labelTiramisuCake
-    }
-
-    @FXML
-    private void onBtnCounterClick(MouseEvent event) {
-        spMain.setVisible(true);
-        spCakeType.setVisible(true);
     }
 
     @FXML
     private void onGpRedVelvetCakeClick(MouseEvent event) {
-        spBaseCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/baked-cakes/red-velvet-cake.png"));
-    }
+        setSelectedCakeUI("Red Velvet", "Baked Cake");
 
-    @FXML
-    private void onLabelRedVelvetCakeClick(MouseEvent event) {
-        // Handle click on labelRedVelvetCake
     }
 
     @FXML
     private void onGpMatchaCakeClick(MouseEvent event) {
-        spBaseCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/baked-cakes/matcha-cake.png"));
-    }
+        setSelectedCakeUI("Matcha", "Baked Cake");
 
-    @FXML
-    private void onLabelMatchaCakeClick(MouseEvent event) {
-        // Handle click on labelMatchaCake
-    }
-
-    @FXML
-    private void onSpCrepeCakeClick(MouseEvent event) {
-        // Handle click on spCrepeCake
     }
 
     @FXML
@@ -947,45 +982,35 @@ public class CakeBakeryApplication extends Application {
         spMain.setVisible(false);
         spCrepeCake.setVisible(false);
     }
-    @FXML
-    private void onGpChocolateCrepeCakeClick(MouseEvent event) {
-        spCrepeCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/crepe-cakes/chocolate-crepe-cake.png"));
-    }
 
     @FXML
-    private void onLabelChocolateCrepeCakeClick(MouseEvent event) {
-        // Handle click on btnCrossCrepeCake
+    private void onGpChocolateCrepeCakeClick(MouseEvent event) {
+        setSelectedCakeUI("Chocolate", "Crepe Cake");
+
     }
 
     @FXML
     private void onGpVanillaCrepeCakeClick(MouseEvent event) {
-        spCrepeCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/crepe-cakes/vanilla-crepe-cake.png"));
+        setSelectedCakeUI("Vanilla", "Crepe Cake");
+
     }
 
     @FXML
     private void onGpTiramisuCrepeCakeClick(MouseEvent event) {
-        spCrepeCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/crepe-cakes/tiramisu-crepe-cake.png"));
+        setSelectedCakeUI("Tiramisu", "Crepe Cake");
+
     }
 
     @FXML
     private void onGpRedVelvetCrepeCakeClick(MouseEvent event) {
-        spCrepeCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/crepe-cakes/red-velvet-crepe-cake.png"));
+        setSelectedCakeUI("Red Velvet", "Crepe Cake");
     }
 
     @FXML
     private void onGpMatchaCrepeCakeClick(MouseEvent event) {
-        spCrepeCake.setVisible(false);
-        spCondiments.setVisible(true);
-        imgChoosedCake.setImage(new Image("com/mycompany/cakebakery/picture/cake/crepe-cakes/matcha-crepe-cake.png"));
+        setSelectedCakeUI("Matcha", "Crepe Cake");
     }
+
     @FXML
     private void onBtnCrossCondimentsClick(MouseEvent event) {
         spMain.setVisible(false);
@@ -994,24 +1019,256 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnPayClick(MouseEvent event) {
-        // Handle click on btnCrossCrepeCake
-    }
-    @FXML
-    private void onBtnCancelClick(MouseEvent event) {
+        if (selectedCakeType.equals("Crepe Cake")) {
+            CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
+            crepeCakeFactory.orderCake(selectedCakeName.toLowerCase());
+        } else if (selectedCakeType.equals("Baked Cake")) {
+            BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
+            bakedCakeFactory.orderCake(selectedCakeName.toLowerCase());
+        }
         spMain.setVisible(false);
         spCondiments.setVisible(false);
     }
 
-    private void showCondimentPageSettings(){
+    @FXML
+    private void onBtnCancelClick(MouseEvent event) {
+        spMain.setVisible(false);
+        spCondiments.setVisible(false);
+        resetAllSpinners();
+    }
+
+    private void showCondimentPageSettings() {
         imgCondimentOne.setImage(new Image(""));
         imgCondimentTwo.setImage(new Image(""));
         imgCondimentThree.setImage(new Image(""));
 
     }
 
+    private void setSelectedCakeUI(String cakeName, String cakeType) {
+        // Set the visibility of the panels
+        spCrepeCake.setVisible(false);
+        spCondiments.setVisible(true);
+
+        // Construct the image path using the cakeName and cakeType
+        String imagePath = String.format("com/mycompany/cakebakery/picture/cake/%ss/%s-%s.png", cakeType.toLowerCase().replace(" ", "-"), cakeName.toLowerCase().replace(" ", "-"), cakeType.toLowerCase().replace(" ", "-"));
+
+        // Set the image to the ImageView
+        imgChoosedCake.setImage(new Image(imagePath));
+
+        // Set the selected cake name and type as class members if needed
+        selectedCakeName = cakeName;
+        selectedCakeType = cakeType;
+
+        // Update the label text
+        labelChoosedCakeName.setText(selectedCakeName + " " + selectedCakeType);
+        initializeSpinner();
 
 
+    }
 
+    private Alert alert = null;
+
+    // ...
+
+    private boolean ignoreChange = false; // flag to ignore listener when programmatically setting value
+
+    // ...
+
+//    private void initializeSpinner() {
+//        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+//            if (!ignoreChange) {
+//                int total = calculateTotal();
+//                if (total > 3) {
+//                    ignoreChange = true; // Set the flag to ignore subsequent changes
+//
+//                    resetAllSpinners(); // Reset all spinners to zero immediately
+//
+//                    Platform.runLater(() -> {
+//                        showAlert(); // Show the alert
+//                        // The flag will be reset after the alert is dismissed within showAlert
+//                    });
+//                }
+//            }
+//        };
+//
+//        spinnerStrawberry.valueProperty().addListener(listener);
+//        spinnerMarcron.valueProperty().addListener(listener);
+//        spinnerChocolate.valueProperty().addListener(listener);
+//    }
+//
+//
+//    private void resetAllSpinners() {
+//        spinnerStrawberry.getValueFactory().setValue(0);
+//        spinnerMarcron.getValueFactory().setValue(0);
+//        spinnerChocolate.getValueFactory().setValue(0);
+//        spinnerChocolate.getEditor().setAlignment(Pos.CENTER);
+//        spinnerMarcron.getEditor().setAlignment(Pos.CENTER);
+//        spinnerStrawberry.getEditor().setAlignment(Pos.CENTER);
+//    }
+//
+//    private void showAlert() {
+//        // Only create a new alert if there isn't one already showing
+//        if (alert == null || !alert.isShowing()) {
+//            alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Limit Exceeded");
+//            alert.setHeaderText(null);
+//            alert.setContentText("The total cannot exceed 3.");
+//
+//            // This will block the calling thread, so it's okay to reset the ignoreChange flag after it
+//            alert.showAndWait();
+//
+//            // After the alert is dismissed, reset the flag
+//            ignoreChange = false;
+//
+////            initializeSpinner();
+//        }
+//    }
+
+//    private void initializeSpinner() {
+//        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+//            if (!ignoreChange) {
+//                int total = calculateTotal();
+//                if (total > 3) {
+//                    ignoreChange = true; // Set the flag to ignore subsequent changes
+//
+//                    resetAllSpinners(); // Reset all spinners to zero immediately
+//
+//                    Platform.runLater(() -> {
+//                        showAlert(); // Show the alert
+//                    });
+//                }
+//            }
+//        };
+//
+//        spinnerStrawberry.valueProperty().addListener(listener);
+//        spinnerMarcron.valueProperty().addListener(listener);
+//        spinnerChocolate.valueProperty().addListener(listener);
+//    }
+//
+    private void resetAllSpinners() {
+        spinnerStrawberry.getValueFactory().setValue(0);
+        spinnerMarcron.getValueFactory().setValue(0);
+        spinnerChocolate.getValueFactory().setValue(0);
+        // Center alignment can be set here or in the FXML/CSS
+    }
+//
+//    private void showAlert() {
+//        if (alert == null || !alert.isShowing()) {
+//            alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Limit Exceeded");
+//            alert.setHeaderText(null);
+//            alert.setContentText("The total cannot exceed 3.");
+//            alert.showAndWait();
+//            ignoreChange = false;
+//        }
+//    }
+//
+//    private int calculateTotal() {
+//        return spinnerStrawberry.getValue() + spinnerMarcron.getValue() + spinnerChocolate.getValue();
+//    }
+
+    private void initializeSpinner() {
+        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (!ignoreChange) {
+                updateSpinnerMaximums();
+            }
+            updateImageViews();
+        };
+
+        updateImageViews();
+        spinnerStrawberry.valueProperty().addListener(listener);
+        spinnerMarcron.valueProperty().addListener(listener);
+        spinnerChocolate.valueProperty().addListener(listener);
+    }
+
+    private void updateSpinnerMaximums() {
+        int total = calculateTotal();
+
+        int maxForStrawberry = Math.max(0, 3 - total + spinnerStrawberry.getValue());
+        spinnerStrawberry.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForStrawberry, spinnerStrawberry.getValue()));
+
+        int maxForMarcron = Math.max(0, 3 - total + spinnerMarcron.getValue());
+        spinnerMarcron.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForMarcron, spinnerMarcron.getValue()));
+
+        int maxForChocolate = Math.max(0, 3 - total + spinnerChocolate.getValue());
+        spinnerChocolate.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForChocolate, spinnerChocolate.getValue()));
+    }
+
+
+    private int calculateTotal() {
+        return spinnerStrawberry.getValue() + spinnerMarcron.getValue() + spinnerChocolate.getValue();
+    }
+
+    private void updateImageViews() {
+        // First, clear all images
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
+
+        // Now, load the images based on the spinner values
+        int totalCondiments = 0;
+        Image strawberryImage = loadImage("/com/mycompany/cakebakery/picture/cake/condiments/strawberries.png");
+        Image macronImage = loadImage("/com/mycompany/cakebakery/picture/cake/condiments/macron.png");
+        Image chocolateImage = loadImage("/com/mycompany/cakebakery/picture/cake/condiments/chocolates.png");
+
+
+        // Update for strawberries
+        for (int i = 0; i < spinnerStrawberry.getValue(); i++) {
+            if (totalCondiments == 0) {
+                imgCondimentOne.setImage(strawberryImage);
+            } else if (totalCondiments == 1) {
+                imgCondimentTwo.setImage(strawberryImage);
+            } else if (totalCondiments == 2) {
+                imgCondimentThree.setImage(strawberryImage);
+            }
+            totalCondiments++;
+        }
+
+        // Update for macrons
+        for (int i = 0; i < spinnerMarcron.getValue(); i++) {
+            if (totalCondiments == 0) {
+                imgCondimentOne.setImage(macronImage);
+            } else if (totalCondiments == 1) {
+                imgCondimentTwo.setImage(macronImage);
+            } else if (totalCondiments == 2) {
+                imgCondimentThree.setImage(macronImage);
+            }
+            totalCondiments++;
+        }
+
+        // Update for chocolate
+        for (int i = 0; i < spinnerChocolate.getValue(); i++) {
+            if (totalCondiments == 0) {
+                imgCondimentOne.setImage(chocolateImage);
+            } else if (totalCondiments == 1) {
+                imgCondimentTwo.setImage(chocolateImage);
+            } else if (totalCondiments == 2) {
+                imgCondimentThree.setImage(chocolateImage);
+            }
+            totalCondiments++;
+        }
+    }
+
+
+    private Image loadImage(String resourcePath) {
+        InputStream stream = getClass().getResourceAsStream(resourcePath);
+        if (stream == null) {
+            throw new RuntimeException("Cannot get resource " + resourcePath);
+        }
+        return new Image(stream);
+    }
+
+//    private void showAlert() {
+//        if (alert == null || !alert.isShowing()) {
+//            Platform.runLater(() -> {
+//                alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setTitle("Limit Exceeded");
+//                alert.setHeaderText(null);
+//                alert.setContentText("The total cannot exceed 3.");
+//                alert.showAndWait();
+//            });
+//        }
+//    }
 
 
 //    @Override

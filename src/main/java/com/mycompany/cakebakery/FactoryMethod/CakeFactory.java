@@ -12,7 +12,7 @@ public abstract class CakeFactory {
         cake.bake();
         cake.prepareCakeComponents();
         cake.assemble();
-//        cake.decorate();
+        cake.decorate();
         cake.chill();
         cake.box();
         return cake;

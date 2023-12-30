@@ -927,7 +927,7 @@ public class CakeBakeryApplication extends Application {
             mediaPlayer.stop();
         }
         cakeBakeryFacade.onOpen();
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
         controlBackgroundMusic(music); 
         imgBakeryClosedBackground.setVisible(false);
     }
@@ -983,14 +983,14 @@ public class CakeBakeryApplication extends Application {
     private void onBtnLightOnClick(MouseEvent event) {
         // Handle click on btnLightOn
         this.remote.leftButtonPressed(0);
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
     }
 
     @FXML
     private void onBtnLightOffClick(MouseEvent event) {
         // Handle click on btnLightOff
         this.remote.rightButtonPressed(0);
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
     }
 
     @FXML

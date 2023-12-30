@@ -14,12 +14,15 @@ public class Cake {
     private String flavour;
     private double price;
     private String cakeImg;
+
+    private String cakeType;
     private List<String> decorations;
 
-    public Cake(String flavour, double price, String cakeImg) {
+    public Cake(String flavour, double price, String cakeImg, String cakeType) {
         this.flavour = flavour;
         this.price = price;
         this.cakeImg = cakeImg;
+         this.cakeType = cakeType;
         this.decorations = new ArrayList<>();
     }
 
@@ -45,6 +48,14 @@ public class Cake {
 
     public void setCakeImg(String cakeImg) {
         this.cakeImg = cakeImg;
+    }
+
+    public String getCakeType() {
+        return cakeType;
+    }
+
+    public void setCakeType(String cakeType) {
+        this.cakeType = cakeType;
     }
 
     public StackPane display(double width, double height) {

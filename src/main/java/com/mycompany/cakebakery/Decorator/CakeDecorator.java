@@ -8,7 +8,7 @@ public abstract class CakeDecorator extends Cake {
     protected Cake cake;
 
     public CakeDecorator(Cake newCake) {
-        super(newCake.getFlavour(), newCake.getPrice(), newCake.getCakeImg());
+        super(newCake.getFlavour(), newCake.getPrice(), newCake.getCakeImg(), newCake.getCakeType());
         this.cake = newCake;
     }
 

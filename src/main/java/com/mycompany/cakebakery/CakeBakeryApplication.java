@@ -1043,6 +1043,8 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private Button btnTopUpCancel;
+    @FXML
+    private TextArea taTopUpValue;
 
 
     @FXML
@@ -1139,7 +1141,7 @@ public class CakeBakeryApplication extends Application {
             gpTopUp.setVisible(true);
 //            btnTopUpCancel.setVisible(false);
             isFirstTimeOpenRestaurant = false;
-            }
+        }
     }
 
     public void setMenu(Menu menu) {
@@ -1215,6 +1217,7 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onTopUpCancelClick(MouseEvent event) {
+
         spMain.setVisible(false);
         gpTopUp.setVisible(false);
     }
@@ -1222,11 +1225,13 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onbtnTopUpOKClick(MouseEvent event) {
+        taTopUpValue.getText();
+        System.out.println(taTopUpValue.getText()
+        );
+        taTopUpValue.setText("");
         spMain.setVisible(false);
         gpTopUp.setVisible(false);
     }
-
-
 
 
     @FXML

@@ -6,9 +6,9 @@ public class CondimentFactory {
     public Condiment createCondiment(String type) {
         switch (type) {
             case "chocolate chips":
-                return new ChocolateChips();
+                return new Chocolate();
             case "macaron":
-                return new Macaron();
+                return new Macaroon();
             case "strawberry":
                 return new Strawberry();
             default:

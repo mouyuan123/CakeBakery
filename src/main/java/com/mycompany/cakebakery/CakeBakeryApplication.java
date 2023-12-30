@@ -949,7 +949,6 @@ public class CakeBakeryApplication extends Application {
 
     Cake choosedCake;
 
-
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -1017,49 +1016,49 @@ public class CakeBakeryApplication extends Application {
 
     public void setMenu(Menu menu){
         bakedCakesList = menu.getBakedCakes();
-        imgBakedCake1.setImage(loadImage(bakedCakesList.get(0).getCakeImg()));
-        labelBakedCake1.setText(bakedCakesList.get(0).getFlavour());
-        labelBakedCakePrice1.setText("$" + Double.toString(bakedCakesList.get(0).getPrice()));
-        imgBakedCake2.setImage(loadImage(bakedCakesList.get(1).getCakeImg()));
-        labelBakedCake2.setText(bakedCakesList.get(1).getFlavour());
-        labelBakedCakePrice2.setText("$" + Double.toString(bakedCakesList.get(1).getPrice()));
-        imgBakedCake3.setImage(loadImage(bakedCakesList.get(2).getCakeImg()));
-        labelBakedCake3.setText(bakedCakesList.get(2).getFlavour());
-        labelBakedCakePrice3.setText("$" + Double.toString(bakedCakesList.get(2).getPrice()));
-        imgBakedCake4.setImage(loadImage(bakedCakesList.get(3).getCakeImg()));
-        labelBakedCake4.setText(bakedCakesList.get(3).getFlavour());
-        labelBakedCakePrice4.setText("$" + Double.toString(bakedCakesList.get(3).getPrice()));
-        imgBakedCake5.setImage(loadImage(bakedCakesList.get(4).getCakeImg()));
-        labelBakedCake5.setText(bakedCakesList.get(4).getFlavour());
-        labelBakedCakePrice5.setText("$" + Double.toString(bakedCakesList.get(4).getPrice()));
+        imgBakedCake1.setImage(loadImage(bakedCakesList.get(0).getCakeItemImg()));
+        labelBakedCake1.setText(bakedCakesList.get(0).getCakeItemName());
+        labelBakedCakePrice1.setText("$" + Double.toString(bakedCakesList.get(0).getCakeItemPrice()));
+        imgBakedCake2.setImage(loadImage(bakedCakesList.get(1).getCakeItemImg()));
+        labelBakedCake2.setText(bakedCakesList.get(1).getCakeItemName());
+        labelBakedCakePrice2.setText("$" + Double.toString(bakedCakesList.get(1).getCakeItemPrice()));
+        imgBakedCake3.setImage(loadImage(bakedCakesList.get(2).getCakeItemImg()));
+        labelBakedCake3.setText(bakedCakesList.get(2).getCakeItemName());
+        labelBakedCakePrice3.setText("$" + Double.toString(bakedCakesList.get(2).getCakeItemPrice()));
+        imgBakedCake4.setImage(loadImage(bakedCakesList.get(3).getCakeItemImg()));
+        labelBakedCake4.setText(bakedCakesList.get(3).getCakeItemName());
+        labelBakedCakePrice4.setText("$" + Double.toString(bakedCakesList.get(3).getCakeItemPrice()));
+        imgBakedCake5.setImage(loadImage(bakedCakesList.get(4).getCakeItemImg()));
+        labelBakedCake5.setText(bakedCakesList.get(4).getCakeItemName());
+        labelBakedCakePrice5.setText("$" + Double.toString(bakedCakesList.get(4).getCakeItemPrice()));
 
         crepeCakesList = menu.getCrepeCakes();
-        imgCrepeCake1.setImage(loadImage(crepeCakesList.get(0).getCakeImg()));
-        labelCrepeCake1.setText(crepeCakesList.get(0).getFlavour());
-        labelCrepeCakePrice1.setText("$" + Double.toString(crepeCakesList.get(0).getPrice()));
-        imgCrepeCake2.setImage(loadImage(crepeCakesList.get(1).getCakeImg()));
-        labelCrepeCake2.setText(crepeCakesList.get(1).getFlavour());
-        labelCrepeCakePrice2.setText("$" + Double.toString(crepeCakesList.get(1).getPrice()));
-        imgCrepeCake3.setImage(loadImage(crepeCakesList.get(2).getCakeImg()));
-        labelCrepeCake3.setText(crepeCakesList.get(2).getFlavour());
-        labelCrepeCakePrice3.setText("$" + Double.toString(crepeCakesList.get(2).getPrice()));
-        imgCrepeCake4.setImage(loadImage(crepeCakesList.get(3).getCakeImg()));
-        labelCrepeCake4.setText(crepeCakesList.get(3).getFlavour());
-        labelCrepeCakePrice4.setText("$" + Double.toString(crepeCakesList.get(3).getPrice()));
-        imgCrepeCake5.setImage(loadImage(crepeCakesList.get(4).getCakeImg()));
-        labelCrepeCake5.setText(crepeCakesList.get(4).getFlavour());
-        labelCrepeCakePrice5.setText("$" + Double.toString(crepeCakesList.get(4).getPrice()));
+        imgCrepeCake1.setImage(loadImage(crepeCakesList.get(0).getCakeItemImg()));
+        labelCrepeCake1.setText(crepeCakesList.get(0).getCakeItemName());
+        labelCrepeCakePrice1.setText("$" + Double.toString(crepeCakesList.get(0).getCakeItemPrice()));
+        imgCrepeCake2.setImage(loadImage(crepeCakesList.get(1).getCakeItemImg()));
+        labelCrepeCake2.setText(crepeCakesList.get(1).getCakeItemName());
+        labelCrepeCakePrice2.setText("$" + Double.toString(crepeCakesList.get(1).getCakeItemPrice()));
+        imgCrepeCake3.setImage(loadImage(crepeCakesList.get(2).getCakeItemImg()));
+        labelCrepeCake3.setText(crepeCakesList.get(2).getCakeItemName());
+        labelCrepeCakePrice3.setText("$" + Double.toString(crepeCakesList.get(2).getCakeItemPrice()));
+        imgCrepeCake4.setImage(loadImage(crepeCakesList.get(3).getCakeItemImg()));
+        labelCrepeCake4.setText(crepeCakesList.get(3).getCakeItemName());
+        labelCrepeCakePrice4.setText("$" + Double.toString(crepeCakesList.get(3).getCakeItemPrice()));
+        imgCrepeCake5.setImage(loadImage(crepeCakesList.get(4).getCakeItemImg()));
+        labelCrepeCake5.setText(crepeCakesList.get(4).getCakeItemName());
+        labelCrepeCakePrice5.setText("$" + Double.toString(crepeCakesList.get(4).getCakeItemPrice()));
 
         condimentsList = menu.getCondiments();
-        imgCondiment1.setImage(loadImage(condimentsList.get(0).getCondimentImg()));
-        labelCondiment1.setText(condimentsList.get(0).getCondimentName());
-        labelCondimentPrice1.setText("$" +Double.toString(condimentsList.get(0).getPrice()));
-        imgCondiment2.setImage(loadImage(condimentsList.get(1).getCondimentImg()));
-        labelCondiment2.setText(condimentsList.get(1).getCondimentName());
-        labelCondimentPrice2.setText("$" +Double.toString(condimentsList.get(1).getPrice()));
-        imgCondiment3.setImage(loadImage(condimentsList.get(2).getCondimentImg()));
-        labelCondiment3.setText(condimentsList.get(2).getCondimentName());
-        labelCondimentPrice3.setText("$" +Double.toString(condimentsList.get(2).getPrice()));
+        imgCondiment1.setImage(loadImage(condimentsList.get(0).getCakeItemImg()));
+        labelCondiment1.setText(condimentsList.get(0).getCakeItemName());
+        labelCondimentPrice1.setText("$" +Double.toString(condimentsList.get(0).getCakeItemPrice()));
+        imgCondiment2.setImage(loadImage(condimentsList.get(1).getCakeItemImg()));
+        labelCondiment2.setText(condimentsList.get(1).getCakeItemName());
+        labelCondimentPrice2.setText("$" +Double.toString(condimentsList.get(1).getCakeItemPrice()));
+        imgCondiment3.setImage(loadImage(condimentsList.get(2).getCakeItemImg()));
+        labelCondiment3.setText(condimentsList.get(2).getCakeItemName());
+        labelCondimentPrice3.setText("$" +Double.toString(condimentsList.get(2).getCakeItemPrice()));
 
     }
 
@@ -1352,20 +1351,15 @@ public class CakeBakeryApplication extends Application {
         spCondiments.setVisible(true);
 
         // Construct the image path using the cakeName and cakeType
-        String imagePath = String.format("com/mycompany/cakebakery/picture/cake/%ss/%s-%s.png", cake.getCakeType().toLowerCase().replace(" ", "-"), cake.getFlavour().toLowerCase().replace(" ", "-"), cake.getCakeType().toLowerCase().replace(" ", "-"));
+//        String imagePath = String.format("com/mycompany/cakebakery/picture/cake/%ss/%s-%s.png", cake.getCakeType().toLowerCase().replace(" ", "-"), cake.getCakeItemName().toLowerCase().replace(" ", "-"), cake.getCakeType().toLowerCase().replace(" ", "-"));
 
         // Set the image to the ImageView
-        imgChoosedCake.setImage(new Image(imagePath));
-
-        // Set the selected cake name and type as class members if needed
-        selectedCakeName = cake.getFlavour();
-        selectedCakeType = cake.getCakeType();
+        imgChoosedCake.setImage(new Image(cake.getCakeItemImg()));
 
         // Update the label text
-        labelChoosedCakeName.setText(selectedCakeName + " " + selectedCakeType);
-        labelTotalPrice.setText("Total Price: " + cake.getPrice());
+        labelChoosedCakeName.setText(cake.getCakeItemName() + " " + cake.getCakeType());
+        labelTotalPrice.setText("Total Price: " + cake.getCakeItemPrice());
         initializeSpinner();
-
 
     }
 
@@ -1488,13 +1482,15 @@ public class CakeBakeryApplication extends Application {
     private void updateSpinnerMaximums() {
         int total = calculateTotal();
 
-        int maxForCondiment = Math.max(0, 3 - total + spinnerCondiment2.getValue());
-        spinnerCondiment2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment, spinnerCondiment2.getValue()));
-        spinnerCondiment1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment, spinnerCondiment1.getValue()));
-        spinnerCondiment3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment, spinnerCondiment3.getValue()));
+        int maxForCondiment2 = Math.max(0, 3 - total + spinnerCondiment2.getValue());
+        spinnerCondiment2.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment2, spinnerCondiment2.getValue()));
+        int maxForCondiment1 = Math.max(0, 3 - total + spinnerCondiment1.getValue());
+        spinnerCondiment1.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment1, spinnerCondiment1.getValue()));
+        int maxForCondiment3 = Math.max(0, 3 - total + spinnerCondiment3.getValue());
+        spinnerCondiment3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment3, spinnerCondiment3.getValue()));
     }
     private void updateTotalPrice() {
-        System.out.println(choosedCake.getPrice());
+        System.out.println(choosedCake.getCakeItemPrice());
     }
 
 
@@ -1510,9 +1506,9 @@ public class CakeBakeryApplication extends Application {
 
         // Now, load the images based on the spinner values
         int totalCondiments = 0;
-        Image condimentOneImage = loadImage(condimentsList.get(0).getCondimentImg());
-        Image condimentTwoImage = loadImage(condimentsList.get(1).getCondimentImg());
-        Image condimentThreeImage = loadImage(condimentsList.get(2).getCondimentImg());
+        Image condimentOneImage = loadImage(condimentsList.get(0).getCakeItemImg());
+        Image condimentTwoImage = loadImage(condimentsList.get(1).getCakeItemImg());
+        Image condimentThreeImage = loadImage(condimentsList.get(2).getCakeItemImg());
 
 
         // Update for strawberries
@@ -1815,50 +1811,50 @@ public class CakeBakeryApplication extends Application {
     }
 
     // Render the entire Layout
-    public void displayCake(Cake selectedCake, Button backButton, Button cancelOrderButton) {
-        CakeLayout.getChildren().clear();
-        CakeLayout.getChildren().add(backButton);
-        // Container for the cake image
-        StackPane cakeDisplayContainer = new StackPane();
-        cakeDisplayContainer.getChildren().add(selectedCake.display(400, 400));
-
-        // Container for the buttons
-        VBox buttonBox = new VBox(10);
-        buttonBox.setAlignment(Pos.CENTER);
-
-        // Add buttons to the VBox
-        Button addStrawberryButton = new Button("Add Strawberry");
-        addStrawberryButton.setOnAction(e -> {
-            selectedCake.addDecoration("cake_decoration_strawberry.png");
-            updateCakeDisplay(selectedCake, cakeDisplayContainer);
-        });
-        buttonBox.getChildren().add(addStrawberryButton);
-
-        Button addBlueberryButton = new Button("Add Blueberry");
-        addBlueberryButton.setOnAction(e -> {
-            selectedCake.addDecoration("cake_decoration_blueberry.png");
-            updateCakeDisplay(selectedCake, cakeDisplayContainer);
-        });
-        buttonBox.getChildren().add(addBlueberryButton);
-
-        Button addFrostingButton = new Button("Add Frosting");
-        addFrostingButton.setOnAction(e -> {
-            selectedCake.addDecoration("cake_decoration_frosting.png");
-            updateCakeDisplay(selectedCake, cakeDisplayContainer);
-        });
-        buttonBox.getChildren().add(addFrostingButton);
-
-        // Layout for cake and buttons
-        HBox cakeAndButtons = new HBox(10, cakeDisplayContainer, buttonBox);
-        cakeAndButtons.setAlignment(Pos.CENTER);
-
-        CakeLayout.getChildren().addAll(cakeAndButtons, cancelOrderButton);
-    }
-
-    public void updateCakeDisplay(Cake cake, StackPane cakeDisplayContainer) {
-        cakeDisplayContainer.getChildren().clear();
-        cakeDisplayContainer.getChildren().add(cake.display(400, 400));
-    }
+//    public void displayCake(Cake selectedCake, Button backButton, Button cancelOrderButton) {
+//        CakeLayout.getChildren().clear();
+//        CakeLayout.getChildren().add(backButton);
+//        // Container for the cake image
+//        StackPane cakeDisplayContainer = new StackPane();
+//        cakeDisplayContainer.getChildren().add(selectedCake.display(400, 400));
+//
+//        // Container for the buttons
+//        VBox buttonBox = new VBox(10);
+//        buttonBox.setAlignment(Pos.CENTER);
+//
+//        // Add buttons to the VBox
+//        Button addStrawberryButton = new Button("Add Strawberry");
+//        addStrawberryButton.setOnAction(e -> {
+//            selectedCake.addDecoration("cake_decoration_strawberry.png");
+//            updateCakeDisplay(selectedCake, cakeDisplayContainer);
+//        });
+//        buttonBox.getChildren().add(addStrawberryButton);
+//
+//        Button addBlueberryButton = new Button("Add Blueberry");
+//        addBlueberryButton.setOnAction(e -> {
+//            selectedCake.addDecoration("cake_decoration_blueberry.png");
+//            updateCakeDisplay(selectedCake, cakeDisplayContainer);
+//        });
+//        buttonBox.getChildren().add(addBlueberryButton);
+//
+//        Button addFrostingButton = new Button("Add Frosting");
+//        addFrostingButton.setOnAction(e -> {
+//            selectedCake.addDecoration("cake_decoration_frosting.png");
+//            updateCakeDisplay(selectedCake, cakeDisplayContainer);
+//        });
+//        buttonBox.getChildren().add(addFrostingButton);
+//
+//        // Layout for cake and buttons
+//        HBox cakeAndButtons = new HBox(10, cakeDisplayContainer, buttonBox);
+//        cakeAndButtons.setAlignment(Pos.CENTER);
+//
+//        CakeLayout.getChildren().addAll(cakeAndButtons, cancelOrderButton);
+//    }
+//
+//    public void updateCakeDisplay(Cake cake, StackPane cakeDisplayContainer) {
+//        cakeDisplayContainer.getChildren().clear();
+//        cakeDisplayContainer.getChildren().add(cake.display(400, 400));
+//    }
 
 
     public TableView<Cake> displayMenu(CakeBakery cakeBakery, Button placeOrderButton) {

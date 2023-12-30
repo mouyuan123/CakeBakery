@@ -1,8 +1,11 @@
 package com.mycompany.cakebakery.FactoryMethod;
 
 
+import com.mycompany.cakebakery.Constants.DirConstant;
+import com.mycompany.cakebakery.Models.Cake;
+
 public class RedVelvetCrepeCake extends Cake {
     public RedVelvetCrepeCake() {
-        super("Red Velvet Crepe Cake", 0.0, "Link");
+        super("Red Velvet", 37.00, DirConstant.CREPE_CAKE_PATH + "/red-velvet-crepe-cake.png","Crepe Cake");
     }
 }

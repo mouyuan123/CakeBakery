@@ -1,5 +1,7 @@
 package com.mycompany.cakebakery.FactoryMethod;
 
+import com.mycompany.cakebakery.Models.Cake;
+
 public class BakedCakeFactory extends CakeFactory {
     @Override
     Cake createCake(String item) {

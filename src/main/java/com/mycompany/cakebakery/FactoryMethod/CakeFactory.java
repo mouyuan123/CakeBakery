@@ -1,19 +1,19 @@
 package com.mycompany.cakebakery.FactoryMethod;
 
 
+
+import com.mycompany.cakebakery.Models.Cake;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-
-import java.util.concurrent.Delayed;
 
 public abstract class CakeFactory {
 
     abstract Cake createCake(String item);
 
-    public Cake orderCake(String type, ImageView imageView, Label label) {
-        Cake cake = createCake(type);
-        System.out.println("--- Making a " + cake.getFlavour() + " ---");
+    public Cake orderCake(String item, ImageView imageView, Label label) {
+        Cake cake = createCake(item);
+        System.out.println("--- Making a " + cake.getCakeItemName() + " ---");
 
         new Thread(() -> {
             try {

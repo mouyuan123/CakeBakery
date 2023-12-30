@@ -3,6 +3,11 @@ package com.mycompany.cakebakery.Models;
 import com.mycompany.cakebakery.Constants.DirConstant;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mycompany.cakebakery.FactoryMethod.*;
+import com.mycompany.cakebakery.SimpleFactory.Chocolate;
+import com.mycompany.cakebakery.SimpleFactory.Macaroon;
+import com.mycompany.cakebakery.SimpleFactory.Strawberry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -26,19 +31,19 @@ public class Menu {
         this.crepeCakes = new ArrayList<>();
         this.condiments = new ArrayList<>();
         // Set up the menu for different base cakes
-        this.bakedCakes.add(new Cake("Matcha", 30.00, DirConstant.BAKED_CAKE_PATH+ "/matcha-baked-cake.png","Baked Cake"));
-        this.bakedCakes.add(new Cake("Chocolate", 20.00, DirConstant.BAKED_CAKE_PATH + "/chocolate-baked-cake.png","Baked Cake"));
-        this.bakedCakes.add(new Cake("Tiramisu", 25.00, DirConstant.BAKED_CAKE_PATH + "/tiramisu-baked-cake.png","Baked Cake"));
-        this.bakedCakes.add(new Cake("Vanilla", 27.00, DirConstant.BAKED_CAKE_PATH + "/vanilla-baked-cake.png","Baked Cake"));
-        this.bakedCakes.add(new Cake("Red Velvet", 27.00, DirConstant.BAKED_CAKE_PATH + "/red-velvet-baked-cake.png","Baked Cake"));
-        this.crepeCakes.add(new Cake("Matcha", 40.00, DirConstant.CREPE_CAKE_PATH+ "/matcha-crepe-cake.png","Crepe Cake"));
-        this.crepeCakes.add(new Cake("Chocolate", 30.00, DirConstant.CREPE_CAKE_PATH + "/chocolate-crepe-cake.png","Crepe Cake"));
-        this.crepeCakes.add(new Cake("Tiramisu", 35.00, DirConstant.CREPE_CAKE_PATH + "/tiramisu-crepe-cake.png","Crepe Cake"));
-        this.crepeCakes.add(new Cake("Vanilla", 37.00, DirConstant.CREPE_CAKE_PATH + "/vanilla-crepe-cake.png","Crepe Cake"));
-        this.crepeCakes.add(new Cake("Red Velvet", 37.00, DirConstant.CREPE_CAKE_PATH + "/red-velvet-crepe-cake.png","Crepe Cake"));
-        this.condiments.add(new Condiment("Chocolate",5.00,DirConstant.CONDIMENTS_PATH + "/chocolates.png"));
-        this.condiments.add(new Condiment("Macaroon",8.00,DirConstant.CONDIMENTS_PATH + "/macron.png"));
-        this.condiments.add(new Condiment("Strawberry",9.00,DirConstant.CONDIMENTS_PATH + "/strawberries.png"));
+        this.bakedCakes.add(new MatchaCake());
+        this.bakedCakes.add(new ChocolateCake());
+        this.bakedCakes.add(new TiramisuCake());
+        this.bakedCakes.add(new VanillaCake());
+        this.bakedCakes.add(new RedVelvetCake());
+        this.crepeCakes.add(new MatchaCrepeCake());
+        this.crepeCakes.add(new ChocolateCrepeCake());
+        this.crepeCakes.add(new TiramisuCrepeCake());
+        this.crepeCakes.add(new VanillaCrepeCake());
+        this.crepeCakes.add(new RedVelvetCrepeCake());
+        this.condiments.add(new Chocolate());
+        this.condiments.add(new Macaroon());
+        this.condiments.add(new Strawberry());
     }
     
     public static Menu getMenuInstance(){

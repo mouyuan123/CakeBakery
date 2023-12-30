@@ -767,6 +767,7 @@ public class CakeBakeryApplication extends Application {
 //    private GridPane gpMacron;
 //    @FXML
 //    private GridPane gpStrawberry;
+//    private GridPane gpStrawberry;
 //    @FXML
 //    private ImageView imgChoosedCake;
 //    @FXML
@@ -787,154 +788,274 @@ public class CakeBakeryApplication extends Application {
 //    private Button btnCancel;
 //    Music music;
 
-    Cake selectedCake;
-    String selectedCakeName;
     String selectedCakeType;
-    
-    @FXML private AnchorPane imgBakeryClosedBackground;
-    @FXML private Button btnOpenBakery;
-    @FXML private Button btnCloseBakery;
-    @FXML private StackPane spMain; // This is linked to the StackPane in FXML
-    @FXML private GridPane gpControl; // This is linked to the StackPane in FXML
-    @FXML private ImageView imgTopUp; // This is linked to the StackPane in FXML
-    @FXML private ImageView imgControlInterior;
-    @FXML private ImageView imgBackground;
-    @FXML private ImageView imgSpeakerNotes;
 
-    @FXML private ImageView imgBakedCake1;
-    @FXML private ImageView imgBakedCake2;
-    @FXML private ImageView imgBakedCake3;
-    @FXML private ImageView imgBakedCake4;
-    @FXML private ImageView imgBakedCake5;
+    @FXML
+    private AnchorPane imgBakeryClosedBackground;
+    @FXML
+    private Button btnOpenBakery;
+    @FXML
+    private Button btnCloseBakery;
+    @FXML
+    private StackPane spMain; // This is linked to the StackPane in FXML
+    @FXML
+    private GridPane gpControl; // This is linked to the StackPane in FXML
+    @FXML
+    private ImageView imgTopUp; // This is linked to the StackPane in FXML
+    @FXML
+    private ImageView imgControlInterior;
+    @FXML
+    private ImageView imgBackground;
+    @FXML
+    private ImageView imgSpeakerNotes;
 
-    @FXML private Label labelBakedCake1;
-    @FXML private Label labelBakedCake2;
-    @FXML private Label labelBakedCake3;
-    @FXML private Label labelBakedCake4;
-    @FXML private Label labelBakedCake5;
+    @FXML
+    private ImageView imgBakedCake1;
+    @FXML
+    private ImageView imgBakedCake2;
+    @FXML
+    private ImageView imgBakedCake3;
+    @FXML
+    private ImageView imgBakedCake4;
+    @FXML
+    private ImageView imgBakedCake5;
 
-    @FXML private Label labelBakedCakePrice1;
-    @FXML private Label labelBakedCakePrice2;
-    @FXML private Label labelBakedCakePrice3;
-    @FXML private Label labelBakedCakePrice4;
-    @FXML private Label labelBakedCakePrice5;
+    @FXML
+    private Label labelBakedCake1;
+    @FXML
+    private Label labelBakedCake2;
+    @FXML
+    private Label labelBakedCake3;
+    @FXML
+    private Label labelBakedCake4;
+    @FXML
+    private Label labelBakedCake5;
 
-    @FXML private ImageView imgCrepeCake1;
-    @FXML private ImageView imgCrepeCake2;
-    @FXML private ImageView imgCrepeCake3;
-    @FXML private ImageView imgCrepeCake4;
-    @FXML private ImageView imgCrepeCake5;
+    @FXML
+    private Label labelBakedCakePrice1;
+    @FXML
+    private Label labelBakedCakePrice2;
+    @FXML
+    private Label labelBakedCakePrice3;
+    @FXML
+    private Label labelBakedCakePrice4;
+    @FXML
+    private Label labelBakedCakePrice5;
 
-    @FXML private Label labelCrepeCake1;
-    @FXML private Label labelCrepeCake2;
-    @FXML private Label labelCrepeCake3;
-    @FXML private Label labelCrepeCake4;
-    @FXML private Label labelCrepeCake5;
+    @FXML
+    private ImageView imgCrepeCake1;
+    @FXML
+    private ImageView imgCrepeCake2;
+    @FXML
+    private ImageView imgCrepeCake3;
+    @FXML
+    private ImageView imgCrepeCake4;
+    @FXML
+    private ImageView imgCrepeCake5;
 
-    @FXML private Label labelCrepeCakePrice1;
-    @FXML private Label labelCrepeCakePrice2;
-    @FXML private Label labelCrepeCakePrice3;
-    @FXML private Label labelCrepeCakePrice4;
-    @FXML private Label labelCrepeCakePrice5;
+    @FXML
+    private Label labelCrepeCake1;
+    @FXML
+    private Label labelCrepeCake2;
+    @FXML
+    private Label labelCrepeCake3;
+    @FXML
+    private Label labelCrepeCake4;
+    @FXML
+    private Label labelCrepeCake5;
 
-    @FXML private GridPane gpBakedCake1;
-    @FXML private GridPane gpBakedCake2;
-    @FXML private GridPane gpBakedCake3;
-    @FXML private GridPane gpBakedCake4;
-    @FXML private GridPane gpBakedCake5;
+    @FXML
+    private Label labelCrepeCakePrice1;
+    @FXML
+    private Label labelCrepeCakePrice2;
+    @FXML
+    private Label labelCrepeCakePrice3;
+    @FXML
+    private Label labelCrepeCakePrice4;
+    @FXML
+    private Label labelCrepeCakePrice5;
 
-    @FXML private GridPane gpCrepeCake1;
-    @FXML private GridPane gpCrepeCake2;
-    @FXML private GridPane gpCrepeCake3;
-    @FXML private GridPane gpCrepeCake4;
-    @FXML private GridPane gpCrepeCake5;
+    @FXML
+    private GridPane gpBakedCake1;
+    @FXML
+    private GridPane gpBakedCake2;
+    @FXML
+    private GridPane gpBakedCake3;
+    @FXML
+    private GridPane gpBakedCake4;
+    @FXML
+    private GridPane gpBakedCake5;
 
-    @FXML private ImageView imgCondiment1;
-    @FXML private ImageView imgCondiment2;
-    @FXML private ImageView imgCondiment3;
+    @FXML
+    private GridPane gpCrepeCake1;
+    @FXML
+    private GridPane gpCrepeCake2;
+    @FXML
+    private GridPane gpCrepeCake3;
+    @FXML
+    private GridPane gpCrepeCake4;
+    @FXML
+    private GridPane gpCrepeCake5;
 
-    @FXML private GridPane gpCondiment1;
-    @FXML private GridPane gpCondiment2;
-    @FXML private GridPane gpCondiment3;
+    @FXML
+    private ImageView imgCondiment1;
+    @FXML
+    private ImageView imgCondiment2;
+    @FXML
+    private ImageView imgCondiment3;
 
-    @FXML private Label labelCondiment1;
+    @FXML
+    private GridPane gpCondiment1;
+    @FXML
+    private GridPane gpCondiment2;
+    @FXML
+    private GridPane gpCondiment3;
 
-    @FXML private Label labelCondiment2;
+    @FXML
+    private Label labelCondiment1;
 
-    @FXML private Label labelCondiment3;
+    @FXML
+    private Label labelCondiment2;
 
-    @FXML private Label labelCondimentPrice1;
+    @FXML
+    private Label labelCondiment3;
 
-    @FXML private Label labelCondimentPrice2;
+    @FXML
+    private Label labelCondimentPrice1;
 
-    @FXML private Label labelCondimentPrice3;
+    @FXML
+    private Label labelCondimentPrice2;
 
-    @FXML private Spinner<Integer> spinnerCondiment1;
-    @FXML private Spinner<Integer> spinnerCondiment2;
+    @FXML
+    private Label labelCondimentPrice3;
 
-    @FXML private Spinner<Integer> spinnerCondiment3;
+    @FXML
+    private Spinner<Integer> spinnerCondiment1;
+    @FXML
+    private Spinner<Integer> spinnerCondiment2;
+
+    @FXML
+    private Spinner<Integer> spinnerCondiment3;
 
 
+    @FXML
+    private Circle btnLightOn;
+    @FXML
+    private Circle btnLightOff;
+    @FXML
+    private Circle btnPreviousSong;
+    @FXML
+    private Circle btnNextSong;
+    @FXML
+    private Ellipse btnStopMusic;
+    @FXML
+    private Ellipse btnPlayMusic;
+    @FXML
+    private Ellipse btnCounter1;
+    @FXML
+    private Ellipse btnCounter2;
+    @FXML
+    private Ellipse btnCounter3;
+    @FXML
+    private Circle btnCloseControl;
+    @FXML
+    private SplitPane spCakeType;
+    @FXML
+    private Button btnCrossCakeType;
+    @FXML
+    private GridPane gpBakedCakes;
+    @FXML
+    private GridPane gpCrepeCakes;
+    @FXML
+    private SplitPane spBaseCake;
+    @FXML
+    private Button btnCrossBaseCake;
+    @FXML
+    private GridPane gpChocolateCake;
+    @FXML
+    private Label labelChocolateCake;
+    @FXML
+    private GridPane gpVanillaCake;
+    @FXML
+    private Label labelVanillaCake;
+    @FXML
+    private GridPane gpTiramisuCake;
+    @FXML
+    private Label labelTiramisuCake;
+    @FXML
+    private GridPane gpRedVelvetCake;
+    @FXML
+    private Label labelRedVelvetCake;
+    @FXML
+    private GridPane gpMatchaCake;
+    @FXML
+    private Label labelMatchaCake;
+    @FXML
+    private SplitPane spCrepeCake;
+    @FXML
+    private Button btnCrossCrepeCake;
+    @FXML
+    private GridPane gpChocolateCrepeCake;
+    @FXML
+    private Label labelChocolateCrepeCake;
+    @FXML
+    private GridPane gpVanillaCrepeCake;
+    @FXML
+    private Label labelVanillaCrepeCake;
+    @FXML
+    private GridPane gpTiramisuCrepeCake;
+    @FXML
+    private Label labelTiramisuCrepeCake;
+    @FXML
+    private GridPane gpRedVelvetCrepeCake;
+    @FXML
+    private Label labelRedVelvetCrepeCake;
+    @FXML
+    private GridPane gpMatchaCrepeCake;
+    @FXML
+    private Label labelMatchaCrepeCake;
+    @FXML
+    private SplitPane spCondiments;
+    @FXML
+    private Button btnCrossCondiments;
+    @FXML
+    private GridPane gpMacron;
+    @FXML
+    private GridPane gpStrawberry;
+    @FXML
+    private ImageView imgChoosedCake;
+    @FXML
+    private ImageView imgCondimentOne;
+    @FXML
+    private ImageView imgCondimentTwo;
+    @FXML
+    private ImageView imgCondimentThree;
+    @FXML
+    private Label labelChoosedCakeName;
+    @FXML
+    private Label labelTotalPrice;
+    @FXML
+    private GridPane gpChocolate;
+    @FXML
+    private Button btnPay;
+    @FXML
+    private Button btnCancel;
+
+    @FXML
+    private Button btnTopUpCancel;
 
 
+    @FXML
+    private Button btnTopUpOK;
+    @FXML
+    private ImageView imgFactoryProcess;
+    @FXML
+    private Label labelFactoryProcess;
+    @FXML
+    private GridPane gpFactoryProcess;
 
-
-
-    @FXML private Circle btnLightOn;
-    @FXML private Circle btnLightOff;
-    @FXML private Circle btnPreviousSong;
-    @FXML private Circle btnNextSong;
-    @FXML private Ellipse btnStopMusic;
-    @FXML private Ellipse btnPlayMusic;
-    @FXML private Ellipse btnCounter1;
-    @FXML private Ellipse btnCounter2;
-    @FXML private Ellipse btnCounter3;
-    @FXML private Circle btnCloseControl;
-    @FXML private SplitPane spCakeType;
-    @FXML private Button btnCrossCakeType;
-    @FXML private GridPane gpBakedCakes;
-    @FXML private GridPane gpCrepeCakes;
-    @FXML private SplitPane spBaseCake;
-    @FXML private Button btnCrossBaseCake;
-    @FXML private GridPane gpChocolateCake;
-    @FXML private Label labelChocolateCake;
-    @FXML private GridPane gpVanillaCake;
-    @FXML private Label labelVanillaCake;
-    @FXML private GridPane gpTiramisuCake;
-    @FXML private Label labelTiramisuCake;
-    @FXML private GridPane gpRedVelvetCake;
-    @FXML private Label labelRedVelvetCake;
-    @FXML private GridPane gpMatchaCake;
-    @FXML private Label labelMatchaCake;
-    @FXML private SplitPane spCrepeCake;
-    @FXML private Button btnCrossCrepeCake;
-    @FXML private GridPane gpChocolateCrepeCake;
-    @FXML private Label labelChocolateCrepeCake;
-    @FXML private GridPane gpVanillaCrepeCake;
-    @FXML private Label labelVanillaCrepeCake;
-    @FXML private GridPane gpTiramisuCrepeCake;
-    @FXML private Label labelTiramisuCrepeCake;
-    @FXML private GridPane gpRedVelvetCrepeCake;
-    @FXML private Label labelRedVelvetCrepeCake;
-    @FXML private GridPane gpMatchaCrepeCake;
-    @FXML private Label labelMatchaCrepeCake;
-    @FXML private SplitPane spCondiments;
-    @FXML private Button btnCrossCondiments;
-    @FXML private GridPane gpMacron;
-    @FXML private GridPane gpStrawberry;
-    @FXML private ImageView imgChoosedCake;
-    @FXML private ImageView imgCondimentOne;
-    @FXML private ImageView imgCondimentTwo;
-    @FXML private ImageView imgCondimentThree;
-    @FXML private Label labelChoosedCakeName;
-    @FXML private Label labelTotalPrice;
-    @FXML private GridPane gpChocolate;
-    @FXML private Button btnPay;
-    @FXML private Button btnCancel;
-
-    @FXML private ImageView imgFactoryProcess;
-    @FXML private Label labelFactoryProcess;
-    @FXML private GridPane gpFactoryProcess;
+    @FXML
+    private GridPane gpTopUp;
 
 
     Music music;
@@ -948,6 +1069,7 @@ public class CakeBakeryApplication extends Application {
     List<Condiment> condimentsList;
 
     Cake choosedCake;
+
 
     @Override
     public void start(Stage primaryStage) {
@@ -973,10 +1095,10 @@ public class CakeBakeryApplication extends Application {
             this.remote.setCommand(2, swapPrevMusicCommand, swapNextMusicCommand);
             this.remote.rightButtonPressed(0);
             this.remote.rightButtonPressed(1);
-            
+
             // Initialise Budget Singleton
             Budget budget = Budget.getBudgetInstance();
-            
+
             // Initialise Cake Bakery Facade
             this.cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget, waiter);
 
@@ -1000,21 +1122,27 @@ public class CakeBakeryApplication extends Application {
             e.printStackTrace();
         }
     }
-    
+
     @FXML
-    private void onBtnOpenBakeryClick(MouseEvent event){
-        if (mediaPlayer != null){
+    private void onBtnOpenBakeryClick(MouseEvent event) {
+        if (mediaPlayer != null) {
             mediaPlayer.stop();
         }
         cakeBakeryFacade.onOpen();
         this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
-        controlBackgroundMusic(music); 
+        controlBackgroundMusic(music);
         imgBakeryClosedBackground.setVisible(false);
         Menu menu = Menu.getMenuInstance();
         setMenu(menu);
+        if (isFirstTimeOpenRestaurant) {
+            spMain.setVisible(true);
+            gpTopUp.setVisible(true);
+//            btnTopUpCancel.setVisible(false);
+            isFirstTimeOpenRestaurant = false;
+            }
     }
 
-    public void setMenu(Menu menu){
+    public void setMenu(Menu menu) {
         bakedCakesList = menu.getBakedCakes();
         imgBakedCake1.setImage(loadImage(bakedCakesList.get(0).getCakeItemImg()));
         labelBakedCake1.setText(bakedCakesList.get(0).getCakeItemName());
@@ -1052,26 +1180,25 @@ public class CakeBakeryApplication extends Application {
         condimentsList = menu.getCondiments();
         imgCondiment1.setImage(loadImage(condimentsList.get(0).getCakeItemImg()));
         labelCondiment1.setText(condimentsList.get(0).getCakeItemName());
-        labelCondimentPrice1.setText("$" +Double.toString(condimentsList.get(0).getCakeItemPrice()));
+        labelCondimentPrice1.setText("$" + Double.toString(condimentsList.get(0).getCakeItemPrice()));
         imgCondiment2.setImage(loadImage(condimentsList.get(1).getCakeItemImg()));
         labelCondiment2.setText(condimentsList.get(1).getCakeItemName());
-        labelCondimentPrice2.setText("$" +Double.toString(condimentsList.get(1).getCakeItemPrice()));
+        labelCondimentPrice2.setText("$" + Double.toString(condimentsList.get(1).getCakeItemPrice()));
         imgCondiment3.setImage(loadImage(condimentsList.get(2).getCakeItemImg()));
         labelCondiment3.setText(condimentsList.get(2).getCakeItemName());
-        labelCondimentPrice3.setText("$" +Double.toString(condimentsList.get(2).getCakeItemPrice()));
+        labelCondimentPrice3.setText("$" + Double.toString(condimentsList.get(2).getCakeItemPrice()));
 
     }
 
 
-    
     @FXML
-    private void onBtnCloseBakeryClick(MouseEvent event){
+    private void onBtnCloseBakeryClick(MouseEvent event) {
         if (mediaPlayer != null) {
-                mediaPlayer.stop();
-            }
-            cakeBakeryFacade.onClose();
-            controlBackgroundMusic(music);
-            this.imgBakeryClosedBackground.setVisible(true);
+            mediaPlayer.stop();
+        }
+        cakeBakeryFacade.onClose();
+        controlBackgroundMusic(music);
+        this.imgBakeryClosedBackground.setVisible(true);
     }
 
     @FXML
@@ -1087,13 +1214,30 @@ public class CakeBakeryApplication extends Application {
     }
 
     @FXML
+    private void onTopUpCancelClick(MouseEvent event) {
+        spMain.setVisible(false);
+        gpTopUp.setVisible(false);
+    }
+
+
+    @FXML
+    private void onbtnTopUpOKClick(MouseEvent event) {
+        spMain.setVisible(false);
+        gpTopUp.setVisible(false);
+    }
+
+
+
+
+    @FXML
     private void onImgCashTagClick(MouseEvent event) {
         // Handle click on imgCashTag
     }
 
     @FXML
     private void onImgTopUpClick(MouseEvent event) {
-        // Handle click on imgTopUp
+        spMain.setVisible(true);
+        gpTopUp.setVisible(true);
     }
 
     @FXML
@@ -1153,7 +1297,7 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnPlayMusicClick(MouseEvent event) {
-        if(mediaPlayer == null || !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)){
+        if (mediaPlayer == null || !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             this.remote.leftButtonPressed(1);
             controlBackgroundMusic(music);
 //            imgSpeakerNotes.setVisible(true);   
@@ -1195,50 +1339,70 @@ public class CakeBakeryApplication extends Application {
         spMain.setVisible(false);
         spBaseCake.setVisible(false);
     }
+
     @FXML
     private void onGpBakedCakeChoice1Click(MouseEvent event) {
         choosedCake = bakedCakesList.get(0);
         setSelectedCakeUI(choosedCake);
     }
+
     @FXML
     private void onGpBakedCakeChoice2Click(MouseEvent event) {
         choosedCake = bakedCakesList.get(1);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpBakedCakeChoice3Click(MouseEvent event) {
         choosedCake = bakedCakesList.get(2);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpBakedCakeChoice4Click(MouseEvent event) {
         choosedCake = bakedCakesList.get(3);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpBakedCakeChoice5Click(MouseEvent event) {
         choosedCake = bakedCakesList.get(4);
         setSelectedCakeUI(choosedCake);
     }
+
     ;
+
     @FXML
     private void onGpCrepeCakeChoice1Click(MouseEvent event) {
         choosedCake = crepeCakesList.get(0);
         setSelectedCakeUI(choosedCake);
     }
+
     @FXML
     private void onGpCrepeCakeChoice2Click(MouseEvent event) {
         choosedCake = crepeCakesList.get(1);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpCrepeCakeChoice3Click(MouseEvent event) {
         choosedCake = crepeCakesList.get(2);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpCrepeCakeChoice4Click(MouseEvent event) {
         choosedCake = crepeCakesList.get(3);
-        setSelectedCakeUI(choosedCake);    }
+        setSelectedCakeUI(choosedCake);
+    }
+
     @FXML
     private void onGpCrepeCakeChoice5Click(MouseEvent event) {
         choosedCake = crepeCakesList.get(4);
-        setSelectedCakeUI(choosedCake);    };
+        setSelectedCakeUI(choosedCake);
+    }
+
+    ;
 //    @FXML
 //    private void onGpChocolateCakeClick(MouseEvent event) {
 //        setSelectedCakeUI("Chocolate", "Baked Cake");
@@ -1313,18 +1477,18 @@ public class CakeBakeryApplication extends Application {
     private void onBtnPayClick(MouseEvent event) throws InterruptedException {
         spCondiments.setVisible(false);
         gpFactoryProcess.setVisible(true);
-        if (selectedCakeType.equals("Crepe Cake")) {
+        if (choosedCake.getCakeType().equals("Crepe Cake")) {
             CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
-            crepeCakeFactory.orderCake(selectedCakeName.toLowerCase(),imgFactoryProcess,labelFactoryProcess);
-        } else if (selectedCakeType.equals("Baked Cake")) {
+            crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess);
+        } else if (choosedCake.getCakeType().equals("Baked Cake")) {
             BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
-            bakedCakeFactory.orderCake(selectedCakeName.toLowerCase(),imgFactoryProcess,labelFactoryProcess);
+            bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess);
         }
 //        spMain.setVisible(false);
 
     }
 
-    private void createFactoryProcessImage(){
+    private void createFactoryProcessImage() {
 
 
     }
@@ -1421,7 +1585,7 @@ public class CakeBakeryApplication extends Application {
 //        }
 //    }
 
-//    private void initializeSpinner() {
+    //    private void initializeSpinner() {
 //        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
 //            if (!ignoreChange) {
 //                int total = calculateTotal();
@@ -1489,6 +1653,7 @@ public class CakeBakeryApplication extends Application {
         int maxForCondiment3 = Math.max(0, 3 - total + spinnerCondiment3.getValue());
         spinnerCondiment3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment3, spinnerCondiment3.getValue()));
     }
+
     private void updateTotalPrice() {
         System.out.println(choosedCake.getCakeItemPrice());
     }
@@ -1978,8 +2143,7 @@ public class CakeBakeryApplication extends Application {
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
             imgSpeakerNotes.setVisible(true);
-        }
-        else{
+        } else {
             imgSpeakerNotes.setVisible(false);
         }
     }

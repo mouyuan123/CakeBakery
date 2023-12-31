@@ -625,8 +625,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static javafx.application.Application.launch;
 
@@ -1059,6 +1058,19 @@ public class CakeBakeryApplication extends Application {
     @FXML
     private GridPane gpTopUp;
 
+    @FXML
+    private AnchorPane apFinalCakeItem;
+
+    @FXML
+    private ImageView imgFinalCake;
+
+    @FXML
+    private ImageView imgFinalCondiment1;
+    @FXML
+    private ImageView imgFinalCondiment2;
+    @FXML
+    private ImageView imgFinalCondiment3;
+
 
     Music music;
     Lighting light;
@@ -1071,6 +1083,8 @@ public class CakeBakeryApplication extends Application {
     List<Condiment> condimentsList;
 
     Cake choosedCake;
+    ArrayList<String> choosedCondimentNameList = new ArrayList<String>();
+    ArrayList<ImageView> choosedCondimentImageViewList = new ArrayList<ImageView>();
 
 
     @Override
@@ -1305,7 +1319,7 @@ public class CakeBakeryApplication extends Application {
         if (mediaPlayer == null || !mediaPlayer.getStatus().equals(MediaPlayer.Status.PLAYING)) {
             this.remote.leftButtonPressed(1);
             controlBackgroundMusic(music);
-//            imgSpeakerNotes.setVisible(true);   
+//            imgSpeakerNotes.setVisible(true);
         }
     }
 
@@ -1482,15 +1496,18 @@ public class CakeBakeryApplication extends Application {
     private void onBtnPayClick(MouseEvent event) throws InterruptedException {
         spCondiments.setVisible(false);
         gpFactoryProcess.setVisible(true);
+        System.out.println(choosedCondimentNameList);
+        choosedCondimentImageViewList.add(imgFinalCondiment1);
+        choosedCondimentImageViewList.add(imgFinalCondiment2);
+        choosedCondimentImageViewList.add(imgFinalCondiment3);
         if (choosedCake.getCakeType().equals("Crepe Cake")) {
             CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
-            crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess);
+            crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess,choosedCondimentNameList,choosedCondimentImageViewList,imgFinalCake,apFinalCakeItem, gpFactoryProcess, spMain);
         } else if (choosedCake.getCakeType().equals("Baked Cake")) {
             BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
-            bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess);
+            bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess,choosedCondimentNameList,choosedCondimentImageViewList,imgFinalCake,apFinalCakeItem, gpFactoryProcess, spMain);
         }
-//        spMain.setVisible(false);
-
+        resetAllSpinners();
     }
 
     private void createFactoryProcessImage() {
@@ -1673,6 +1690,7 @@ public class CakeBakeryApplication extends Application {
         imgCondimentOne.setImage(null);
         imgCondimentTwo.setImage(null);
         imgCondimentThree.setImage(null);
+        choosedCondimentNameList = new ArrayList<String>();
 
         // Now, load the images based on the spinner values
         int totalCondiments = 0;
@@ -1683,41 +1701,42 @@ public class CakeBakeryApplication extends Application {
 
         // Update for strawberries
         for (int i = 0; i < spinnerCondiment2.getValue(); i++) {
-            if (totalCondiments == 0) {
-                imgCondimentOne.setImage(condimentTwoImage);
-            } else if (totalCondiments == 1) {
-                imgCondimentTwo.setImage(condimentTwoImage);
-            } else if (totalCondiments == 2) {
-                imgCondimentThree.setImage(condimentTwoImage);
-            }
+            updateCondimentImageView(totalCondiments, imgCondimentOne, imgCondimentTwo, imgCondimentThree, condimentTwoImage, condimentsList.get(1).getCakeItemName());
             totalCondiments++;
         }
 
         // Update for macrons
         for (int i = 0; i < spinnerCondiment1.getValue(); i++) {
-            if (totalCondiments == 0) {
-                imgCondimentOne.setImage(condimentOneImage);
-            } else if (totalCondiments == 1) {
-                imgCondimentTwo.setImage(condimentOneImage);
-            } else if (totalCondiments == 2) {
-                imgCondimentThree.setImage(condimentOneImage);
-            }
+            updateCondimentImageView(totalCondiments, imgCondimentOne, imgCondimentTwo, imgCondimentThree, condimentOneImage, condimentsList.get(0).getCakeItemName());
             totalCondiments++;
         }
 
         // Update for chocolate
         for (int i = 0; i < spinnerCondiment3.getValue(); i++) {
-            if (totalCondiments == 0) {
-                imgCondimentOne.setImage(condimentThreeImage);
-            } else if (totalCondiments == 1) {
-                imgCondimentTwo.setImage(condimentThreeImage);
-            } else if (totalCondiments == 2) {
-                imgCondimentThree.setImage(condimentThreeImage);
-            }
+            updateCondimentImageView(totalCondiments, imgCondimentOne, imgCondimentTwo, imgCondimentThree, condimentThreeImage, condimentsList.get(2).getCakeItemName());
             totalCondiments++;
         }
     }
-
+    private void updateCondimentImageView(int totalCondiments, ImageView imgOne, ImageView imgTwo, ImageView imgThree, Image condimentImage, String condimentName) {
+        if (totalCondiments == 0) {
+            imgOne.setImage(condimentImage);
+            choosedCondimentNameList.add(condimentName);
+        } else if (totalCondiments == 1) {
+            imgTwo.setImage(condimentImage);
+            if (choosedCondimentNameList.size() < 2) {
+                choosedCondimentNameList.add(condimentName);
+            } else {
+                choosedCondimentNameList.set(1, condimentName);
+            }
+        } else if (totalCondiments == 2) {
+            imgThree.setImage(condimentImage);
+            if (choosedCondimentNameList.size() < 3) {
+                choosedCondimentNameList.add(condimentName);
+            } else {
+                choosedCondimentNameList.set(2, condimentName);
+            }
+        }
+    }
 
     private Image loadImage(String resourcePath) {
         InputStream stream = getClass().getResourceAsStream(resourcePath);

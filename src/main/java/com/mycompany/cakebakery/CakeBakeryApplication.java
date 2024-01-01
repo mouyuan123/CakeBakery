@@ -1083,6 +1083,10 @@ public class CakeBakeryApplication extends Application {
     List<Condiment> condimentsList;
 
     Cake choosedCake;
+
+    CakeItem choosedCakeItem;
+
+    CakeItem historyCakeItem;
     ArrayList<String> choosedCondimentNameList = new ArrayList<String>();
     ArrayList<ImageView> choosedCondimentImageViewList = new ArrayList<ImageView>();
 
@@ -1651,18 +1655,32 @@ public class CakeBakeryApplication extends Application {
 //    }
 
     private void initializeSpinner() {
-        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+        ChangeListener<Number> listener1 = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             if (!ignoreChange) {
                 updateSpinnerMaximums();
-                updateTotalPrice();
+                updateCondimentTotalPrice1(oldValue.intValue(), newValue.intValue());
+            }
+            updateImageViews();
+        };
+        ChangeListener<Number> listener2 = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (!ignoreChange) {
+                updateSpinnerMaximums();
+                updateCondimentTotalPrice2(oldValue.intValue(), newValue.intValue());
+            }
+            updateImageViews();
+        };
+        ChangeListener<Number> listener3 = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
+            if (!ignoreChange) {
+                updateSpinnerMaximums();
+                updateCondimentTotalPrice3(oldValue.intValue(), newValue.intValue());
             }
             updateImageViews();
         };
 
         updateImageViews();
-        spinnerCondiment2.valueProperty().addListener(listener);
-        spinnerCondiment1.valueProperty().addListener(listener);
-        spinnerCondiment3.valueProperty().addListener(listener);
+        spinnerCondiment2.valueProperty().addListener(listener2);
+        spinnerCondiment1.valueProperty().addListener(listener1);
+        spinnerCondiment3.valueProperty().addListener(listener3);
     }
 
     private void updateSpinnerMaximums() {
@@ -1676,9 +1694,48 @@ public class CakeBakeryApplication extends Application {
         spinnerCondiment3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment3, spinnerCondiment3.getValue()));
     }
 
-    private void updateTotalPrice() {
-        System.out.println(choosedCake.getCakeItemPrice());
+    private void updateCondimentTotalPrice1(int oldValue,int newValue) {
+
+//        if(oldValue>newValue){
+//            if(historyCakeItem instanceof Condiment)
+//            {   Condiment historyCondiment =  (Condiment) historyCakeItem.getCakeItem();
+//                choosedCakeItem =
+//}
+//        choosedCakeItem = historyCakeItem.getCakeItem();
+//        }
+
+        if(newValue>oldValue){
+            Condiment cakeItem = condimentsList.get(0).copy();
+            historyCakeItem = choosedCakeItem;
+            cakeItem.setCakeItem(choosedCakeItem);
+            choosedCakeItem = cakeItem;
+        }
+
+        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
+
+
     }
+
+    private void updateCondimentTotalPrice2(int oldValue,int newValue) {
+        condimentsList.get(1).setCakeItem(choosedCakeItem);
+        choosedCakeItem = condimentsList.get(1);
+        System.out.println(choosedCakeItem.getCakeItemPrice());
+
+        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
+
+    }
+
+    private void updateCondimentTotalPrice3(int oldValue,int newValue) {
+        condimentsList.get(2).setCakeItem(choosedCakeItem);
+        choosedCakeItem = condimentsList.get(2);
+        System.out.println(choosedCakeItem.getCakeItemPrice());
+        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
+
+    }
+
+//    private void updateTotalPrice() {
+//        System.out.println(choosedCake.getCakeItemPrice());
+//    }
 
 
     private int calculateTotal() {

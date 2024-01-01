@@ -5,10 +5,10 @@ import com.mycompany.cakebakery.Models.Condiment;
 public class CondimentFactory {
     public Condiment createCondiment(String type) {
         switch (type) {
-            case "chocolate chips":
-                return new ChocolateChips();
-            case "macaron":
-                return new Macaron();
+            case "chocolate":
+                return new Chocolate();
+            case "macaroon":
+                return new Macaroon();
             case "strawberry":
                 return new Strawberry();
             default:

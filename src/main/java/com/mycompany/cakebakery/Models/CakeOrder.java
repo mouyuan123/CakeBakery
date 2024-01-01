@@ -9,11 +9,11 @@ public class CakeOrder {
     }
     
     public void placeOrder(){
-        System.out.println("Your order: " + this.cake.getFlavour());
+        System.out.println("Your order: " + this.cake.getCakeItemName());
     }
     
     public void cancelOrder(){
-        System.out.println("Your order: " + this.cake.getFlavour() + " is cancelled");
+        System.out.println("Your order: " + this.cake.getCakeItemName() + " is cancelled");
         this.cake = null;
     }
 

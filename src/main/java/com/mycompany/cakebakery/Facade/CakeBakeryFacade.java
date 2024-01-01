@@ -34,7 +34,7 @@ public class CakeBakeryFacade {
     }
     
     public boolean placeNewOrder(Cake selected){
-        if(budget.spend(selected.getPrice())){
+        if(budget.spend(selected.getCakeItemPrice())){
             CakeOrder cake = new CakeOrder(selected);
             PlaceOrderCommand orderCommand = new PlaceOrderCommand(cake);
             CancelOrderCommand cancelCommand = new CancelOrderCommand(cake);

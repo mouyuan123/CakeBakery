@@ -3,6 +3,11 @@ package com.mycompany.cakebakery.Models;
 import com.mycompany.cakebakery.Constants.DirConstant;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.mycompany.cakebakery.FactoryMethod.*;
+import com.mycompany.cakebakery.SimpleFactory.Chocolate;
+import com.mycompany.cakebakery.SimpleFactory.Macaroon;
+import com.mycompany.cakebakery.SimpleFactory.Strawberry;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -13,17 +18,32 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class Menu {
     
     private volatile static Menu uniqueMenuInstance;
-    
-    private List<Cake> cakes;
+
+    private List<Cake> bakedCakes;
+
+    private List<Cake> crepeCakes;
+
+    private List<Condiment> condiments;
     private static TableView table;
 
     private Menu() {
-        this.cakes = new ArrayList<>();
+        this.bakedCakes = new ArrayList<>();
+        this.crepeCakes = new ArrayList<>();
+        this.condiments = new ArrayList<>();
         // Set up the menu for different base cakes
-        this.cakes.add(new Cake("Matcha", 30.00, DirConstant.CAKE_PATH + "/matcha.png"));
-        this.cakes.add(new Cake("Chocolate", 20.00, DirConstant.CAKE_PATH + "/chocolate.png"));
-        this.cakes.add(new Cake("Tiramisu", 25.00, DirConstant.CAKE_PATH + "/tiramisu.png"));
-        this.cakes.add(new Cake("Oolong", 27.00, DirConstant.CAKE_PATH + "/oolong.png"));
+        this.bakedCakes.add(new MatchaCake());
+        this.bakedCakes.add(new ChocolateCake());
+        this.bakedCakes.add(new TiramisuCake());
+        this.bakedCakes.add(new VanillaCake());
+        this.bakedCakes.add(new RedVelvetCake());
+        this.crepeCakes.add(new MatchaCrepeCake());
+        this.crepeCakes.add(new ChocolateCrepeCake());
+        this.crepeCakes.add(new TiramisuCrepeCake());
+        this.crepeCakes.add(new VanillaCrepeCake());
+        this.crepeCakes.add(new RedVelvetCrepeCake());
+        this.condiments.add(new Chocolate());
+        this.condiments.add(new Macaroon());
+        this.condiments.add(new Strawberry());
     }
     
     public static Menu getMenuInstance(){
@@ -37,12 +57,28 @@ public class Menu {
         return uniqueMenuInstance;
     }
 
-    public List<Cake> getCakes() {
-        return cakes;
+    public List<Cake> getBakedCakes() {
+        return bakedCakes;
     }
 
-    public void setCakes(List<Cake> cakes) {
-        this.cakes = cakes;
+    public void getBakedCakes(List<Cake> cakes) {
+        this.bakedCakes = bakedCakes;
+    }
+
+    public List<Cake> getCrepeCakes() {
+        return crepeCakes;
+    }
+
+    public void getCrepeCakes(List<Cake> cakes) {
+        this.crepeCakes = crepeCakes;
+    }
+
+    public List<Condiment> getCondiments() {
+        return condiments;
+    }
+
+    public void getCondiments(List<Condiment> condiments) {
+        this.condiments = condiments;
     }
 
     public TableView<Cake> getTable() {
@@ -53,9 +89,9 @@ public class Menu {
         Menu.table = table;
     }
     
-    public ObservableList<Cake> getObservableListMenu(){
-        return FXCollections.observableList(getCakes());
-    }
+//    public ObservableList<Cake> getObservableListMenu(){
+//        return FXCollections.observableList(getCakes());
+//    }
     
     
     public void generateTableView(){
@@ -66,9 +102,10 @@ public class Menu {
 
         flavour.setCellValueFactory(new PropertyValueFactory<>("flavour"));
         price.setCellValueFactory(new PropertyValueFactory<>("price"));
-        ObservableList<Cake> menuItems = getObservableListMenu();
-        System.out.println(getCakes().get(0));
-        tableView.setItems(menuItems);
+//        ObservableList<Cake> menuItems = getObservableListMenu();
+        System.out.println(getBakedCakes().get(0));
+        System.out.println(getCrepeCakes().get(0));
+//        tableView.setItems(menuItems);
         setTable(tableView);
     }
 }

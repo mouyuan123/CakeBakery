@@ -678,125 +678,12 @@ public class CakeBakeryApplication extends Application {
     HBox BudgetControlPanel;
     // Check for selected cake at "Menu" screen
 
-//    @FXML
-//    private StackPane spMain; // This is linked to the StackPane in FXML
-//    @FXML
-//    private GridPane gpControl; // This is linked to the StackPane in FXML
-//    @FXML
-//    private ImageView imgTopUp; // This is linked to the StackPane in FXML
-//    @FXML
-//    private ImageView imgControlInterior;
-//    @FXML
-//    private ImageView imgSpeakerNotes;
-//    @FXML
-//    private Circle btnLightOn;
-//    @FXML
-//    private Circle btnLightOff;
-//    @FXML
-//    private Circle btnPreviousSong;
-//    @FXML
-//    private Circle btnNextSong;
-//    @FXML
-//    private Ellipse btnStopMusic;
-//    @FXML
-//    private Ellipse btnPlayMusic;
-//    @FXML
-//    private Ellipse btnCounter1;
-//    @FXML
-//    private Ellipse btnCounter2;
-//    @FXML
-//    private Ellipse btnCounter3;
-//    @FXML
-//    private Circle btnCloseControl;
-//    @FXML
-//    private SplitPane spCakeType;
-//    @FXML
-//    private Button btnCrossCakeType;
-//    @FXML
-//    private GridPane gpBakedCakes;
-//    @FXML
-//    private GridPane gpCrepeCakes;
-//    @FXML
-//    private SplitPane spBaseCake;
-//    @FXML
-//    private Button btnCrossBaseCake;
-//    @FXML
-//    private GridPane gpChocolateCake;
-//    @FXML
-//    private Label labelChocolateCake;
-//    @FXML
-//    private GridPane gpVanillaCake;
-//    @FXML
-//    private Label labelVanillaCake;
-//    @FXML
-//    private GridPane gpTiramisuCake;
-//    @FXML
-//    private Label labelTiramisuCake;
-//    @FXML
-//    private GridPane gpRedVelvetCake;
-//    @FXML
-//    private Label labelRedVelvetCake;
-//    @FXML
-//    private GridPane gpMatchaCake;
-//    @FXML
-//    private Label labelMatchaCake;
-//    @FXML
-//    private SplitPane spCrepeCake;
-//    @FXML
-//    private Button btnCrossCrepeCake;
-//    @FXML
-//    private GridPane gpChocolateCrepeCake;
-//    @FXML
-//    private Label labelChocolateCrepeCake;
-//    @FXML
-//    private GridPane gpVanillaCrepeCake;
-//    @FXML
-//    private Label labelVanillaCrepeCake;
-//    @FXML
-//    private GridPane gpTiramisuCrepeCake;
-//    @FXML
-//    private Label labelTiramisuCrepeCake;
-//    @FXML
-//    private GridPane gpRedVelvetCrepeCake;
-//    @FXML
-//    private Label labelRedVelvetCrepeCake;
-//    @FXML
-//    private GridPane gpMatchaCrepeCake;
-//    @FXML
-//    private Label labelMatchaCrepeCake;
-//    @FXML
-//    private SplitPane spCondiments;
-//    @FXML
-//    private Button btnCrossCondiments;
-//    @FXML
-//    private GridPane gpMacron;
     @FXML
     private Spinner<Integer> spinnerMarcron ;
-//    @FXML
-//    private GridPane gpStrawberry;
     @FXML
     private Spinner<Integer> spinnerStrawberry;
-//    @FXML
-//    private ImageView imgChoosedCake;
-//    @FXML
-//    private ImageView imgCondimentOne;
-//    @FXML
-//    private ImageView imgCondimentTwo;
-//    @FXML
-//    private ImageView imgCondimentThree;
-//    @FXML
-//    private Label labelChoosedCakeName;
-//    @FXML
-//    private Label labelTotalPrice;
-//    @FXML
-//    private GridPane gpChocolate;
     @FXML
     private Spinner<Integer> spinnerChocolate ;
-//    @FXML
-//    private Button btnPay;
-//    @FXML
-//    private Button btnCancel;
-//    Music music;
 
     Cake selectedCake;
     String selectedCakeName;
@@ -927,9 +814,9 @@ public class CakeBakeryApplication extends Application {
             mediaPlayer.stop();
         }
         cakeBakeryFacade.onOpen();
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
         controlBackgroundMusic(music); 
-        imgBakeryClosedBackground.setVisible(false);
+        this.imgBakeryClosedBackground.setVisible(false);
     }
     
     @FXML
@@ -983,14 +870,14 @@ public class CakeBakeryApplication extends Application {
     private void onBtnLightOnClick(MouseEvent event) {
         // Handle click on btnLightOn
         this.remote.leftButtonPressed(0);
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
     }
 
     @FXML
     private void onBtnLightOffClick(MouseEvent event) {
         // Handle click on btnLightOff
         this.remote.rightButtonPressed(0);
-        this.imgBackground.setImage(new Image(this.light.getLightingEffect()));
+        this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
     }
 
     @FXML
@@ -1792,11 +1679,19 @@ public class CakeBakeryApplication extends Application {
 
     public void controlBackgroundMusic(Music music) {
         String path = music.getCurr_music();
-        if (path != null) {
+        if (path != null){
             media = new Media(new File(path).toURI().toString());
             mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setAutoPlay(true);
             imgSpeakerNotes.setVisible(true);
+            // Add an event listener for the end of the media
+            mediaPlayer.setOnEndOfMedia(() -> {
+                // Get the next music to play
+                this.remote.rightButtonPressed(2);
+                // Update the media player with the next music
+                mediaPlayer.stop();
+                controlBackgroundMusic(music);
+            });
         }
         else{
             imgSpeakerNotes.setVisible(false);

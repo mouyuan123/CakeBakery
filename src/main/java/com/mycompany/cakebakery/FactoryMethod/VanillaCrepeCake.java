@@ -8,4 +8,8 @@ public class VanillaCrepeCake extends Cake {
     public VanillaCrepeCake() {
         super("Vanilla", 37.00, DirConstant.CREPE_CAKE_PATH + "/vanilla-crepe-cake.png","Crepe Cake");
     }
+    public Cake copy() {
+        Cake newCake = new VanillaCrepeCake();
+        return newCake;
+    }
 }

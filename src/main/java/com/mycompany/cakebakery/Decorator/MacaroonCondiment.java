@@ -16,10 +16,15 @@ public class MacaroonCondiment extends Condiment {
     }
 
     @Override
-    public double getCakeItemPrice() {
-        return super.getCakeItemPrice();
+//    public double getCakeItemPrice(){
+//        if(cakeItem != null)    {
+//            setCakeItemPrice(cakeItemPrice + this.cakeItem.getCakeItemPrice());
+//            return cakeItemPrice;}
+//        return cakeItemPrice;
+//    }
+    public double getCakeItemPrice(){
+        return cakeItemPrice + this.cakeItem.getCakeItemPrice();
     }
-
     @Override
     public String getCakeItemImg() {
         return super.getCakeItemImg();

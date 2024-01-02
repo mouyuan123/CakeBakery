@@ -16,10 +16,9 @@ public class StrawberryCondiment extends Condiment {
     }
 
     @Override
-    public double getCakeItemPrice() {
-        return super.getCakeItemPrice();
+    public double getCakeItemPrice(){
+        return cakeItemPrice + this.cakeItem.getCakeItemPrice();
     }
-
     @Override
     public String getCakeItemImg() {
         return super.getCakeItemImg();

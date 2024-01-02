@@ -1,5 +1,6 @@
 package com.mycompany.cakebakery.Models;
 
+import com.mycompany.cakebakery.FactoryMethod.ChocolateCake;
 import com.mycompany.cakebakery.SimpleFactory.CondimentFactory;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -103,4 +104,7 @@ public abstract class Cake extends CakeItem {
     public void setCakeType(String cakeType) {
         this.cakeType = cakeType;
     }
+
+    public Cake copy(){return null;}
+
 }

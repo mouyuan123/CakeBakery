@@ -1527,13 +1527,22 @@ public class CakeBakeryApplication extends Application {
     private void onBtnCrossCondimentsClick(MouseEvent event) {
         spMain.setVisible(false);
         spCondiments.setVisible(false);
+        decoratorsStack = new Stack<>();
+        choosedCondimentNameList = new ArrayList<String>();
+        choosedCake = null;
+        resetAllSpinners();
+        choosedCakeItem = null;
+        updateImageViews();
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
+
     }
 
     @FXML
     private void onBtnPayClick(MouseEvent event) throws InterruptedException {
         spCondiments.setVisible(false);
         gpFactoryProcess.setVisible(true);
-        decoratorsStack = new Stack<>();
         System.out.println(choosedCondimentNameList);
         choosedCondimentImageViewList.add(imgFinalCondiment1);
         choosedCondimentImageViewList.add(imgFinalCondiment2);
@@ -1545,22 +1554,31 @@ public class CakeBakeryApplication extends Application {
             BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
             bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
         }
+        choosedCondimentNameList = new ArrayList<String>();
+        decoratorsStack = new Stack<>();
         choosedCake = null;
         resetAllSpinners();
         choosedCakeItem = null;
+        updateImageViews();
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
     }
-
-    private void createFactoryProcessImage() {
-
-
-    }
-
 
     @FXML
     private void onBtnCancelClick(MouseEvent event) {
         spMain.setVisible(false);
         spCondiments.setVisible(false);
+        choosedCondimentNameList = new ArrayList<String>();
+        decoratorsStack = new Stack<>();
+        choosedCake = null;
         resetAllSpinners();
+        choosedCakeItem = null;
+        updateImageViews();
+        choosedCondimentNameList = new ArrayList<String>();
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
     }
 
     private void showCondimentPageSettings() {
@@ -1586,88 +1604,16 @@ public class CakeBakeryApplication extends Application {
         labelChoosedCakeName.setText(cake.getCakeItemName() + " " + cake.getCakeType());
         labelTotalPrice.setText("Total Price: " + cake.getCakeItemPrice());
         initializeSpinner();
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
 
     }
 
     private Alert alert = null;
 
-    // ...
-
     private boolean ignoreChange = false; // flag to ignore listener when programmatically setting value
 
-    // ...
-
-//    private void initializeSpinner() {
-//        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-//            if (!ignoreChange) {
-//                int total = calculateTotal();
-//                if (total > 3) {
-//                    ignoreChange = true; // Set the flag to ignore subsequent changes
-//
-//                    resetAllSpinners(); // Reset all spinners to zero immediately
-//
-//                    Platform.runLater(() -> {
-//                        showAlert(); // Show the alert
-//                        // The flag will be reset after the alert is dismissed within showAlert
-//                    });
-//                }
-//            }
-//        };
-//
-//        spinnerStrawberry.valueProperty().addListener(listener);
-//        spinnerMarcron.valueProperty().addListener(listener);
-//        spinnerChocolate.valueProperty().addListener(listener);
-//    }
-//
-//
-//    private void resetAllSpinners() {
-//        spinnerStrawberry.getValueFactory().setValue(0);
-//        spinnerMarcron.getValueFactory().setValue(0);
-//        spinnerChocolate.getValueFactory().setValue(0);
-//        spinnerChocolate.getEditor().setAlignment(Pos.CENTER);
-//        spinnerMarcron.getEditor().setAlignment(Pos.CENTER);
-//        spinnerStrawberry.getEditor().setAlignment(Pos.CENTER);
-//    }
-//
-//    private void showAlert() {
-//        // Only create a new alert if there isn't one already showing
-//        if (alert == null || !alert.isShowing()) {
-//            alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Limit Exceeded");
-//            alert.setHeaderText(null);
-//            alert.setContentText("The total cannot exceed 3.");
-//
-//            // This will block the calling thread, so it's okay to reset the ignoreChange flag after it
-//            alert.showAndWait();
-//
-//            // After the alert is dismissed, reset the flag
-//            ignoreChange = false;
-//
-////            initializeSpinner();
-//        }
-//    }
-
-    //    private void initializeSpinner() {
-//        ChangeListener<Number> listener = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
-//            if (!ignoreChange) {
-//                int total = calculateTotal();
-//                if (total > 3) {
-//                    ignoreChange = true; // Set the flag to ignore subsequent changes
-//
-//                    resetAllSpinners(); // Reset all spinners to zero immediately
-//
-//                    Platform.runLater(() -> {
-//                        showAlert(); // Show the alert
-//                    });
-//                }
-//            }
-//        };
-//
-//        spinnerStrawberry.valueProperty().addListener(listener);
-//        spinnerMarcron.valueProperty().addListener(listener);
-//        spinnerChocolate.valueProperty().addListener(listener);
-//    }
-//
     private void resetAllSpinners() {
         spinnerCondiment2.getValueFactory().setValue(0);
         spinnerCondiment1.getValueFactory().setValue(0);
@@ -1746,7 +1692,7 @@ public class CakeBakeryApplication extends Application {
             choosedCakeItem = cakeItem;
             Condiment temp = ((Condiment) choosedCakeItem);
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) removeLastDecorator();
+        } else if (newValue < oldValue) rewrapCake();
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
@@ -1766,7 +1712,7 @@ public class CakeBakeryApplication extends Application {
             cakeItem.setCakeItem(choosedCakeItem);
             choosedCakeItem = cakeItem;
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) removeLastDecorator();
+        } else if (newValue < oldValue) rewrapCake();
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
@@ -1783,18 +1729,55 @@ public class CakeBakeryApplication extends Application {
             cakeItem.setCakeItem(choosedCakeItem);
             choosedCakeItem = cakeItem;
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) removeLastDecorator();
+        } else if (newValue < oldValue) rewrapCake();
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
     }
 
-    public void removeLastDecorator() {
-        if (!decoratorsStack.isEmpty()) {
-            decoratorsStack.pop(); // Remove the latest decorator
-            choosedCakeItem = decoratorsStack.isEmpty() ? choosedCake : decoratorsStack.peek();
+    public void rewrapCake() {
+        int condiment1Count = spinnerCondiment1.getValue().intValue();
+        int condiment2Count = spinnerCondiment2.getValue().intValue();
+        int condiment3Count = spinnerCondiment3.getValue().intValue();
+        // Start with the base cake
+        if(choosedCake!=null){
+            CakeItem currentCake = choosedCake.copy();
+            decoratorsStack.clear();
+
+            // Add each condiment the appropriate number of times
+            currentCake = addCondiment1(currentCake, condiment1Count);
+            currentCake = addCondiment2(currentCake, condiment2Count);
+            currentCake = addCondiment3(currentCake, condiment3Count);
+
+            choosedCakeItem = currentCake; // Update the main cake item
         }
     }
+
+    private CakeItem addCondiment1(CakeItem cake, int count) {
+        for (int i = 0; i < count; i++) {
+            Condiment temp = condimentsList.get(0).copy();
+            temp.setCakeItem(cake);
+            cake = temp;
+        }
+        return cake;
+    }
+    private CakeItem addCondiment2(CakeItem cake, int count) {
+        for (int i = 0; i < count; i++) {
+            Condiment temp = condimentsList.get(1).copy();
+            temp.setCakeItem(cake);
+            cake = temp;
+        }
+        return cake;
+    }
+    private CakeItem addCondiment3(CakeItem cake, int count) {
+        for (int i = 0; i < count; i++) {
+            Condiment temp = condimentsList.get(2).copy();
+            temp.setCakeItem(cake);
+            cake = temp;
+        }
+        return cake;
+    }
+
 
 
 //    private void updateTotalPrice() {

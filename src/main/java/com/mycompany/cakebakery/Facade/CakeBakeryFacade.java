@@ -1,24 +1,23 @@
 package com.mycompany.cakebakery.Facade;
 
-import com.mycompany.cakebakery.Command.CancelOrderCommand;
-import com.mycompany.cakebakery.Command.OrderInvoker;
-import com.mycompany.cakebakery.Command.PlaceOrderCommand;
+import com.mycompany.cakebakery.FactoryMethod.BakedCakeFactory;
+import com.mycompany.cakebakery.FactoryMethod.CrepeCakeFactory;
 import com.mycompany.cakebakery.Models.Budget;
-import com.mycompany.cakebakery.Models.Cake;
 import com.mycompany.cakebakery.Models.CakeBakery;
-import com.mycompany.cakebakery.Models.CakeOrder;
 
 public class CakeBakeryFacade {
     
     private CakeBakery cakeBakery;
+    private CrepeCakeFactory crepeCakeFactory;
+    private BakedCakeFactory bakedCakeFactory;
     private Budget budget;
-    private OrderInvoker waiter;
     private String message;
 
-    public CakeBakeryFacade(CakeBakery cafeBakery, Budget budget, OrderInvoker waiter) {
+    public CakeBakeryFacade(CakeBakery cafeBakery, Budget budget, CrepeCakeFactory crepeCakeFactory, BakedCakeFactory bakedCakeFactory) {
         this.cakeBakery = cafeBakery;
         this.budget = budget;
-        this.waiter = waiter;
+        this.crepeCakeFactory = crepeCakeFactory;
+        this.bakedCakeFactory = bakedCakeFactory;
     }
     
     public boolean onOpen(){
@@ -33,23 +32,7 @@ public class CakeBakeryFacade {
         return true;
     }
     
-    public boolean placeNewOrder(Cake selected){
-        if(budget.spend(selected.getCakeItemPrice())){
-            CakeOrder cake = new CakeOrder(selected);
-            PlaceOrderCommand orderCommand = new PlaceOrderCommand(cake);
-            CancelOrderCommand cancelCommand = new CancelOrderCommand(cake);
-            this.waiter.setCommand(orderCommand, cancelCommand);
-            this.waiter.onOrderPlaced();
-            return true;
-        }
-        else{
-            this.message = "Not enough budget. Please top up";
-            return false;
-        }
-    }
-    
-    public boolean cancelCurrentOrder(){
-        this.waiter.onOrderCancel();
+    public boolean orderCake(){
         return true;
     }
 

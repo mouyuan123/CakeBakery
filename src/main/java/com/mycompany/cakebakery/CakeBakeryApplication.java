@@ -1040,14 +1040,16 @@ public class CakeBakeryApplication extends Application {
     @FXML
     private Button btnCancel;
 
+    //Singleton
     @FXML
-    private Button btnTopUpCancel;
+    private Label labelCash;
     @FXML
     private TextArea taTopUpValue;
-
-
     @FXML
     private Button btnTopUpOK;
+    @FXML
+    private Button btnTopUpCancel;
+
     @FXML
     private ImageView imgFactoryProcess;
     @FXML
@@ -1130,12 +1132,6 @@ public class CakeBakeryApplication extends Application {
 
 //            // 2. Instantiate Cake Bakery object (Singleton)
 //        CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
-//
-//        // 3. Instantiate Budget object (Singleton)
-//        Budget budget = Budget.getBudgetInstance();
-////        Text budgetTxt = new Text("Point: " + budget.getBudget());
-////        budgetTxt.setFont(Font.font("Verdana", 30));
-//
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-cake-bakery.fxml"));
             loader.setController(this);
@@ -1167,6 +1163,7 @@ public class CakeBakeryApplication extends Application {
             initializeListener();
             isFirstTimeOpenRestaurant = false;
         }
+        updateLabelCash();
     }
 
     private void initializeListener(){
@@ -1278,22 +1275,15 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onTopUpCancelClick(MouseEvent event) {
-
         spMain.setVisible(false);
         gpTopUp.setVisible(false);
     }
-
 
     @FXML
     private void onbtnTopUpOKClick(MouseEvent event) {
         taTopUpValue.getText();
-        System.out.println(taTopUpValue.getText()
-        );
-        taTopUpValue.setText("");
-        spMain.setVisible(false);
-        gpTopUp.setVisible(false);
+        processTopUpAmount(taTopUpValue.getText());
     }
-
 
     @FXML
     private void onImgCashTagClick(MouseEvent event) {
@@ -2318,80 +2308,41 @@ public class CakeBakeryApplication extends Application {
         alertBox.show();
     }
 
-    //Singleton
-    public void updateBudgetDisplay() {
+    //Method to display the latest budget (Singleton)
+    private void updateLabelCash(){
         double currentBudget = Budget.getBudgetInstance().getBudget();
-        budgetLabel.setText("Budget: " + currentBudget);
+        labelCash.setText("$"+String.format("%.2f", currentBudget));
     }
 
-    // Method to show the budget input dialog (Singleton)
-    private void showBudgetInputDialog(CakeBakeryFacade cakeBakeryFacade, Stage stage, Button onOpenRestaurantButton, Button onCloseRestaurantButton, Button menuButton) {
-        boolean validInput = false;
-
-        while (!validInput) {
-            TextInputDialog budgetInputDialog = new TextInputDialog();
-            budgetInputDialog.setTitle("Budget Top Up Counter");
-            budgetInputDialog.setHeaderText("Welcome To Cafe Bakery!");
-            budgetInputDialog.setContentText("Please Enter Your Budget:");
-            budgetInputDialog.setGraphic(null); // Remove the alert icon
-
-            // Way to get the response value.
-            Optional<String> result = budgetInputDialog.showAndWait();
-
-            if (result.isPresent()) {
-                try {
-                    double budgetValue = Double.parseDouble(result.get());
-                    Budget.getBudgetInstance().setBudget(budgetValue);
-                    updateBudgetDisplay();
-                    validInput = true; // Break the loop on valid input
-                } catch (NumberFormatException e) {
-                    // Handle invalid number input by showing the dialog again
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Input");
-                    alert.setHeaderText("Invalid Budget");
-                    alert.setContentText("Please Enter A Valid Number For The Budget.");
-                    alert.showAndWait();
-                    // Loop will continue if the input is not valid
-                }
-            } else {
-                // User canceled the dialog
-                validInput = true; // Exit the loop if the user cancels the dialog
+    private void processTopUpAmount(String topUpAmount) {
+        try {
+            double amount = Double.parseDouble(topUpAmount);
+            if (amount <= 0) {
+                showAlert("Invalid Amount", "Please enter a positive number.");
+                return;
             }
+            Budget.getBudgetInstance().topUp(amount);
+            updateLabelCash();
+            taTopUpValue.setText("");
+            spMain.setVisible(false);
+            gpTopUp.setVisible(false);
+        } catch (NumberFormatException e) {
+            showAlert("Invalid Input", "Please enter a valid number.");
         }
     }
 
-    // Method to show the budget top up dialog (Singleton)
-    private void showBudgetTopUpDialog(Button topUpButton) {
-        boolean validInput = false;
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.setStyle("-fx-font-size: 16px;");
+        alert.showAndWait();
+        taTopUpValue.setText("");
+        spMain.setVisible(true);
+        gpTopUp.setVisible(true);
 
-        while (!validInput) {
-            TextInputDialog budgetTopUpDialog = new TextInputDialog();
-            budgetTopUpDialog.setTitle("Budget Top Up Counter");
-            budgetTopUpDialog.setHeaderText("Thank You and Have A Nice Day!");
-            budgetTopUpDialog.setContentText("Please Enter Your Budget:");
-            budgetTopUpDialog.setGraphic(null); // Remove the icon
-
-            Optional<String> result = budgetTopUpDialog.showAndWait();
-
-            if (result.isPresent()) {
-                try {
-                    double budgetValue1 = Double.parseDouble(result.get());
-                    Budget.getBudgetInstance().topUp(budgetValue1);
-                    updateBudgetDisplay();
-                    validInput = true; // Break the loop on valid input
-                } catch (NumberFormatException e) {
-                    // Handle invalid number input by showing the dialog again
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Invalid Input");
-                    alert.setHeaderText("Invalid Budget");
-                    alert.setContentText("Please Enter A Valid Number For The Budget.");
-                    alert.showAndWait();
-                }
-            } else {
-                // User canceled the dialog
-                validInput = true; // Exit the loop if the user cancels the dialog
-            }
-        }
     }
 
 }

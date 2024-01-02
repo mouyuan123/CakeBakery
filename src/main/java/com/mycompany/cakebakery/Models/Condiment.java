@@ -18,19 +18,11 @@ public class Condiment extends CakeItem {
         this.cakeItemImg = condimentImg;
     }
 
-    @Override
-    public double getCakeItemPrice(){
-        if(cakeItem != null)    {
-            setCakeItemPrice(cakeItemPrice + cakeItem.cakeItemPrice);
-            return cakeItemPrice;}
-        return cakeItemPrice;
-    }
+
 
     public Condiment copy() {
         Condiment newCondiment = new Condiment(this.getCakeItemName(),this.getCakeItemPrice(),this.getCakeItemImg());
-        if(this.cakeItem != null){
-            newCondiment.setCakeItem(this.cakeItem);
-        }
+        newCondiment.setCakeItem(this.cakeItem);
         return newCondiment;
     }
 }

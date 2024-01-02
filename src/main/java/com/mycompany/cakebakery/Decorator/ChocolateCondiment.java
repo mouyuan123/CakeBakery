@@ -16,8 +16,10 @@ public class ChocolateCondiment extends Condiment {
     }
 
     @Override
-    public double getCakeItemPrice() {
-        return super.getCakeItemPrice();
+    public double getCakeItemPrice(){
+        System.out.println("HERE" + cakeItemPrice);
+        System.out.println(this.cakeItem.getCakeItemPrice());
+        return this.cakeItemPrice + this.cakeItem.getCakeItemPrice();
     }
 
     @Override

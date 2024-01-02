@@ -1090,6 +1090,7 @@ public class CakeBakeryApplication extends Application {
     CakeItem historyCakeItem;
     ArrayList<String> choosedCondimentNameList = new ArrayList<String>();
     ArrayList<ImageView> choosedCondimentImageViewList = new ArrayList<ImageView>();
+    Stack<CakeItem> decoratorsStack = new Stack<>();
 
 
     @Override
@@ -1501,6 +1502,7 @@ public class CakeBakeryApplication extends Application {
     private void onBtnPayClick(MouseEvent event) throws InterruptedException {
         spCondiments.setVisible(false);
         gpFactoryProcess.setVisible(true);
+        decoratorsStack = new Stack<>();
         System.out.println(choosedCondimentNameList);
         choosedCondimentImageViewList.add(imgFinalCondiment1);
         choosedCondimentImageViewList.add(imgFinalCondiment2);
@@ -1512,7 +1514,9 @@ public class CakeBakeryApplication extends Application {
             BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
             bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess,choosedCondimentNameList,choosedCondimentImageViewList,imgFinalCake,apFinalCakeItem, gpFactoryProcess, spMain);
         }
+        choosedCake = null;
         resetAllSpinners();
+        choosedCakeItem = null;
     }
 
     private void createFactoryProcessImage() {
@@ -1656,6 +1660,8 @@ public class CakeBakeryApplication extends Application {
 //    }
 
     private void initializeSpinner() {
+        choosedCakeItem = choosedCake.copy();
+        decoratorsStack.push(choosedCakeItem);
         ChangeListener<Number> listener1 = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             if (!ignoreChange) {
                 updateSpinnerMaximums();
@@ -1704,13 +1710,14 @@ public class CakeBakeryApplication extends Application {
 //}
 //        choosedCakeItem = historyCakeItem.getCakeItem();
 //        }
-
         if(newValue>oldValue){
             Condiment cakeItem = condimentsList.get(0).copy();
-            historyCakeItem = choosedCakeItem;
             cakeItem.setCakeItem(choosedCakeItem);
             choosedCakeItem = cakeItem;
+            Condiment temp = ((Condiment) choosedCakeItem);
+            decoratorsStack.push(choosedCakeItem);
         }
+        else if(newValue<oldValue)removeLastDecorator();
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
@@ -1718,21 +1725,49 @@ public class CakeBakeryApplication extends Application {
     }
 
     private void updateCondimentTotalPrice2(int oldValue,int newValue) {
-        condimentsList.get(1).setCakeItem(choosedCakeItem);
-        choosedCakeItem = condimentsList.get(1);
-        System.out.println(choosedCakeItem.getCakeItemPrice());
+//        condimentsList.get(1).setCakeItem(choosedCakeItem);
+//        choosedCakeItem = condimentsList.get(1);
+//        System.out.println(choosedCakeItem.getCakeItemPrice());
+//
+//        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
+
+        if(newValue>oldValue){
+            Condiment cakeItem = condimentsList.get(1).copy();
+            cakeItem.setCakeItem(choosedCakeItem);
+            choosedCakeItem = cakeItem;
+            decoratorsStack.push(choosedCakeItem);
+        }
+        else if(newValue<oldValue)removeLastDecorator();
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
     }
 
     private void updateCondimentTotalPrice3(int oldValue,int newValue) {
-        condimentsList.get(2).setCakeItem(choosedCakeItem);
-        choosedCakeItem = condimentsList.get(2);
-        System.out.println(choosedCakeItem.getCakeItemPrice());
+//        condimentsList.get(2).setCakeItem(choosedCakeItem);
+//        choosedCakeItem = condimentsList.get(2);
+//        System.out.println(choosedCakeItem.getCakeItemPrice());
+//        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
+        if(newValue>oldValue){
+            Condiment cakeItem = condimentsList.get(2).copy();
+            cakeItem.setCakeItem(choosedCakeItem);
+            choosedCakeItem = cakeItem;
+            decoratorsStack.push(choosedCakeItem);
+        }
+        else if(newValue<oldValue)removeLastDecorator();
+
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
     }
+
+    public void removeLastDecorator() {
+        if (!decoratorsStack.isEmpty()) {
+            decoratorsStack.pop(); // Remove the latest decorator
+            choosedCakeItem = decoratorsStack.isEmpty() ? choosedCake : decoratorsStack.peek();
+        }
+    }
+
+
 
 //    private void updateTotalPrice() {
 //        System.out.println(choosedCake.getCakeItemPrice());

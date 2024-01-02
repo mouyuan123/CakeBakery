@@ -1074,6 +1074,7 @@ public class CakeBakeryApplication extends Application {
 
     Music music;
     Lighting light;
+    CakeBakery cakeBakery;
     CakeBakeryFacade cakeBakeryFacade;
 
     List<Cake> bakedCakesList;
@@ -1090,7 +1091,7 @@ public class CakeBakeryApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
+            this.cakeBakery = CakeBakery.getCakeBakeryInstance();
             //Initialise Command Patterns
             this.light = cakeBakery.getLight();
             this.music = cakeBakery.getMusic();
@@ -1148,7 +1149,7 @@ public class CakeBakeryApplication extends Application {
         this.imgBackground.setImage(loadImage(this.light.getLightingEffect()));
         controlBackgroundMusic(music);
         imgBakeryClosedBackground.setVisible(false);
-        Menu menu = Menu.getMenuInstance();
+        Menu menu = this.cakeBakery.getMenu();
         setMenu(menu);
         if (isFirstTimeOpenRestaurant) {
             spMain.setVisible(true);

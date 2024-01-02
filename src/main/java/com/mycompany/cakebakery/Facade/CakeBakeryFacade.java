@@ -44,7 +44,7 @@ public class CakeBakeryFacade {
         try{
             double amount = Double.parseDouble(topUpAmount);
             if (amount <= 0) {
-                this.setTitle("Invalid Input");
+                this.setTitle("Invalid Amount");
                 this.setMessage("Please enter a valid number.");
                 return false;
             }
@@ -54,6 +54,18 @@ public class CakeBakeryFacade {
             this.setTitle("Invalid Input");
             this.setMessage("Please enter a valid number.");
             return false;
+        }
+    }
+    
+    public boolean processPayment(double totalCost){
+        if(this.budget.getBudget() < totalCost){
+            this.setTitle("Insufficient Budget");
+            this.setMessage("Your current budget is insufficient. Please Top Up.");
+            return false;
+        }
+        else{
+            this.budget.spend(totalCost);
+            return true;
         }
     }
     

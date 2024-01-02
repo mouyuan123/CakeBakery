@@ -55,6 +55,7 @@ public class CakeBakeryApplication extends Application {
     Media media;
     MediaPlayer mediaPlayer;
 //    Music music;
+    String selectedCakeType;
 //    Lighting light;
     CakeBakery cakeBakery;
     CakeBakeryFacade cakeBakeryFacade;
@@ -205,7 +206,6 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private Spinner<Integer> spinnerCondiment3;
-
 
     @FXML
     private Circle btnLightOn;
@@ -362,7 +362,6 @@ public class CakeBakeryApplication extends Application {
     ChangeListener<Number> listener2;
     ChangeListener<Number> listener3;
 
-
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -508,7 +507,6 @@ public class CakeBakeryApplication extends Application {
 
     }
 
-
     @FXML
     private void onBtnCloseBakeryClick(MouseEvent event) {
         if (mediaPlayer != null) {
@@ -585,7 +583,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnPreviousSongClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.leftButtonPressed(2);
         if (!this.cakeBakery.getMusic().isOff()) {
             controlBackgroundMusic(this.cakeBakery.getMusic());
@@ -594,7 +594,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnNextSongClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.rightButtonPressed(2);
         if (!this.cakeBakery.getMusic().isOff()) {
             controlBackgroundMusic(this.cakeBakery.getMusic());
@@ -603,7 +605,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnStopMusicClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.rightButtonPressed(1);
         controlBackgroundMusic(this.cakeBakery.getMusic());
     }
@@ -737,47 +741,59 @@ public class CakeBakeryApplication extends Application {
     }
 
     @FXML
-    private void onBtnPayClick(MouseEvent event) throws InterruptedException {
-        spCondiments.setVisible(false);
-        gpFactoryProcess.setVisible(true);
-        decoratorsStack = new Stack<>();
-        System.out.println(choosedCondimentNameList);
-        choosedCondimentImageViewList.add(imgFinalCondiment1);
-        choosedCondimentImageViewList.add(imgFinalCondiment2);
-        choosedCondimentImageViewList.add(imgFinalCondiment3);
-        this.cakeBakeryFacade.processCake(choosedCake, imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
-//        if (choosedCake.getCakeType().equals("Crepe Cake")) {
-//            CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
-//            crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
-//        } else if (choosedCake.getCakeType().equals("Baked Cake")) {
-//            BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
-//            bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
-//        }
-        choosedCondimentNameList = new ArrayList<String>();
-        decoratorsStack = new Stack<>();
-        choosedCake = null;
-        resetAllSpinners();
-        choosedCakeItem = null;
-        updateImageViews();
-        imgCondimentOne.setImage(null);
-        imgCondimentTwo.setImage(null);
-        imgCondimentThree.setImage(null);
+    private void onBtnPayClick(MouseEvent event) {
+        // Calculate the total cost of the cake and condiments
+        double totalCost = choosedCakeItem.getCakeItemPrice();
+        
+        if(this.cakeBakeryFacade.processPayment(totalCost)){
+            // Proceed with payment since the budget is sufficient
+            spCondiments.setVisible(false);
+            gpFactoryProcess.setVisible(true);
+            decoratorsStack = new Stack<>();
+            System.out.println(choosedCondimentNameList);
+            choosedCondimentImageViewList.add(imgFinalCondiment1);
+            choosedCondimentImageViewList.add(imgFinalCondiment2);
+            choosedCondimentImageViewList.add(imgFinalCondiment3);
+            // Ask the cake bakery facade to process the cake order
+            this.cakeBakeryFacade.processCake(choosedCake, imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+            choosedCake = null;
+            resetAllSpinners();
+            choosedCakeItem = null;
+
+            // Update the budget display
+            updateLabelCash();
+        }else{
+            // Show an alert for insufficient budget
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(this.cakeBakeryFacade.getTitle());
+            alert.setHeaderText(null);
+            alert.setContentText(this.cakeBakeryFacade.getMessage());
+
+            // Add "Top Up" and "Cancel" buttons
+            ButtonType topUpButton = new ButtonType("Top Up");
+            ButtonType cancelButton = new ButtonType("Cancel");
+            alert.getButtonTypes().setAll(topUpButton, cancelButton);
+
+            // Set the font size of the alert message
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setStyle("-fx-font-size: 15px;");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == topUpButton) {
+                // User chose to top up
+                this.processCloseCakeSelection();
+                spMain.setVisible(true);
+                gpTopUp.setVisible(true);
+            } else {
+                // User chose to cancel or closed the alert
+                // No action needed, just return to the previous state
+            }
+        }
     }
 
     @FXML
     private void onBtnCancelClick(MouseEvent event) {
-        spMain.setVisible(false);
-        spCondiments.setVisible(false);
-        choosedCondimentNameList = new ArrayList<String>();
-        decoratorsStack = new Stack<>();
-        choosedCake = null;
-        resetAllSpinners();
-        choosedCakeItem = null;
-        updateImageViews();
-        choosedCondimentNameList = new ArrayList<String>();
-        imgCondimentOne.setImage(null);
-        imgCondimentTwo.setImage(null);
-        imgCondimentThree.setImage(null);
+        processCloseCakeSelection();
     }
 
     private void showCondimentPageSettings() {
@@ -816,10 +832,6 @@ public class CakeBakeryApplication extends Application {
         spinnerCondiment3.getValueFactory().setValue(0);
     }
 
-
-
-
-
     private void initializeSpinner() {
         choosedCakeItem = choosedCake.copy();
         decoratorsStack.push(choosedCakeItem);
@@ -831,7 +843,7 @@ public class CakeBakeryApplication extends Application {
         spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(min, max, value));
         spinner.valueProperty().addListener(listener);
     }
-
+    
     private void updateSpinnerMaximums() {
         int total = calculateTotal();
 
@@ -877,10 +889,6 @@ public class CakeBakeryApplication extends Application {
     }
 
     private void updateCondimentTotalPrice3(int oldValue, int newValue) {
-//        condimentsList.get(2).setCakeItem(choosedCakeItem);
-//        choosedCakeItem = condimentsList.get(2);
-//        System.out.println(choosedCakeItem.getCakeItemPrice());
-//        labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
         if (newValue > oldValue) {
             Condiment cakeItem = condimentsList.get(2).copy();
             cakeItem.setCakeItem(choosedCakeItem);
@@ -952,7 +960,6 @@ public class CakeBakeryApplication extends Application {
         Image condimentOneImage = loadImage(condimentsList.get(0).getCakeItemImg());
         Image condimentTwoImage = loadImage(condimentsList.get(1).getCakeItemImg());
         Image condimentThreeImage = loadImage(condimentsList.get(2).getCakeItemImg());
-
 
         // Update for strawberries
         for (int i = 0; i < spinnerCondiment2.getValue(); i++) {
@@ -1043,12 +1050,27 @@ public class CakeBakeryApplication extends Application {
         if(this.cakeBakeryFacade.processTopUp(topUpAmount)){
             updateLabelCash();
             taTopUpValue.setText("");
-            spMain.setVisible(false);
+            if (!spCondiments.isVisible()) spMain.setVisible(false);
             gpTopUp.setVisible(false);
         }
         else{
             showAlert(this.cakeBakeryFacade.getTitle(), this.cakeBakeryFacade.getMessage());
         }
+    }
+    
+    private void processCloseCakeSelection(){
+        spMain.setVisible(false);
+        spCondiments.setVisible(false);
+        choosedCondimentNameList = new ArrayList<String>();
+        decoratorsStack = new Stack<>();
+        choosedCake = null;
+        resetAllSpinners();
+        choosedCakeItem = null;
+        updateImageViews();
+        choosedCondimentNameList = new ArrayList<String>();
+        imgCondimentOne.setImage(null);
+        imgCondimentTwo.setImage(null);
+        imgCondimentThree.setImage(null);
     }
 
     private void showAlert(String title, String content) {
@@ -1057,11 +1079,12 @@ public class CakeBakeryApplication extends Application {
         alert.setHeaderText(null);
         alert.setContentText(content);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-font-size: 16px;");
+        dialogPane.setStyle("-fx-font-size: 15px;");
         alert.showAndWait();
         taTopUpValue.setText("");
         spMain.setVisible(true);
         gpTopUp.setVisible(true);
+
     }
 
 }

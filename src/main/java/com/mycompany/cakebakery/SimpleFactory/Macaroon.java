@@ -17,7 +17,7 @@ public class Macaroon extends Condiment {
     }
     public Condiment copy() {
         Condiment newCondiment = new Macaroon();
-        newCondiment.setCakeItem(this.cakeItem);
+//        newCondiment.setCakeItem(this.cakeItem);
         return newCondiment;
     }
 }

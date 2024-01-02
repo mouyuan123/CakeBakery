@@ -18,7 +18,7 @@ public class Chocolate extends Condiment {
 
     public Condiment copy() {
         Condiment newCondiment = new Chocolate();
-        newCondiment.setCakeItem(this.cakeItem);
+//        newCondiment.setCakeItem(this.cakeItem);
         return newCondiment;
     }
 }

@@ -21,8 +21,6 @@ public class Condiment extends CakeItem {
 
 
     public Condiment copy() {
-        Condiment newCondiment = new Condiment(this.getCakeItemName(),this.getCakeItemPrice(),this.getCakeItemImg());
-        newCondiment.setCakeItem(this.cakeItem);
-        return newCondiment;
+        return null;
     }
 }

@@ -786,7 +786,6 @@ public class CakeBakeryApplication extends Application {
 //    @FXML
 //    private Button btnCancel;
 //    Music music;
-
     String selectedCakeType;
 
     @FXML
@@ -936,7 +935,6 @@ public class CakeBakeryApplication extends Application {
     @FXML
     private Spinner<Integer> spinnerCondiment3;
 
-
     @FXML
     private Circle btnLightOn;
     @FXML
@@ -1073,7 +1071,6 @@ public class CakeBakeryApplication extends Application {
     @FXML
     private ImageView imgFinalCondiment3;
 
-
     Music music;
     Lighting light;
     CakeBakery cakeBakery;
@@ -1097,7 +1094,6 @@ public class CakeBakeryApplication extends Application {
     ChangeListener<Number> listener1;
     ChangeListener<Number> listener2;
     ChangeListener<Number> listener3;
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -1132,7 +1128,6 @@ public class CakeBakeryApplication extends Application {
 
 //            // 2. Instantiate Cake Bakery object (Singleton)
 //        CakeBakery cakeBakery = CakeBakery.getCakeBakeryInstance();
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-cake-bakery.fxml"));
             loader.setController(this);
             Parent root = loader.load();
@@ -1166,7 +1161,7 @@ public class CakeBakeryApplication extends Application {
         updateLabelCash();
     }
 
-    private void initializeListener(){
+    private void initializeListener() {
         listener1 = (ObservableValue<? extends Number> observable, Number oldValue, Number newValue) -> {
             if (!ignoreChange) {
                 ignoreChange = true; // Set flag to ignore subsequent changes
@@ -1250,7 +1245,6 @@ public class CakeBakeryApplication extends Application {
 
     }
 
-
     @FXML
     private void onBtnCloseBakeryClick(MouseEvent event) {
         if (mediaPlayer != null) {
@@ -1327,7 +1321,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnPreviousSongClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.leftButtonPressed(2);
         if (!music.isOff()) {
             controlBackgroundMusic(music);
@@ -1336,7 +1332,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnNextSongClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.rightButtonPressed(2);
         if (!music.isOff()) {
             controlBackgroundMusic(music);
@@ -1345,7 +1343,9 @@ public class CakeBakeryApplication extends Application {
 
     @FXML
     private void onBtnStopMusicClick(MouseEvent event) {
-        if (mediaPlayer != null) mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+        }
         this.remote.rightButtonPressed(1);
         controlBackgroundMusic(music);
 //        imgSpeakerNotes.setVisible(false);
@@ -1522,7 +1522,6 @@ public class CakeBakeryApplication extends Application {
 //    private void onGpMatchaCrepeCakeClick(MouseEvent event) {
 //        setSelectedCakeUI("Matcha", "Crepe Cake");
 //    }
-
     @FXML
     private void onBtnCrossCondimentsClick(MouseEvent event) {
         spMain.setVisible(false);
@@ -1540,29 +1539,61 @@ public class CakeBakeryApplication extends Application {
     }
 
     @FXML
-    private void onBtnPayClick(MouseEvent event) throws InterruptedException {
-        spCondiments.setVisible(false);
-        gpFactoryProcess.setVisible(true);
-        System.out.println(choosedCondimentNameList);
-        choosedCondimentImageViewList.add(imgFinalCondiment1);
-        choosedCondimentImageViewList.add(imgFinalCondiment2);
-        choosedCondimentImageViewList.add(imgFinalCondiment3);
-        if (choosedCake.getCakeType().equals("Crepe Cake")) {
-            CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
-            crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
-        } else if (choosedCake.getCakeType().equals("Baked Cake")) {
-            BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
-            bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+    private void onBtnPayClick(MouseEvent event) {
+        // Calculate the total cost of the cake and condiments
+        double totalCost = choosedCakeItem.getCakeItemPrice();
+
+        // Check if the budget is sufficient
+        if (Budget.getBudgetInstance().getBudget() < totalCost) {
+            // Show an alert for insufficient budget
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Insufficient Budget");
+            alert.setHeaderText(null);
+            alert.setContentText("Your current budget is insufficient. Please Top Up.");
+
+            // Add "Top Up" and "Cancel" buttons
+            ButtonType topUpButton = new ButtonType("Top Up");
+            ButtonType cancelButton = new ButtonType("Cancel");
+            alert.getButtonTypes().setAll(topUpButton, cancelButton);
+
+            // Set the font size of the alert message
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.setStyle("-fx-font-size: 15px;");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == topUpButton) {
+                // User chose to top up
+                gpTopUp.setVisible(true);
+            } else {
+                // User chose to cancel or closed the alert
+                // No action needed, just return to the previous state
+            }
+        } else {
+            // Deduct the total cost from the budget
+            Budget.getBudgetInstance().spend(totalCost);
+
+            // Proceed with payment since the budget is sufficient
+            spCondiments.setVisible(false);
+            gpFactoryProcess.setVisible(true);
+            decoratorsStack = new Stack<>();
+            System.out.println(choosedCondimentNameList);
+            choosedCondimentImageViewList.add(imgFinalCondiment1);
+            choosedCondimentImageViewList.add(imgFinalCondiment2);
+            choosedCondimentImageViewList.add(imgFinalCondiment3);
+            if (choosedCake.getCakeType().equals("Crepe Cake")) {
+                CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
+                crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+            } else if (choosedCake.getCakeType().equals("Baked Cake")) {
+                BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
+                bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+            }
+            choosedCake = null;
+            resetAllSpinners();
+            choosedCakeItem = null;
+
+            // Update the budget display
+            updateLabelCash();
         }
-        choosedCondimentNameList = new ArrayList<String>();
-        decoratorsStack = new Stack<>();
-        choosedCake = null;
-        resetAllSpinners();
-        choosedCakeItem = null;
-        updateImageViews();
-        imgCondimentOne.setImage(null);
-        imgCondimentTwo.setImage(null);
-        imgCondimentThree.setImage(null);
     }
 
     @FXML
@@ -1596,7 +1627,6 @@ public class CakeBakeryApplication extends Application {
 
         // Construct the image path using the cakeName and cakeType
 //        String imagePath = String.format("com/mycompany/cakebakery/picture/cake/%ss/%s-%s.png", cake.getCakeType().toLowerCase().replace(" ", "-"), cake.getCakeItemName().toLowerCase().replace(" ", "-"), cake.getCakeType().toLowerCase().replace(" ", "-"));
-
         // Set the image to the ImageView
         imgChoosedCake.setImage(new Image(cake.getCakeItemImg()));
 
@@ -1636,8 +1666,6 @@ public class CakeBakeryApplication extends Application {
 //        return spinnerStrawberry.getValue() + spinnerMarcron.getValue() + spinnerChocolate.getValue();
 //    }
 
-
-
     private void initializeSpinner() {
         choosedCakeItem = choosedCake.copy();
         decoratorsStack.push(choosedCakeItem);
@@ -1650,8 +1678,6 @@ public class CakeBakeryApplication extends Application {
         spinner.valueProperty().addListener(listener);
     }
 
-
-
 //    private void updateSpinnerMaximums() {
 //        int total = calculateTotal();
 //
@@ -1662,7 +1688,6 @@ public class CakeBakeryApplication extends Application {
 //        int maxForCondiment3 = Math.max(0, 3 - total + spinnerCondiment3.getValue());
 //        spinnerCondiment3.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxForCondiment3, spinnerCondiment3.getValue()));
 //    }
-
     private void updateSpinnerMaximums() {
         int total = calculateTotal();
 
@@ -1675,7 +1700,6 @@ public class CakeBakeryApplication extends Application {
         int maxForCondiment3 = Math.max(0, 3 - total + spinnerCondiment3.getValue());
         safeUpdateSpinner(spinnerCondiment3, listener3, 0, maxForCondiment3, spinnerCondiment3.getValue());
     }
-
 
     private void updateCondimentTotalPrice1(int oldValue, int newValue) {
 
@@ -1692,11 +1716,12 @@ public class CakeBakeryApplication extends Application {
             choosedCakeItem = cakeItem;
             Condiment temp = ((Condiment) choosedCakeItem);
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) rewrapCake();
+        } else if (newValue < oldValue) {
+            rewrapCake();
+        }
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
-
 
     }
 
@@ -1712,7 +1737,9 @@ public class CakeBakeryApplication extends Application {
             cakeItem.setCakeItem(choosedCakeItem);
             choosedCakeItem = cakeItem;
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) rewrapCake();
+        } else if (newValue < oldValue) {
+            rewrapCake();
+        }
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
@@ -1729,7 +1756,9 @@ public class CakeBakeryApplication extends Application {
             cakeItem.setCakeItem(choosedCakeItem);
             choosedCakeItem = cakeItem;
             decoratorsStack.push(choosedCakeItem);
-        } else if (newValue < oldValue) rewrapCake();
+        } else if (newValue < oldValue) {
+            rewrapCake();
+        }
         System.out.println("Total Price: $" + choosedCakeItem.getCakeItemPrice());
         labelTotalPrice.setText("Total Price: $" + choosedCakeItem.getCakeItemPrice());
 
@@ -1740,7 +1769,7 @@ public class CakeBakeryApplication extends Application {
         int condiment2Count = spinnerCondiment2.getValue().intValue();
         int condiment3Count = spinnerCondiment3.getValue().intValue();
         // Start with the base cake
-        if(choosedCake!=null){
+        if (choosedCake != null) {
             CakeItem currentCake = choosedCake.copy();
             decoratorsStack.clear();
 
@@ -1761,6 +1790,7 @@ public class CakeBakeryApplication extends Application {
         }
         return cake;
     }
+
     private CakeItem addCondiment2(CakeItem cake, int count) {
         for (int i = 0; i < count; i++) {
             Condiment temp = condimentsList.get(1).copy();
@@ -1769,6 +1799,7 @@ public class CakeBakeryApplication extends Application {
         }
         return cake;
     }
+
     private CakeItem addCondiment3(CakeItem cake, int count) {
         for (int i = 0; i < count; i++) {
             Condiment temp = condimentsList.get(2).copy();
@@ -1778,13 +1809,9 @@ public class CakeBakeryApplication extends Application {
         return cake;
     }
 
-
-
 //    private void updateTotalPrice() {
 //        System.out.println(choosedCake.getCakeItemPrice());
 //    }
-
-
     private int calculateTotal() {
         return spinnerCondiment2.getValue() + spinnerCondiment1.getValue() + spinnerCondiment3.getValue();
     }
@@ -1801,7 +1828,6 @@ public class CakeBakeryApplication extends Application {
         Image condimentOneImage = loadImage(condimentsList.get(0).getCakeItemImg());
         Image condimentTwoImage = loadImage(condimentsList.get(1).getCakeItemImg());
         Image condimentThreeImage = loadImage(condimentsList.get(2).getCakeItemImg());
-
 
         // Update for strawberries
         for (int i = 0; i < spinnerCondiment2.getValue(); i++) {
@@ -1862,8 +1888,6 @@ public class CakeBakeryApplication extends Application {
 //            });
 //        }
 //    }
-
-
 //    @Override
 //    public void start(Stage stage) throws IOException {
 //        // 1. Set up the layout to display the GUI
@@ -2044,8 +2068,6 @@ public class CakeBakeryApplication extends Application {
 //        setRoot("main-cake-bakery");
 //
 //    }
-
-
 //    static void setRoot(String fxml) throws IOException {
 //        scene.setRoot(loadFXML(fxml));
 //    }
@@ -2054,7 +2076,6 @@ public class CakeBakeryApplication extends Application {
 //        FXMLLoader fxmlLoader = new FXMLLoader(CakeBakeryApplication.class.getResource(fxml + ".fxml"));
 //        return fxmlLoader.load();
 //    }
-
     public static void main(String[] args) throws IOException {
         launch();
     }
@@ -2076,7 +2097,6 @@ public class CakeBakeryApplication extends Application {
 
             // 3. Create music UI
 //            setImageInUI(CakeBakeryLayout, Background.displayView(400, 400, music.getMusicImg()), 3, 2, 4, 4);
-
             // 4. Dynamic layout / buttons based on the open / close of cake bakery
             if (isClose) {
                 String closed_sign = cakeBakery.getClosed_sign();
@@ -2149,8 +2169,6 @@ public class CakeBakeryApplication extends Application {
 //        cakeDisplayContainer.getChildren().clear();
 //        cakeDisplayContainer.getChildren().add(cake.display(400, 400));
 //    }
-
-
     public TableView<Cake> displayMenu(CakeBakery cakeBakery, Button placeOrderButton) {
         Menu cakes = cakeBakery.getMenu();
         cakes.generateTableView();
@@ -2292,9 +2310,9 @@ public class CakeBakeryApplication extends Application {
     }
 
     //Method to display the latest budget (Singleton)
-    private void updateLabelCash(){
+    private void updateLabelCash() {
         double currentBudget = Budget.getBudgetInstance().getBudget();
-        labelCash.setText("$"+String.format("%.2f", currentBudget));
+        labelCash.setText("$" + String.format("%.2f", currentBudget));
     }
 
     private void processTopUpAmount(String topUpAmount) {
@@ -2307,7 +2325,10 @@ public class CakeBakeryApplication extends Application {
             Budget.getBudgetInstance().topUp(amount);
             updateLabelCash();
             taTopUpValue.setText("");
-            spMain.setVisible(false);
+            if (spCondiments.isVisible() == true) {
+            } else {
+                spMain.setVisible(false);
+            }
             gpTopUp.setVisible(false);
         } catch (NumberFormatException e) {
             showAlert("Invalid Input", "Please enter a valid number.");
@@ -2320,7 +2341,7 @@ public class CakeBakeryApplication extends Application {
         alert.setHeaderText(null);
         alert.setContentText(content);
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.setStyle("-fx-font-size: 16px;");
+        dialogPane.setStyle("-fx-font-size: 15px;");
         alert.showAndWait();
         taTopUpValue.setText("");
         spMain.setVisible(true);

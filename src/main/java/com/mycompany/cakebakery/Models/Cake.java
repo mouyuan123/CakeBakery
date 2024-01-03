@@ -1,6 +1,6 @@
 package com.mycompany.cakebakery.Models;
 
-import com.mycompany.cakebakery.FactoryMethod.ChocolateCake;
+import com.mycompany.cakebakery.Constants.DirConstant;
 import com.mycompany.cakebakery.SimpleFactory.CondimentFactory;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public abstract class Cake extends CakeItem {
 
@@ -26,31 +27,31 @@ public abstract class Cake extends CakeItem {
 
     public void prepare(ImageView imageView, Label label) {
         label.setText("Preparing ...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/1-Prepare.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/1-Prepare.png"));
     }
 
 
     public void bake(ImageView imageView, Label label) {
         label.setText("Baking the cake...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/2-Bake.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/2-Bake.png"));
     }
 
 
     public void prepareCakeComponents(ImageView imageView, Label label) {
         label.setText("Preparing Cake Components...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/3-Prepare-Bake-Components.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/3-Prepare-Bake-Components.png"));
 
     }
 
     public void assemble(ImageView imageView, Label label) {
         label.setText("Assembling the cake...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/4-Assemble.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/4-Assemble.png"));
     }
 
 
     public void decorate(ImageView imageView, Label label, List<String> condimentsName) {
         label.setText("Adding Decorations to the cake...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/5-Decorate.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/5-Decorate.png"));
 
         new Thread(() -> {
             for (int i = 0; i < condimentsName.size(); i++) {
@@ -70,7 +71,7 @@ public abstract class Cake extends CakeItem {
     }
 
 
-    public void showcase(ImageView imageView, Label label, List<String> condimentsName, List<ImageView> condimentsImageView, ImageView finalCakeImageView, AnchorPane finalCakeAp) {
+    public void showcase(ImageView imageView, Label label, List<ImageView> condimentsImageView, ImageView finalCakeImageView, AnchorPane finalCakeAp) {
         imageView.setVisible(false);
         finalCakeAp.setVisible(true);
         finalCakeImageView.setImage(loadImage(this.cakeItemImg));
@@ -87,19 +88,19 @@ public abstract class Cake extends CakeItem {
         imageView.setVisible(true);
         finalCakeAp.setVisible(false);
         label.setText("Chilling the cake...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/6-Chill.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/6-Chill.png"));
     }
 
 
     public void box(ImageView imageView, Label label) {
         label.setText("Box the cake...");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/7-Box.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/7-Box.png"));
 
     }
 
     public void serve(ImageView imageView, Label label) {
         label.setText("Thanks for your Order! Welcome Again!");
-        imageView.setImage(loadImage("/com/mycompany/cakebakery/picture/factory-process/8-Serve.png"));
+        imageView.setImage(loadImage(DirConstant.FACTORY_PROCESS_PATH + "/8-Serve.png"));
     }
 
     private Image loadImage(String resourcePath) {

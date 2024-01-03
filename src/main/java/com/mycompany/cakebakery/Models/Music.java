@@ -49,12 +49,6 @@ public class Music {
         this.music_idx = this.music_idx + 1 >= this.music.length ? 0 : this.music_idx + 1;
         this.curr_music = DirConstant.SPEAKER_MUSIC_PATH + this.music[music_idx];
     }
-    
-//    public void volumeUp(){
-//        if(this.volume != 1.0){
-//            this.volume 
-//        }
-//    }
 
     public String getCurr_music() {
         return curr_music;

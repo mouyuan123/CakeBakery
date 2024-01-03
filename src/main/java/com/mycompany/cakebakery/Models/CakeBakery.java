@@ -1,7 +1,5 @@
 package com.mycompany.cakebakery.Models;
 
-import com.mycompany.cakebakery.Constants.DirConstant;
-
 public class CakeBakery {
     
     private volatile static CakeBakery uniqueCakeBakeryInstance;

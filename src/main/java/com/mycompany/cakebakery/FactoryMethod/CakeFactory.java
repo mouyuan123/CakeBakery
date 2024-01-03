@@ -39,7 +39,7 @@ public abstract class CakeFactory {
                 });
                 Thread.sleep(4000);
 
-                Platform.runLater(() -> cake.showcase(imageView, label, condimentsName, condimentsImageView, finalCakeImageView, finalCakeAp));
+                Platform.runLater(() -> cake.showcase(imageView, label, condimentsImageView, finalCakeImageView, finalCakeAp));
                 Thread.sleep(2000);
 
                 Platform.runLater(() -> cake.chill(imageView, label, finalCakeAp));

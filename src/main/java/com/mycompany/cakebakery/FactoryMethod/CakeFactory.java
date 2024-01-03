@@ -34,8 +34,10 @@ public abstract class CakeFactory {
                 Platform.runLater(() -> cake.assemble(imageView, label));
                 Thread.sleep(2000);
 
-                Platform.runLater(() -> cake.decorate(imageView, label));
-                Thread.sleep(2000);
+                Platform.runLater(() -> {
+                        cake.decorate(imageView, label,condimentsName);
+                });
+                Thread.sleep(4000);
 
                 Platform.runLater(() -> cake.showcase(imageView, label, condimentsName, condimentsImageView, finalCakeImageView, finalCakeAp));
                 Thread.sleep(2000);

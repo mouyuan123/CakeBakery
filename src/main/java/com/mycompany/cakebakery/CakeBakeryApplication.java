@@ -814,7 +814,7 @@ public class CakeBakeryApplication extends Application {
 
         // Update the label text
         labelChoosedCakeName.setText(cake.getCakeItemName() + " " + cake.getCakeType());
-        labelTotalPrice.setText("Total Price: " + cake.getCakeItemPrice());
+        labelTotalPrice.setText("Total Price: $" + cake.getCakeItemPrice());
         initializeSpinner();
         imgCondimentOne.setImage(null);
         imgCondimentTwo.setImage(null);

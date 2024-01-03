@@ -1,7 +1,13 @@
 package com.mycompany.cakebakery.Models;
 
-public class Condiment extends CakeItem {
+public abstract class Condiment extends CakeItem {
     public CakeItem cakeItem;
+
+    public Condiment(String condimentName, double price, String condimentImg) {
+        this.cakeItemName = condimentName;
+        this.cakeItemPrice = price;
+        this.cakeItemImg = condimentImg;
+    }
 
     public CakeItem getCakeItem() {
         return cakeItem;
@@ -11,16 +17,13 @@ public class Condiment extends CakeItem {
         this.cakeItem = cakeItem;
     }
 
-
-    public Condiment(String condimentName, double price, String condimentImg) {
-        this.cakeItemName = condimentName;
-        this.cakeItemPrice = price;
-        this.cakeItemImg = condimentImg;
+    public double getCakeItemPrice() {
+        if (cakeItem == null) {
+            return this.cakeItemPrice;
+        }
+        return this.cakeItemPrice + this.cakeItem.getCakeItemPrice();
     }
 
 
-
-    public Condiment copy() {
-        return null;
-    }
+    public abstract Condiment copy();
 }

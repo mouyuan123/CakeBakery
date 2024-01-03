@@ -3,8 +3,6 @@ package com.mycompany.cakebakery.FactoryMethod;
 
 import com.mycompany.cakebakery.Constants.DirConstant;
 import com.mycompany.cakebakery.Models.Cake;
-import com.mycompany.cakebakery.Models.Condiment;
-import com.mycompany.cakebakery.SimpleFactory.Strawberry;
 
 public class ChocolateCake extends Cake {
     public ChocolateCake() {

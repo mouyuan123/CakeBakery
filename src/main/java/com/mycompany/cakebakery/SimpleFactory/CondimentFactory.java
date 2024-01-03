@@ -1,5 +1,8 @@
 package com.mycompany.cakebakery.SimpleFactory;
 
+import com.mycompany.cakebakery.Decorator.Chocolate;
+import com.mycompany.cakebakery.Decorator.Macaroon;
+import com.mycompany.cakebakery.Decorator.Strawberry;
 import com.mycompany.cakebakery.Models.Condiment;
 
 public class CondimentFactory {

@@ -1,13 +1,15 @@
 package com.mycompany.cakebakery.Models;
 
-import com.mycompany.cakebakery.Constants.DirConstant;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mycompany.cakebakery.FactoryMethod.*;
-import com.mycompany.cakebakery.SimpleFactory.Chocolate;
-import com.mycompany.cakebakery.SimpleFactory.Macaroon;
-import com.mycompany.cakebakery.SimpleFactory.Strawberry;
+import com.mycompany.cakebakery.Decorator.Chocolate;
+import com.mycompany.cakebakery.Decorator.Macaroon;
+import com.mycompany.cakebakery.Decorator.Strawberry;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 
 public class Menu {

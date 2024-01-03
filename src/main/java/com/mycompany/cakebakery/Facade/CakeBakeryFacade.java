@@ -1,6 +1,7 @@
 package com.mycompany.cakebakery.Facade;
 
 import com.mycompany.cakebakery.FactoryMethod.BakedCakeFactory;
+import com.mycompany.cakebakery.FactoryMethod.CakeFactory;
 import com.mycompany.cakebakery.FactoryMethod.CrepeCakeFactory;
 import com.mycompany.cakebakery.Models.Budget;
 import com.mycompany.cakebakery.Models.Cake;
@@ -15,17 +16,14 @@ import javafx.scene.layout.StackPane;
 public class CakeBakeryFacade {
     
     private CakeBakery cakeBakery;
-    private CrepeCakeFactory crepeCakeFactory;
-    private BakedCakeFactory bakedCakeFactory;
+    private CakeFactory cakeFactory;
     private Budget budget;
     private String title;
     private String message;
 
-    public CakeBakeryFacade(CakeBakery cafeBakery, Budget budget, CrepeCakeFactory crepeCakeFactory, BakedCakeFactory bakedCakeFactory) {
+    public CakeBakeryFacade(CakeBakery cafeBakery, Budget budget) {
         this.cakeBakery = cafeBakery;
         this.budget = budget;
-        this.crepeCakeFactory = crepeCakeFactory;
-        this.bakedCakeFactory = bakedCakeFactory;
     }
     
     public boolean onOpen(){
@@ -71,9 +69,11 @@ public class CakeBakeryFacade {
     
     public boolean processCake(Cake choosedCake, ImageView imgFactoryProcess, Label labelFactoryProcess, ArrayList<String> choosedCondimentNameList, ArrayList<ImageView> choosedCondimentImageViewList, ImageView imgFinalCake, AnchorPane apFinalCakeItem, GridPane gpFactoryProcess, StackPane spMain){
        if (choosedCake.getCakeType().equals("Crepe Cake")) {
-            this.crepeCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+           this.cakeFactory = new CrepeCakeFactory();
+           this.cakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
         } else if (choosedCake.getCakeType().equals("Baked Cake")) {
-            this.bakedCakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
+            this.cakeFactory = new BakedCakeFactory();
+            this.cakeFactory.orderCake(choosedCake.getCakeItemName().toLowerCase(), imgFactoryProcess, labelFactoryProcess, choosedCondimentNameList, choosedCondimentImageViewList, imgFinalCake, apFinalCakeItem, gpFactoryProcess, spMain);
         }
        return true;
     }

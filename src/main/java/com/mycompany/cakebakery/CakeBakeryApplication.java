@@ -54,9 +54,7 @@ public class CakeBakeryApplication extends Application {
     RemoteControl remote;
     Media media;
     MediaPlayer mediaPlayer;
-//    Music music;
     String selectedCakeType;
-//    Lighting light;
     CakeBakery cakeBakery;
     CakeBakeryFacade cakeBakeryFacade;
 
@@ -385,12 +383,8 @@ public class CakeBakeryApplication extends Application {
             // Initialise Budget Singleton
             Budget budget = Budget.getBudgetInstance();
             
-            // Initialise Factory to make cake
-            CrepeCakeFactory crepeCakeFactory = new CrepeCakeFactory();
-            BakedCakeFactory bakedCakeFactory = new BakedCakeFactory();
-
             // Initialise Cake Bakery Facade
-            this.cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget, crepeCakeFactory, bakedCakeFactory);
+            this.cakeBakeryFacade = new CakeBakeryFacade(cakeBakery, budget);
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("main-cake-bakery.fxml"));
             loader.setController(this);

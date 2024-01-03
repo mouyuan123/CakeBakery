@@ -1,4 +1,4 @@
-package com.mycompany.cakebakery.SimpleFactory;
+package com.mycompany.cakebakery.Decorator;
 
 import com.mycompany.cakebakery.Constants.DirConstant;
 import com.mycompany.cakebakery.Models.Condiment;

@@ -14,7 +14,6 @@ import java.util.List;
 public abstract class Cake extends CakeItem {
 
     String cakeType;
-    ArrayList<Condiment> condiments = new ArrayList<Condiment>();
 
     public Cake(String cakeName, double price, String cakeImg, String cakeType) {
         this.cakeItemName = cakeName;
@@ -105,6 +104,6 @@ public abstract class Cake extends CakeItem {
         this.cakeType = cakeType;
     }
 
-    public Cake copy(){return null;}
+    public abstract Cake copy();
 
 }

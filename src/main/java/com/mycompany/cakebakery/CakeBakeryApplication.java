@@ -54,7 +54,6 @@ public class CakeBakeryApplication extends Application {
     RemoteControl remote;
     Media media;
     MediaPlayer mediaPlayer;
-    String selectedCakeType;
     CakeBakery cakeBakery;
     CakeBakeryFacade cakeBakeryFacade;
 

@@ -1,5 +1,7 @@
 package com.mycompany.cakebakery.Models;
 
+import javafx.scene.control.Label;
+
 public abstract class Condiment extends CakeItem {
     public CakeItem cakeItem;
 
@@ -24,6 +26,10 @@ public abstract class Condiment extends CakeItem {
         return this.cakeItemPrice + this.cakeItem.getCakeItemPrice();
     }
 
+    public void add(Label label) {
+        System.out.println(this.cakeItemName);
+        label.setText("Adding " + this.cakeItemName + "...");
+    }
 
     public abstract Condiment copy();
 }

@@ -1,6 +1,5 @@
 package com.mycompany.cakebakery.Models;
 
-import com.mycompany.cakebakery.FactoryMethod.ChocolateCake;
 import com.mycompany.cakebakery.SimpleFactory.CondimentFactory;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -8,7 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Cake extends CakeItem {

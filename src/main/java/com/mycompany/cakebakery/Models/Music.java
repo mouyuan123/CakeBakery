@@ -10,13 +10,11 @@ public class Music {
     private String[] music = new String[] {"/cafe.mp3", "/lounge.mp3", "/upbeat.mp3", "/piano.mp3", "/happy.mp3" };
     private String curr_music;
     private int music_idx;
-    private double volume;
     
     private Music(){
         this.off();
         this.music_idx = 0;
         this.curr_music = null;
-        this.volume = 1.0;
     }
     
     public static Music getMusicInstance(){

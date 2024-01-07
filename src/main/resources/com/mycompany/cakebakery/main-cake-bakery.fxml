@@ -107,48 +107,6 @@
                            </AnchorPane>
                         </children>
                      </GridPane>
-               <GridPane fx:id="gpTopUp" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onGpControlClick" prefHeight="150.0" prefWidth="200.0" visible="false">
-                  <columnConstraints>
-                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  </rowConstraints>
-                  <children>
-                     <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" opacity="0.95" prefHeight="130.0" prefWidth="200.0" text="Top Up ($)" textAlignment="CENTER">
-                        <content>
-                           <GridPane>
-                             <columnConstraints>
-                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                             </columnConstraints>
-                             <rowConstraints>
-                               <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
-                               <RowConstraints maxHeight="26.0" minHeight="8.0" prefHeight="25.0" vgrow="SOMETIMES" />
-                             </rowConstraints>
-                              <children>
-                                 <TextArea fx:id="taTopUpValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="104.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                                 <Button fx:id="btnTopUpCancel" cancelButton="true" mnemonicParsing="false" onMouseClicked="#onTopUpCancelClick" prefHeight="25.0" prefWidth="57.0" text="CANCEL" GridPane.halignment="LEFT" GridPane.rowIndex="1">
-                                    <GridPane.margin>
-                                       <Insets left="10.0" />
-                                    </GridPane.margin>
-                                    <font>
-                                       <Font size="11.0" />
-                                    </font>
-                                 </Button>
-                                 <Button fx:id="btnTopUpOK" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onbtnTopUpOKClick" prefHeight="25.0" prefWidth="38.0" text="OK" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                                    <font>
-                                       <Font size="11.0" />
-                                    </font>
-                                    <GridPane.margin>
-                                       <Insets right="10.0" />
-                                    </GridPane.margin>
-                                 </Button>
-                              </children>
-                           </GridPane>
-                        </content>
-                     </TitledPane>
-                  </children>
-               </GridPane>
                      <SplitPane fx:id="spCakeType" dividerPositions="0.1" opacity="0.95" orientation="VERTICAL" prefHeight="525.0" prefWidth="700.0" visible="false" StackPane.alignment="CENTER">
                        <items>
                            <GridPane alignment="CENTER">
@@ -592,6 +550,9 @@
                                     </GridPane.margin>
                                  </Label>
                               </children>
+                              <columnConstraints>
+                                 <ColumnConstraints />
+                              </columnConstraints>
                            </GridPane>
                            <Button fx:id="btnCrossCondiments" mnemonicParsing="false" onMouseClicked="#onBtnCrossCondimentsClick" text="x" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                         </children>
@@ -779,6 +740,48 @@
                            </SplitPane>
                         </items>
                      </SplitPane>
+               <GridPane fx:id="gpTopUp" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#onGpControlClick" prefHeight="150.0" prefWidth="200.0" visible="false">
+                  <columnConstraints>
+                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                  <children>
+                     <TitledPane alignment="CENTER" collapsible="false" contentDisplay="CENTER" opacity="0.95" prefHeight="130.0" prefWidth="200.0" text="Top Up ($)" textAlignment="CENTER">
+                        <content>
+                           <GridPane>
+                             <columnConstraints>
+                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                             </columnConstraints>
+                             <rowConstraints>
+                               <RowConstraints maxHeight="59.0" minHeight="10.0" prefHeight="56.0" vgrow="SOMETIMES" />
+                               <RowConstraints maxHeight="26.0" minHeight="8.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                             </rowConstraints>
+                              <children>
+                                 <TextArea fx:id="taTopUpValue" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="104.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                                 <Button fx:id="btnTopUpCancel" cancelButton="true" mnemonicParsing="false" onMouseClicked="#onTopUpCancelClick" prefHeight="25.0" prefWidth="57.0" text="CANCEL" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+                                    <GridPane.margin>
+                                       <Insets left="10.0" />
+                                    </GridPane.margin>
+                                    <font>
+                                       <Font size="11.0" />
+                                    </font>
+                                 </Button>
+                                 <Button fx:id="btnTopUpOK" defaultButton="true" mnemonicParsing="false" onMouseClicked="#onbtnTopUpOKClick" prefHeight="25.0" prefWidth="38.0" text="OK" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                                    <font>
+                                       <Font size="11.0" />
+                                    </font>
+                                    <GridPane.margin>
+                                       <Insets right="10.0" />
+                                    </GridPane.margin>
+                                 </Button>
+                              </children>
+                           </GridPane>
+                        </content>
+                     </TitledPane>
+                  </children>
+               </GridPane>
                <GridPane fx:id="gpFactoryProcess" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="325.0" visible="false">
                  <columnConstraints>
                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

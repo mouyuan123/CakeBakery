@@ -774,8 +774,8 @@ public class CakeBakeryApplication extends Application {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == topUpButton) {
                 // User chose to top up
-                this.processCloseCakeSelection();
-                spMain.setVisible(true);
+//                this.processCloseCakeSelection();
+//                spMain.setVisible(true);
                 gpTopUp.setVisible(true);
             } else {
                 // User chose to cancel or closed the alert
